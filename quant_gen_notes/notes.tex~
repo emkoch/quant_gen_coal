@@ -1,0 +1,10 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+\textwidth=5in
+\textheight=8in
+\section{test}
+test
+
+\end{document}
