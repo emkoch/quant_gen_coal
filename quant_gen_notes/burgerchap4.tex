@@ -86,12 +86,12 @@ transformation due to selection. We can do this for any sort of discrete or cont
 
 We give each type $x$ a mutation rate $\mu(x)$ and a probability function $u(x,y)$ that $x$ mutation to $y$ given a
 mutation has occured. The house-of-cards mutational model is one of the most interesting both biologically and
-mathematically. This model states that $u(x,y)=u_{HC}(y). 
+mathematically. This model states that $u(x,y)=u_{HC}(y)$. 
 
 In a discrete time model the density of allelic types after selection is 
 \begin{equation}
 p_s(x,t) = p(x,t)W(x)/\bar{W}(t).
-\end{quation}
+\end{equation}
 We can then calculate the density of allelic types in the next generation as
 \begin{equation}
 p(x,t+1) = \left[1-\mu(x)\right]p_s(x,t) + \int_{\chi}p_s(x,t)\mu(y)u(x,y)dy.
@@ -103,5 +103,5 @@ W2 do not make complete sense to me, but I think they have something to do with 
 in particular. Conditions A-D give examples for different ways of categorizing the model. Equation 2.9 for the
 HC-mutation model means that the mutation to disfavorable types relative to the mutation rate must not be too small.
 
-Bu{\"u}ger in particular wants to show the proof for necessary conditions of the HC mutational model because it can
+B{\"u}ger in particular wants to show the proof for necessary conditions of the HC mutational model because it can
 hopefully be done quite easily. 
