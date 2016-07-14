@@ -32,7 +32,7 @@ Next, B{\"u}rger introduces two approximations to the solution of equation IV.1.
 The first approximation is from \citet{Kimura1965} and called the \emph{Gaussian Allelic Approximation}. Starting with
 the equilibrium condition
 \begin{equation} \label{eq:equi}
-\left[ \mu + \overline(m) - m(x) \right] = \mu \int u(x-y) p(y)dy, 
+\left[ \mu + \overline{m} - m(x) \right] = \mu \int u(x-y) p(y)dy, 
 \end{equation}
 Kimura performs the transformation $y \to y + x$ to get
 \begin{equation} \label{eq:trans}
@@ -103,7 +103,7 @@ p_s(x,t) = p(x,t)W(x)/\overline{W}(t).
 \end{equation}
 We can then calculate the density of allelic types in the next generation as
 \begin{equation}\label{eq:mut}
-p(x,t+1) = \left[1-\mu(x)\right]p_s(x,t) + \int_{\chi}p_s(x,t)\mu(y)u(x,y)dy.
+p(x,t+1) = \left[1-\mu(x)\right]p_s(x,t) + \int_{\chi}p_s(u,t)\mu(y)u(y,x)dy.
 \end{equation}
 A problem we might face when choosing $W(x)$, $\mu$, and $u$ is that the distribution $p(x,t)$ might not approach an
 equilibrium distribution as time proceeds. If selection is not strong enough to counteract mutation the resulting mean
@@ -161,3 +161,25 @@ because $W(x) \leq 1$. After this, all we need to know is that
 \lim_{\beta \to 1} \mu \int_{\chi}\frac{u_{HC}(x)}{1-\beta W(x)} \geq 1.
 \end{equation}
 This proves the condition. 
+
+In continuous times, fitness values, $m(x)$ are Malthusian parameters instead of viabilities or fecundities, and it is 
+the differences of fitness values instead of their ratio that matters as can be seen from selection equations.
+\begin{equation}
+p_i'=p_iW_i/\overline{W}
+\end{equation}
+\begin{equation}
+\dot{p}_i = p_i(m_i-\overline{m})
+\end{equation}
+Fitness is then normalized by setting the optimum allelic value to zero. If $s$ is the length of a generation, we can
+relate the two fitnesses by $W(x) = e^{s m(x)}$. Second order expansions of this are $W(x)=1+sm(x)+s^2h(x)$ and
+$\overline{W}(t) = 1+s\overline{m}(t) + s^2\overline{h}(t)$. We can get a contiuous time version of the dynamical
+equations by plugging these terms into equations \ref{eq:mut} and \ref{eq:sel} and taking the limit as the generation
+time goes to zero. 
+\begin{equation}
+\lim_{s\to0}\frac{1}{s}[p(x,t+1) - p(x,t)]
+\end{equation}
+\begin{equation}
+p(x,t+1) - p(x,t) = [1-\mu(x)]p(x,t)W(x)/\overline{W}(t) + \int p(y,t) W(x)/\overline{W}(t)\mu(y)u(y,x)dy - p(x,t)\overline{W}(t)/\overline{W}(t)
+\end{equation}
+Some rearrangement and plugging in the second order expansion, taking the limit as $s$ goes to zero, and rescaling the
+mutation rate by the generation time gives Kimura's equation.
