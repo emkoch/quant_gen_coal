@@ -1,0 +1,98 @@
+A basic question in quatitative genetics is what is the distribution
+of trait values in a sample of individuals. In their investigation,
+\citet{Schraiber2015} found a generating function for this
+distribution undes the standard neutral coalescent model and a general
+stepping stone model of mutation. We wish to extend this framework to
+additional populatio models. A first step is to show a connection
+between the distribution of branch lengths on a genealogy and the
+distribution of trait values in the sampled individuals. This should
+be useful because the generating functions under various models of
+population structure have already been investigated in some depth
+\citep{Lohse2011}.
+
+Let $\mathbf{T}$ be a random vector containing the lengths of all
+possible branches on a coalescent tree. For instance, if we had a
+three samples $a$, $b$, and $c$, then
+$\mathbf{T}=\{T_a,T_b,T_c,T_{a,b},T_{a,c},T_{b,c}\}$. Let $\Omega$
+contain all possible configurations that coalescent branches can
+subtend. For our example, $\Omega={(a),(b),(c),(a,b),(a,c),(b,c)}$.
+Let $\mathbf{Y}$ be a random vector containing the quantitative trait
+values in the sampled individuals. For our example,
+$\mathbf{Y}={Y_a,Y_b,Y_c}$. It is important to note that these values
+indicate the change in the quantitative trait since the value in the
+MRCA of the sample, not their actual values.
+
+The moment generating function of $\mathbf{Y}$ is
+\begin{equation}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) = E\left[ e^{\mathbf{k} \cdot \mathbf{Y}} \right] =
+  \int e^{\mathbf{k} \cdot \mathbf{Y}} P(\mathbf{Y}=\mathbf{y}) d\mathbf{y},
+\end{equation}
+where $\mathbf{k}$ is a vector of dummy variables for each
+samples. Although imperfect, this is the notation I will use for
+writing integrals over probability distributions. Rewriting this
+expression by conditioning on the genealogy we get
+\begin{align}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) &= \int e^{\mathbf{k} \cdot \mathbf{Y}}
+  \int P(\mathbf{Y}=\mathbf{y} | \mathbf{T}=\mathbf{t}) P(\mathbf{T}=\mathbf{t})
+  d\mathbf{t} d\mathbf{y}\\
+  &= \int \int e^{\mathbf{k} \cdot \mathbf{Y}} P(\mathbf{Y}=\mathbf{y} | \mathbf{T}=\mathbf{t}) d\mathbf{y}
+  P(\mathbf{T}=\mathbf{t})
+  d\mathbf{t}
+\end{align}
+
+We can write each $Y_i$ as a sum of the change in the trait value
+occuring on each branch of the genealogy.
+\begin{equation}
+  Y_i = \sum_{\omega \in \Omega} Y_{i,\omega}
+\end{equation}
+Of course, many of these branches will not subtend $i$, so the change
+along them is defined to be zero. The $Y_{i,\omega}$ are correlated
+because the underlying branch lengths are correlated, but they are
+conditionally independent given $\mathbf{T}$. This is due to the
+assumption of a stepping stone mutation model and that mutations occur
+as a poisson process along the branches. We can therefore factor $\int
+e^{\mathbf{k} \cdot \mathbf{Y}} P(\mathbf{Y}=\mathbf{y}
+|\mathbf{T}=\mathbf{t}) d\mathbf{y}$ into independent parts. We first write
+\begin{equation}
+  \mathbf{k} \cdot \mathbf{y} = \sum_{\omega \in \Omega}\left( \sum_{i \in \omega} k_iy_{i,\omega}\right)
+\end{equation}
+and
+\begin{equation}
+  P(\mathbf{Y}=\mathbf{y}|\mathbf{T}=\mathbf{t}) = \prod_{\omega \in \Omega}
+  P(\mathbf{Y}_{\omega}=(y_{i,\omega})_{i \in \omega} | \mathbf{T}=\mathbf{t}).
+\end{equation}
+This yields
+\begin{equation} \label{eq:factor}
+  \int e^{\mathbf{k} \cdot \mathbf{Y}} P(\mathbf{Y}=\mathbf{y} |\mathbf{T}=\mathbf{t}) d\mathbf{y} =
+  \prod_{\omega \in \Omega}\int \exp\left(\sum_{i \in \omega}k_iy_{i,\omega}\right)
+  P(\mathbf{Y}_{\omega}=(y_{i,\omega})_{i \in \omega} | \mathbf{T}=\mathbf{t})d(y_{i,\omega})_{i \in \omega}.
+\end{equation}
+
+To move on we require two results. The first is that the change in a
+trait value along some branch of length $t_\omega$ is a compound
+Poisson process. The moment generating function for a compound Poisson
+process over a time $i$ is $\exp\left(\lambda t (\psi(k)-1)\right)$.
+Where $\lambda$ is the rate that events happen and $\psi$ is the
+moment generating function for the distribution of mutation effects.
+The second results is that the moment generating function for the
+distribution of two completely correlated random variables $X_1$ and
+$X_2$ that have the same distribution is $\varphi_{X_1}(k_1+k_2)$. Since
+the trait change along a branch $t_{\omega}$ is the same for all
+samples subtended by the branch, we can write the product terms in
+equation \ref{eq:factor} as
+\begin{equation}
+  \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{i \in \omega}k_{\omega}\right) -1 \right)\right).
+\end{equation}
+This gives
+\begin{equation}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) = \prod_{\omega \in \Omega}
+  \int \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{i \in \omega}k_{\omega}\right) -1 \right)\right)
+  P(\mathbf{T}=\mathbf{t})d\mathbf{t}.
+\end{equation}
+This is simply the moment generating function for the genealogy
+$\mathbf{T}$ with $\frac{\theta}{2} t_{\omega} \left( \psi(\sum_{i \in
+  \omega}k_{\omega}) -1 \right)$ substituted for the dummy variable of
+branch $T_{\omega}$. Or,
+\begin{equation}
+  \varphi_{\mathbf{T}}(\mathbf{s})\Bigr|_{s_{\omega}=\frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{i \in \omega}k_{\omega}\right) -1 \right)}
+\end{equation}
