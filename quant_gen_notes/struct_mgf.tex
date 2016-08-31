@@ -15,17 +15,27 @@ deme. In this model, events occur at rate
 \end{equation}
 where the first term is due to coalescence events and the second term is due to migration events. We first define
 operations on $\Omega$ due to these events. A event of lineage $\omega$ migrating from deme $i$ to deme $j$ would be
-represented as $\Omega\left( i :-\omega, j: + \omega \right) := \{ \Omega\backslash \{\Omega_i, \Omega_j \} \} \cup
-\{\Omega_j\backslash \omega, \Omega_i \cup \omega \}$. A coalescent event of lineages $x$ and $y$ in deme $i$ would be
-written as $\Omega(i:x \cup y):=\{ \Omega \backslash \Omega)_i \}\cup\{ \{\Omega_i \cup xy \}\backslash \{ x,y \}\}$.
+represented as 
+\begin{equation*}
+  \Omega\left( i  :-\omega,j: + \omega \right) := \{ \Omega\backslash \{\Omega_i, \Omega_j \} \} \cup
+  \{\Omega_j\backslash \omega, \Omega_i \cup \omega \}. 
+\end{equation*}
+A coalescent event of lineages $x$ and $y$ in deme $i$ would be
+written as 
+\begin{equation*}
+  \Omega(i:a \cup b):=\{ \Omega \backslash \Omega)_i \}\cup\{ \{\Omega_i \cup ab \}\backslash \{ a,b \}\}
+\end{equation*}
 The overall generating function is then
 \begin{align}
   \varphi_{\mathbf{T}}^{\Omega}(\mathbf{s}) &=
-  \left( \sum_{i=1}^M \binom{|\Omega_i|}{2}\eta_i  + \sum_{(i,j:i \neq j)} m_{i,j}|\Omega_i| +
-  \sum_{i=1}^M \sum_{\omega \in \omega_i : |\omega|=1}s_{\omega}\right)^{-1} \\
-  &\times \left( \sum_{i=1}^M \eta_i \sum_{(x,y) \in \Omega_i:x \neq y}
-  \varphi_{\mathbf{T}}^{\Omega(i:x \cup y)}(\mathbf{s}) + 
+  \left( \sum_{i=1}^M \binom{|\Omega_i|}{2}\eta_i  + \sum_{(i,j:i \neq j)} m_{i,j}|\Omega_i| -
+  \sum_{i=1}^M \sum_{\omega \in \Omega_i}s_{\omega}\right)^{-1} \\
+  &\times \left( \sum_{i=1}^M \eta_i \sum_{(a,b) \in \Omega_i:a \neq b}
+  \varphi_{\mathbf{T}}^{\Omega(i:a \cup b)}(\mathbf{s}) + 
   \sum_{(i,j):i\neq j}m_{i,j}\sum_{\omega \in \Omega_i} \varphi_{\mathbf{T}}^{\Omega\left( i :-\omega, j: + \omega \right)}(\mathbf{s})\right).
 \end{align}
+If there are $N$ sample lineages, this gives a system of  $M^{\binom{N}{2}-1}$ equations which is a fuckton. 
 
-If there are $N$ sample lineages, this gives a system of equations with $M^{\binom{N}{2}-1}$ which is a fuckton. 
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:
