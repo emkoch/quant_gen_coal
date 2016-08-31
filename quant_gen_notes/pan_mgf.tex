@@ -2,6 +2,43 @@ We look at an example from a panmictic population to see how the genealogy gener
 samples. In particular, we take limits corresponding to an infinitesimal model and show that this results in multivariate 
 normal distribution. 
 
+Recall that the moment generating function of a mutational distribution $f(u)$ can be written as 
+\begin{equation*}
+  \psi_{U}(k) = 1 + kE\left[ U \right] + \frac{k^2}{2!}E\left[ U^2 \right] + \frac{k^3}{3!}E\left[ U^3\right] + \ldots
+\end{equation*}
+We are going to assume that the mean mutational effect is zero, and therefore $E[U^2]=Var[U]:=\tau^2$. We then require
+that $\lim_{L \to \infty}\tau^2L \to \sigma^2$ and $\lim_{L \to \infty}E[U^k] \to 0$ for $k>2$. This roughly corresponds
+to a situation where there are very many loci each with small mutational contributions, and that the effects of
+mutations are not too skewed. 
+
+Recalling that the moment generating function for a sum of independent random variables is the product of their
+generating functions, the moment generating function for a sample of size two in a panmictic population for a trait
+controlled by $L$ loci is
+\begin{equation}
+  \label{eq:two}
+  \varphi(k_1,k_2) = \left( \frac{1}{1-\frac{\theta}{2}(\psi(k_1)+\psi(k_2)-2)}\right)^L.
+\end{equation}
+If we rewrite this as
+\begin{equation*}
+  \left( 1 + \frac{\frac{\theta}{2}L(\psi(k_1) + \psi(k_2) -2)}{L-\frac{\theta}{2}L(\psi(k_1) + \psi(k_2) -2)}\right)^L,
+\end{equation*}
+it's simple to show that in the limit as $L \to \infty$ we get 
+\begin{equation}
+  \label{eq:limexp}
+  \exp\left( \frac{\theta}{2} \left( \frac{k_1^2}{2}\sigma^2 + \frac{k_2^2}{2}\sigma^2 \right)\right).
+\end{equation}
+We can recognize this as the generating function of a multivariate normal distribution, meaning that 
+\begin{equation}
+  \label{eq:twodist}
+  (Y_1,Y_2) \sim \mathcal{N}\left( \mathbf{0},
+    \begin{pmatrix}
+      \frac{\theta}{2}\sigma^2 & 0 \\
+      0 & \frac{\theta}{2}\sigma^2
+    \end{pmatrix}
+  \right).
+\end{equation}
+
+We next extend this logic to a sample of size three to see how shared branches induce correlations.
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "notes.tex"
