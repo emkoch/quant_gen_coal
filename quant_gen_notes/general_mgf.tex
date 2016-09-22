@@ -86,7 +86,7 @@ equation \ref{eq:factor} as
 This gives
 \begin{equation}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = \prod_{\omega \in \mathcal{O}}
-  \int \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{i \in \omega}k_{\omega}\right) -1 \right)\right)
+  \int \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)\right)
   P(\mathbf{T}=\mathbf{t})d\mathbf{t}.
 \end{equation}
 This is simply the moment generating function for the genealogy
@@ -94,5 +94,10 @@ $\mathbf{T}$ with $\frac{\theta}{2} \left( \psi(\sum_{i \in
   \omega}k_{\omega}) -1 \right)$ substituted for the dummy variable of
 branch $T_{\omega}$. Or,
 \begin{equation}
-  \varphi_{\mathbf{T}}(\mathbf{s})\Bigr|_{s_{\omega}=\frac{\theta}{2} \left( \psi\left(\sum_{i \in \omega}k_{\omega}\right) -1 \right)}
+  \label{eq:sub}
+  \varphi_{\mathbf{T}}(\mathbf{s})\Bigr|_{s_{\omega}=\frac{\theta}{2} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)}
 \end{equation}
+
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:
