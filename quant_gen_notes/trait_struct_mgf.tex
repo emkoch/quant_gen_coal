@@ -2,12 +2,12 @@ To convert this into a moment generating function for branch lengths we would ma
 equation \ref{eq:sub}. This gives 
 \begin{align}
   \label{eq:gensub}
-  \varphi_{\mathbf{T}}^{\Omega}(\mathbf{k}) &=
+  \varphi_{\mathbf{Y}}^{\Omega}(\mathbf{k}) &=
   \left( \sum_{i=1}^M \binom{|\Omega_i|}{2}\eta_i  + \sum_{(i,j:i \neq j)} m_{i,j}|\Omega_i| -
   \sum_{i=1}^M \sum_{\omega \in \Omega_i} \T\left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1\right)\right)^{-1} \\
   &\times \left( \sum_{i=1}^M \eta_i \sum_{(a,b) \in \Omega_i:a \neq b}
-  \varphi_{\mathbf{T}}^{\Omega(i:a \cup b)}(\mathbf{k}) + 
-  \sum_{(i,j):i\neq j}m_{i,j}\sum_{\omega \in \Omega_i} \varphi_{\mathbf{T}}^{\Omega\left( i :-\omega, j: + \omega \right)}(\mathbf{k})\right).
+  \varphi_{\mathbf{Y}}^{\Omega(i:a \cup b)}(\mathbf{k}) + 
+  \sum_{(i,j):i\neq j}m_{i,j}\sum_{\omega \in \Omega_i} \varphi_{\mathbf{Y}}^{\Omega\left( i :-\omega, j: + \omega \right)}(\mathbf{k})\right).
 \end{align}
 If we are only interested in calculating particular moments of this distribution we can simplify this expression
 substantially. For instance, if we want the second moment of $k$, then this depends only on the expected TMRCA. We will
