@@ -1,0 +1,61 @@
+Here we will show that the distribution of trait values is multivariate normal
+regardless of the distribution of coalescent times. Recall that the moment
+generating function for a general distribution of coalescence times is
+\begin{equation}
+  \varphi_T(\mathbf{s}) = \int \exp \left( \sum_{\omega \in \mathcal{O}} s_{\omega}t_{\omega} \right)
+  P(\mathbf{T}=\mathbf{t})d\mathbf{t}.
+\end{equation}
+The Taylor series expansion of $\exp \left( s_{\omega}t_{\omega} \right)$ is
+\begin{equation}
+  1 + s_{\omega}t_{\omega} + \frac{s_{\omega}^2t_{\omega}^2}{2} + \ldots. \nonumber
+\end{equation}
+$\exp \left( \sum_{\omega \in \mathcal{O}} s_{\omega}t_{\omega} \right)$ is therefore
+\begin{equation}
+  1 + \sum_{\omega \in \mathcal{O}} s_{\omega}t_{\omega} +
+  \sum_{\omega_1 \neq \omega_2} s_{\omega_1}t_{\omega_1}s_{\omega_2}t_{\omega_2} + 
+  \sum_{\omega \in \mathcal{O}} \frac{s_{\omega}^2t_{\omega}^2}{2} + \ldots. \nonumber
+\end{equation}
+This of course means that
+\begin{equation}
+  \label{eq:mgf_L}
+  \left(\int \exp \left( \sum_{\omega \in \mathcal{O}} s_{\omega}t_{\omega}
+  \right)P(\mathbf{T}=\mathbf{t})d\mathbf{t}\right)^L = \left(1 + \sum_{\omega \in \mathcal{O}}
+  s_{\omega}E[t_{\omega}] + \sum_{\omega_1 \neq \omega_2}
+  s_{\omega_1}s_{\omega_2}E[t_{\omega_2}t_{\omega_1}] + \sum_{\omega \in
+    \mathcal{O}} \frac{s_{\omega}^2E[t_{\omega}^2]}{2} + \ldots\right)^L. 
+\end{equation}
+Based on equation \ref{eq:sub} we can get the moment generating function for the
+trait values by making the substitution $s_{\omega}\to \frac{\theta}{2} \left(
+\psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)$. We will also take the
+Taylor series of the moment generating function of the mutational distribution.
+Noting that $\frac{d^n}{dk^n}\varphi_X(k)\Bigr|_{k=0} = E[X^n]$, if we let $m$
+be the mean and $\tau^2$ be the variance of the mutational distribution, then
+\begin{equation}
+  \psi\left( \sum_{a \in \omega} k_a \right) = 1 + m \left( \sum_{a \in \omega}
+  k_a\right) + \tau^2/2\left( \sum_{a \in \omega} k_a\right)^2 + \ldots.
+  \nonumber
+\end{equation}
+Substituting this into equation \ref{eq:mgf_L} we get
+\begin{equation}
+  \left( 1 + \frac{\theta}{2} \sum_{\omega \in \mathcal{O}} E[t_{\omega}]\left( m \left(
+  \sum_{a \in \omega} k_a\right) + \frac{\tau^2}{2}\left( \sum_{a \in \omega}
+  k_a\right)^2 + \ldots\right)\right)^L.
+\end{equation}
+Now if we take the limit such that $Lm \to \mu$ and $L\tau^2\to \sigma^2$ as $L
+\to \infty$ we get
+\begin{equation}
+  \exp \left( \frac{\theta}{2} \sum_{\omega \in \mathcal{O}}E[t_{\omega}] \left( \mu \left(
+  \sum_{a \in \omega} k_a\right) + \frac{\sigma^2}{2}\left( \sum_{a \in \omega}
+  k_a\right)^2\right)\right),
+\end{equation}
+providing that the product of $L$ and moments of the mutational distribution
+higher than two go to zero. It is clear from inspection that this is the moment
+generating function for a multivariate normal distribution where the expected
+trait value is $E[T_{MRCA}]\T \mu$, the variance in a trait value is
+$E[T_{MRCA}]\T \sigma^2$, and the covariance in trait values is
+$(T_{MRCA}-E[\tau_{1,2}]\T \sigma^2)$. This covariance is proprtional to the
+expected amount of shared branch length before the most recent common ancestor
+of the sample.
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:
