@@ -1,0 +1,9 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Mathematical results}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{A general moment generating function}{7}{0}{2}
+\beamer@subsectionintoc {2}{2}{Connection to previous results}{12}{0}{2}
+\beamer@subsectionintoc {2}{3}{A central limit theorem to get the infinitesimal model}{14}{0}{2}
+\beamer@sectionintoc {3}{Futher research}{18}{0}{3}
+\beamer@subsectionintoc {3}{1}{Is this just trivial?}{18}{0}{3}
+\beamer@subsectionintoc {3}{2}{Alternate mutational distributions}{19}{0}{3}
