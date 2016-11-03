@@ -7,5 +7,15 @@ quant_gen_notes/*.bbl
 quant_gen_notes/*.blg
 quant_gen_notes/*.log
 quant_gen_notes/notes.pdf
+quant_gen_notes/presenation/lab_meeting_11_2016/*.aux
+quant_gen_notes/presenation/lab_meeting_11_2016/*.bbl
+quant_gen_notes/presenation/lab_meeting_11_2016/*.blg
+quant_gen_notes/presenation/lab_meeting_11_2016/*.log
+quant_gen_notes/presenation/lab_meeting_11_2016/*.pdf
+quant_gen_notes/presenation/darwin_retreat/*.aux
+quant_gen_notes/presenation/darwin_retreat/*.bbl
+quant_gen_notes/presenation/darwin_retreat/*.blg
+quant_gen_notes/presenation/darwin_retreat/*.log
+quant_gen_notes/presenation/darwin_retreat/*.pdf
 _*
 *.dvi
