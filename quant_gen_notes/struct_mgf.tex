@@ -1,21 +1,25 @@
-\citet{Lohse2011} found general forms for the generating functions of genealogies.  In a coalescent model where events
-$i$ occur at rate $ \lambda_i $, the moment generating function for the genealogy can be written as
+\citet{Lohse2011} found general forms for the generating functions of
+genealogies. In a coalescent model where events $i$ occur at rate $ \lambda_i $,
+the moment generating function for the genealogy can be written as
 \begin{equation}
   \varphi_{T}\left[ \mathbf{T} \right] = \frac{
     \sum_i \lambda_i \varphi_i[\mathbf{s}]}{
     \sum_i \lambda_i + \sum_{|\omega|=1}s_{\omega}}.
 \end{equation}
-This is a convolution of the time to the first event with a mixture of times after the first event, where the mixture is
-over all possible next events. We can apply this equation to a generalized structured population model where, $M$ is the
-number of demes, $m_{i,j}$ is the migration rate from deme $i$ to deme $j$, $\eta_i$ is the coalescent rate within deme
-$i$, and $\Omega = \{ \Omega_1, \Omega_2, \ldots , \Omega_M \}$ is the collection of lineages currently active in each
-deme. In this model, events occur at rate
+This is a convolution of the time to the first event with a mixture of times
+after the first event, where the mixture is over all possible next events. We
+can apply this equation to a generalized structured population model where, $M$
+is the number of demes, $m_{i,j}$ is the migration rate from deme $i$ to deme
+$j$, $\eta_i$ is the coalescent rate within deme $i$, and
+$\Omega = \{ \Omega_1, \Omega_2, \ldots , \Omega_M \}$ is the collection of
+lineages currently active in each deme. In this model, events occur at rate
 \begin{equation}
   \sum_{i=1}^M \binom{|\Omega_i|}{2}\eta_i + \sum_{(i,j:i \neq j)} m_{i,j}|\Omega_i|,
 \end{equation}
-where the first term is due to coalescence events and the second term is due to migration events. We first define
-operations on $\Omega$ due to these events. A event of lineage $\omega$ migrating from deme $i$ to deme $j$ would be
-represented as 
+where the first term is due to coalescence events and the second term is due to
+migration events. We first define operations on $\Omega$ due to these events. A
+event of lineage $\omega$ migrating from deme $i$ to deme $j$ would be
+represented as
 \begin{equation*}
   \Omega\left( i  :-\omega,j: + \omega \right) := \{ \Omega\backslash \{\Omega_i, \Omega_j \} \} \cup
   \{\Omega_j\backslash \omega, \Omega_i \cup \omega \}. 
@@ -28,13 +32,14 @@ written as
 The overall generating function is then
 \begin{align}
   \varphi_{\mathbf{T}}^{\Omega}(\mathbf{s}) &=
-  \left( \sum_{i=1}^M \binom{|\Omega_i|}{2}\eta_i  + \sum_{(i,j:i \neq j)} m_{i,j}|\Omega_i| -
-  \sum_{i=1}^M \sum_{\omega \in \Omega_i}s_{\omega}\right)^{-1} \\
-  &\times \left( \sum_{i=1}^M \eta_i \sum_{(a,b) \in \Omega_i:a \neq b}
-  \varphi_{\mathbf{T}}^{\Omega(i:a \cup b)}(\mathbf{s}) + 
-  \sum_{(i,j):i\neq j}m_{i,j}\sum_{\omega \in \Omega_i} \varphi_{\mathbf{T}}^{\Omega\left( i :-\omega, j: + \omega \right)}(\mathbf{s})\right).
-\end{align}
-If there are $N$ sample lineages, this gives a system of  $M^{\binom{N}{2}-1}$ equations which is a fuckton. 
+                                              \left( \sum_{i=1}^M \binom{|\Omega_i|}{2}\eta_i  + \sum_{(i,j:i \neq j)} m_{i,j}|\Omega_i| -
+                                              \sum_{i=1}^M \sum_{\omega \in \Omega_i}s_{\omega}\right)^{-1} \\
+                                            &\times \left( \sum_{i=1}^M \eta_i \sum_{(a,b) \in \Omega_i:a \neq b}
+                                              \varphi_{\mathbf{T}}^{\Omega(i:a \cup b)}(\mathbf{s}) + 
+                                              \sum_{(i,j):i\neq j}m_{i,j}\sum_{\omega \in \Omega_i} \varphi_{\mathbf{T}}^{\Omega\left( i :-\omega, j: + \omega \right)}(\mathbf{s})\right).
+\end{align}b
+If there are $N$ sample lineages, this gives a system of $M^{\binom{N}{2}-1}$
+equations which is a fuckton.
 
 %%% Local Variables:
 %%% TeX-master: "notes.tex"
