@@ -28,32 +28,43 @@ Based on equation \ref{eq:sub} we can get the moment generating function for the
 trait values by making the substitution $s_{\omega}\to \frac{\theta}{2} \left(
 \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)$. We will also take the
 Taylor series of the moment generating function of the mutational distribution.
-Noting that $\frac{d^n}{dk^n}\varphi_X(k)\Bigr|_{k=0} = E[X^n]$, if we let $m$
-be the mean and $\tau^2$ be the variance of the mutational distribution, then
+Noting that $\frac{d^n}{dk^n}\varphi_X(k)\Bigr|_{k=0} = E[X^n]$, if we let $m_1$
+be the mean and $m_2$ be the second moment of the mutational distribution, then
 \begin{equation}
-  \psi\left( \sum_{a \in \omega} k_a \right) = 1 + m \left( \sum_{a \in \omega}
-  k_a\right) + \tau^2/2\left( \sum_{a \in \omega} k_a\right)^2 + \ldots.
+  \psi\left( \sum_{a \in \omega} k_a \right) = 1 + m_1 \left( \sum_{a \in \omega}
+  k_a\right) + m_2/2\left( \sum_{a \in \omega} k_a\right)^2 + \ldots.
   \nonumber
 \end{equation}
 Substituting this into equation \ref{eq:mgf_L} we get
-\begin{equation}
-  \left( 1 + \frac{\theta}{2} \sum_{\omega \in \mathcal{O}} E[t_{\omega}]\left( m \left(
-  \sum_{a \in \omega} k_a\right) + \frac{\tau^2}{2}\left( \sum_{a \in \omega}
-  k_a\right)^2 + \ldots\right)\right)^L.
-\end{equation}
-Now if we take the limit such that $Lm \to \mu$ and $L\tau^2\to \sigma^2$ as $L
-\to \infty$ we get
+\begin{align}
+  \biggl( 1 &+ \frac{\theta}{2} \sum_{\omega \in \mathcal{O}} E[t_{\omega}]\left( m_1 \left(
+  \sum_{a \in \omega} k_a \right) + \frac{m_2}{2} \left( \sum_{a \in \omega}
+  k_a\right)^2 + \ldots \right) \\
+  &+ \sum_{\omega_1 \neq \omega_2} \T\left( m_1 \sum_{a \in \omega_1} k_a + \ldots \right)
+  \T \left( m_1 \sum_{b \in \omega_2} k_b + \ldots \right)
+  E[t_{\omega_1\omega_2}] \\
+  &+ \sum_{\omega \in \mathcal{O}} \left(\T\right)^2\left(m_1 \sum_{a \in \omega} k_a +
+  \ldots \right)^2 E[t^2_{\omega}] \biggr)^L.
+\end{align}
+Now if we take the limit such that $L\T m_1 \to \mu$ and $L\T m_2\to \sigma^2$
+as $L \to \infty$ we get
 \begin{equation}
   \exp \left( \frac{\theta}{2} \sum_{\omega \in \mathcal{O}}E[t_{\omega}] \left( \mu \left(
   \sum_{a \in \omega} k_a\right) + \frac{\sigma^2}{2}\left( \sum_{a \in \omega}
   k_a\right)^2\right)\right),
 \end{equation}
 providing that the product of $L$ and moments of the mutational distribution
-higher than two go to zero. It is clear from inspection that this is the moment
-generating function for a multivariate normal distribution where the expected
-trait value is $E[T_{MRCA}]\T \mu$, the variance in a trait value is
-$E[T_{MRCA}]\T \sigma^2$, and the covariance in trait values is
-$(T_{MRCA}-E[\tau_{1,2}]\T \sigma^2)$. This covariance is proprtional to the
+higher than two go to zero. This also requires that the limit of $L(\T)^2m_1$
+goes to zero as the number of sites goes to infinity. $\mu$ can be interpreted
+as the rate of change in the mean trait value per generation per genome due to
+mutational pressure. $\sigma^2$ can be interpreted as the rate of accumulation
+of variance in trait values per generation per genome. Ignoring terms with
+$(\T)^2$ is equivalent to the assumption that mutation rates are low enough that
+only one mutation per locus occurs. It is clear from inspection that this is the
+moment generating function for a multivariate normal distribution where the
+expected trait value is $E[T_{MRCA}] \mu$, the variance in a trait value is
+$E[T_{MRCA}]\sigma^2$, and the covariance in trait values is
+$(T_{MRCA}-E[\tau_{1,2}]) \sigma^2$. This covariance is proprtional to the
 expected amount of shared branch length before the most recent common ancestor
 of the sample.
 %%% Local Variables:
