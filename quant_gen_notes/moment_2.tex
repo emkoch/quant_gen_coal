@@ -57,11 +57,14 @@ E[Y]^2$. The squared first moment can be written as
 \end{align}
 Subtracting this from the second moment gives
 \begin{align}
+  \label{eq:var}
   Var[Y_a] &\approx L\T m_2 \sum_{\omega : a \in \omega} E[t_\omega] \nonumber \\
   &- L \left(\T\right)^2 m_1^2 \sum_{\omega : a \in \omega}E[t_\omega]^2 \nonumber \\
   &-  2L \left(\T\right)^2 m_1^2 \sum_{\omega_1 , \omega_2: a \in \omega_1 , \omega_2} E[t_{\omega_1}]E[t_{\omega_2}] \nonumber \\
-  &\approx L\T m_2 \sum_{\omega : a \in \omega} E[t_\omega] \nonumber \\
-  &= L\T m_2 E[t_{MRCA}].
+  &= L\T m_2 \sum_{\omega : a \in \omega} E[t_\omega] -
+  L\left( \T m_1 \sum_{\omega : a \in \omega} E[t_\omega] \right)^2 \nonumber \\
+  &= L\T m_2 E[t_{MRCA}] - L\left( \T m_1 E[T_{MRCA}] \right)^2 \\
+  &\approx L\T m_2 E[t_{MRCA}]  \nonumber
 \end{align}
 The $(\T)^2$ terms are no only first order in $L$ so they can be ignored. This
 is the same variance as in the normal distribution because the limit takes care
