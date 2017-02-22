@@ -1,0 +1,262 @@
+---
+title: "Shared ancestry and trait distributions"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document: default
+---
+We want to see how random variation in the average amount of ancestry shared by different individuals in a sample affects the distribution of quantitative trait values in those individuals. First we're going to sample mutational configurations for a constant-size population with realistic parameters and see what consequence this has for the correlation in trait values between the sampled individuals.
+
+First we'll choose some paramter values.
+```{r}
+library(ggplot2)
+library(moments)
+library(MASS)
+library(RColorBrewer)
+set.seed(4000)
+# number of individuals to simulate
+N.samp <- 50
+# number of loci affecting the trait of interest
+L <- 1e4
+# rate at which mutations occur along branch lengths
+mu <- 2e-8
+# effective population size
+N.eff <- 1e4
+```
+These parameters lead to an expected nucleotide diversity and number of segregating sites. Because we are considering haploid individuals $\theta=2N\mu$.
+```{r}
+( Nt.div <- 2*N.eff*mu )
+# giving the following as the expected number of mutations separating two individuals
+Nt.div*L
+# and the following for the number of segregating sites in the sample
+( watt <- Nt.div*L*sum(1/( 1:(N.samp-1) )) )
+```
+Next we'll simulate mutations under the Poisson random field model. This basically means that we are assuming an infinited number of unlinked sites.
+```{r}
+# draw a poisson number of mutations
+n.mutations <- rpois(10000, watt)
+# draw the number of individuals carrying each mutation from a multinomial distribution
+# and assign mutations to individuals at random
+make.mutation.configs <- function(num.muts, num.samps=50){
+    mc <- rmultinom(1, num.muts, prob=( 1 / (1:(num.samps-1)) ) / sum( 1 / (1:(num.samps-1)) ) )
+    mc.expand <- c()
+    for(ii in 1:(num.samps-1)) mc.expand <- c(mc.expand, rep(ii, mc[ii,1]))
+    fs <- lapply(mc.expand, FUN=function(jj){
+        ll <- rep(0, num.samps)
+        ll[sample.int(n=num.samps, size=jj)] <- 1
+        return(ll)
+    })
+    return(fs)
+}
+
+freq.specs <- lapply(n.mutations, FUN=make.mutation.configs, num.samps=N.samp) 
+```
+Now we want to give mutations some random effects and compute phenotype values for each sampled individual.
+```{r}
+add.mutations <- function(mutation.configs, num.indivs, mut.dist=function() rnorm(1)){
+    result <- rep(0, num.indivs)
+    if( length(mutation.configs) == 0 ) return(result)
+    for( mut in mutation.configs ){
+        result <- result + mut.dist()*mut
+    }
+    return(result)
+}
+trait.values <- lapply(freq.specs, add.mutations, num.indivs=N.samp)
+```
+Now let's check that the variance accross evolutionary replicates is as predicted by theory. The expected variance is $L\frac{\theta}{2}m_2E[T_{MRCA}]=2L\mu m_2N_e(1-\frac{1}{n})$. 
+```{r}
+evo.draws <- unlist(lapply(trait.values, function(x) x[1]))
+( expec.var <- L*mu*2*N.eff*(1-1/N.samp) )
+var(evo.draws)
+hist(evo.draws, prob=TRUE)
+curve(dnorm(x, mean=0, sd=sqrt(expec.var)), add=TRUE, col="red")
+curve(dnorm(x, mean=0, sd=sqrt(var(evo.draws))), add=TRUE, col="blue")
+```
+
+Now let's investigate how the genealogy affects covariance among the sampled individuals.
+```{r}
+trait.vals <- t(data.frame(trait.values))
+colnames(trait.vals) <- paste0("indiv", 1:N.samp)
+trait.vals <- as.data.frame(trait.vals)
+ggplot(trait.vals, aes(indiv1, indiv2)) + geom_point(alpha=0.05)
+```
+
+The result looks normally distributed as we would expect, but we can see that there are some points that make a cross in the middle of the plot. This is because there is a non-trivial probability that one or both of the individuals doesn't get any mutations affecting the trait before the most recent common ancestor of the sample. This happens about two percent of the time. Another fact that is approximately the same proportion of the time both individuals have the same value of the trait and that this is mostly due to them sharing the same mutations. Let's simulate with different parameters to see how this deviation from normality depends on them.
+```{r}
+make.samples <- function(n, L, mu, Ne, reps=1000){
+    nuc.div <- 2*Ne*mu
+    watt <- nuc.div*L*sum(1/( 1:(n-1) ))
+    n.mutations <- rpois(reps, watt)
+    freq.specs <- lapply(n.mutations, FUN=make.mutation.configs, num.samps=n)
+    trait.values <- lapply(freq.specs, add.mutations)
+    result <- as.data.frame(t(data.frame(trait.values)))
+    colnames(result) <- paste0("indiv", 1:n)
+    return(result)
+}
+trait.vals.1e3 <- make.samples(N.samp, L=1e3, mu, N.eff, reps=2000)
+trait.vals.5e3 <- make.samples(N.samp, L=5e3, mu, N.eff, reps=2000)
+trait.vals.1e4 <- make.samples(N.samp, L=1e4, mu, N.eff, reps=2000)
+trait.vals.1e5 <- make.samples(N.samp, L=1e5, mu, N.eff, reps=2000)
+ggplot(trait.vals.1e3, aes(indiv1-indiv2, indiv3-indiv4)) + geom_point(alpha=0.05)
+ggplot(trait.vals.5e3, aes(indiv1-indiv2, indiv3-indiv4)) + geom_point(alpha=0.05)
+ggplot(trait.vals.1e4, aes(indiv1-indiv2, indiv3-indiv4)) + geom_point(alpha=0.05)
+ggplot(trait.vals.1e5, aes(indiv1-indiv2, indiv3-indiv4)) + geom_point(alpha=0.05)
+```
+
+Based on these observations it might be possible when the number of loci affecting traits is small to infer something about the architecture. Deviations from normality are readily seen in the kurtosis.
+
+```{r}
+kurtosis(trait.vals.1e3$indiv1 - trait.vals.1e3$indiv2)
+kurtosis(trait.vals.5e3$indiv1 - trait.vals.5e3$indiv2)
+kurtosis(trait.vals.1e4$indiv1 - trait.vals.1e4$indiv2)
+kurtosis(trait.vals.1e5$indiv1 - trait.vals.1e5$indiv2)
+
+# how about for fewer trait observations?
+trait.kurt.s <- rep(0,1000)
+for( ii in 1:1000 ) {
+    tmp <- make.samples(N.samp, L=1e4, mu, N.eff, reps=200)
+    trait.kurt.s[ii] <- kurtosis(tmp$indiv1 - tmp$indiv2)
+}
+hist(trait.kurt.s)
+sum(trait.kurt.s>3)/1000
+
+trait.kurt.ss <- rep(0,1000)
+for( ii in 1:1000 ) {
+    tmp <- make.samples(N.samp, L=1e4, mu, N.eff, reps=50)
+    trait.kurt.ss[ii] <- kurtosis(tmp$indiv1 - tmp$indiv2)
+}
+hist(trait.kurt.ss)
+sum(trait.kurt.ss>3)/1000
+```
+So indeed we are likely observe a larger than normal kurtosis in a sample, even just looking at two individuals. Another way to look at how much information is contained in the deviation from normality is by looking at the cokurtosis matrix.
+
+```{r}
+cokurtosis <- function(dd, norm.compare=FALSE, bias=FALSE, variant="middle"){
+    sigma <- apply(dd, 2, sd)
+    means <- apply(dd, 2, mean)
+    dd.v <- as.matrix(dd*0)
+    for( ii in 1:length(dd[1,]) ) dd.v[,ii] <- dd[,ii] - means[ii]
+    
+    s2 <- sigma^2
+    s3 <- sigma^3
+    # square or cube every observation in the matrix
+    v2 <- dd.v^2
+    v3 <- dd.v^3
+    
+    m <- length(dd[,1])
+    
+    if( variant %in% c("left", "right") ){
+        # transpose the cubic matrix and multiply the centered values 
+        # to get the sum of the products between two individuals as a value, 
+        # then divide by a matrix with the appropriate standard deviation terms
+        print(dim(v3))
+        print(dim(dd.v))
+        kurt <- t(v3) %*% dd.v / t(t(s3)) %*% t(sigma) / m
+    } else if ( variant == "middle" ){
+        kurt <- t(v2) %*% v2 / (t(t(s2)) %*% t(s2)) / m
+    }
+    
+    if( !bias & norm.compare){
+        kurt <- kurt * (m ^ 2 - 1) / (m - 2) / (m - 3) - 3 * (m - 1) ^ 2 / (m - 2) / (m - 3)
+    } else if( !bias & !norm.compare ){
+        kurt <- kurt * (m ^ 2 - 1) / (m - 2) / (m - 3)
+    } else if( bias & norm.compare ){
+        kurt <- kurt - 3
+    } 
+    return(kurt)
+}
+
+foo <- mvrnorm(n=200, mu=rep(0,2), Sigma=matrix(c(10,3,3,2),2,2))
+cokurtosis(foo)
+kurtosis(foo[,1])
+kurtosis(foo[,2])
+cokurtosis(foo, variant="left")
+```
+
+The calculation of kurtosis here is slightly different from what the method from the moments package is doing. Hopefully this won't matter too much since we can just simulate from a normal distribution to check.
+
+```{r}
+k.test <- cokurtosis(trait.vals)
+image(k.test)
+```
+
+Not much variation here because the sample size is so large. 
+
+```{r}
+image(cokurtosis(trait.vals.1e3))
+```
+
+These plots don't tell us how much of a deviation there is from normality and whether this deviation is informative. To get a sense for the deviation we'll compare to the cokurtosis of the normal distribution.
+
+```{r}
+matrix.to.df <- function(M){
+    v1 <- c()
+    v2 <- c()
+    vals <- c()
+    index <- 1
+    for(ii in 1:dim(M)[1]){
+        for(jj in 1:dim(M)[2]){
+            v1[index] <- ii
+            v2[index] <- jj
+            vals[index] <- M[ii,jj]
+            index <- index + 1
+        }
+    }
+    return(data.frame(v1=v1, v2=v2, vals=vals))
+}
+
+( rho <- (1-1/N.samp)/(2*(1-1/N.samp)) )
+( k.center <- 1 + 2*rho^2 )
+( k.left <- 3*rho )
+e.kurt.mat <- matrix(data=k.center, nrow=50, ncol=50)
+diag(e.kurt.mat) <- 3
+e.kurt.theory <- 3/(1e4*mu*2*N.eff*(1-1/N.samp)) + 3*(1-1/N.samp)
+e.cokurt.theory <- (2*L*(L-1)*(mu*1*N.eff*(1-2/N.samp))^2 + 
+    L*(L-1)*(mu*1*2*N.eff*(1-1/N.samp))^2 + 
+    L*mu*3*N.eff*(1-2/N.samp))/(L*mu*1*N.eff*2*(1-1/N.samp))^2 # 3 in last term is for mutational kurtosis
+theory.kurt.mat <- matrix(data=e.cokurt.theory, nrow=50, ncol=50)
+diag(theory.kurt.mat) <- e.kurt.theory
+kurt.mat <- cokurtosis(trait.vals)
+norm.diffs <- matrix.to.df(cokurtosis(trait.vals) - e.kurt.mat)
+theory.diffs <- matrix.to.df(cokurtosis(trait.vals) - theory.kurt.mat)
+myPalette <- colorRampPalette(rev(brewer.pal(11, "Spectral")))
+ggplot(norm.diffs) + geom_raster(aes(v1,v2,fill=vals)) + 
+    scale_fill_gradientn(colors=myPalette(100), limits=range(c(norm.diffs$vals,theory.diffs$vals)))
+ggplot(theory.diffs) + geom_raster(aes(v1,v2,fill=vals)) + 
+    scale_fill_gradientn(colors=myPalette(100), limits=range(c(norm.diffs$vals,theory.diffs$vals)))
+```
+
+
+
+```{r}
+library("lcmix")
+Sc <- matrix(c(1,0.5,0.5,1),2,2)
+vars <- matrix(0,10,50)
+kurts <- matrix(0,10,50)
+cokurts <- matrix(0,10,50)
+for(ii in 1:10){
+  print(ii)
+  a <- seq(1,10,length.out=10)[ii]
+  for(jj in 1:50){
+    b <- seq(2,19,length.out=50)[jj]
+    foo <- rmvpvii(100000, c(0,0), a*Sc, b)
+    vars[ii,jj] <- var(foo[,1])
+    kurts[ii,jj] <- kurtosis(foo[,1])
+    cokurts[ii,jj] <- cokurtosis(foo)[1,2]
+  }
+}
+plot(seq(2,19,length.out=50), vars[10,], type="l",ylim=c(0,10))
+for(ii in 1:9){
+  points(seq(2,19,length.out=50), vars[ii,], type="l")
+}
+
+plot(seq(2,19,length.out=50), kurts[10,], type="l")
+for(ii in 1:9){
+  points(seq(2,19,length.out=50), kurts[ii,], type="l")
+}
+
+plot(seq(2,19,length.out=50), cokurts[10,], type="l", log="xy")
+for(ii in 1:9){
+  points(seq(2,19,length.out=50), cokurts[ii,], type="l")
+}
+```

@@ -17,29 +17,40 @@ fourth moment term for branches containing both $a$ and $b$:
 \end{equation*}
 Another is the second moment terms for pairs of branches both containing $a$ and $b$:
 \begin{equation*}
-  \frac{L(L-1}{2} \left( \sum_{\omega : a, b \in \omega}
-  E[t_\omega] \T \frac{m_2}{2} \left( \sum_{d \in \omega} k_d \right)^2right).
+  \frac{L(L-1)}{2} \left( \sum_{\omega : a, b \in \omega}
+  E[t_\omega] \T \frac{m_2}{2} \left( \sum_{d \in \omega} k_d \right)^2\right).
 \end{equation*}
 Let $\Omega_{a/b}$ be the set of branches containing $a$ but not $b$ and
 $\Omega_{a+b}$ be the set of branches containing both $a$ and $b$. We also need
 to consider terms from $\Omega_{a/b}\times\Omega_{b}$ and
 $\Omega_{b/a}\times\Omega_{a}$. These are
-\begin{equation}
+\begin{align*}
   L(L-1) \left( \sum_{\omega_1 \in \Omega_{a/b}} E[t_{\omega_1}] \T \frac{m_2}{2}
   \left( \sum_{d_1 \in \omega} k_{d_1} \right)^2 \right)
   \left( \sum_{\omega_2 \in \Omega_{b}} E[t_{\omega_2}] \T \frac{m_2}{2}
-  \left( \sum_{d_2 \in \omega} k_{d_2} \right)^2 \right),
-\end{equation}
-and it's equivalent. Taking the appropriate derivatives we get
+  \left( \sum_{d_2 \in \omega} k_{d_2} \right)^2 \right) \\
+  + L(L-1) \left( \sum_{\omega_1 \in \Omega_{b/a}} E[t_{\omega_1}] \T \frac{m_2}{2}
+  \left( \sum_{d_1 \in \omega} k_{d_1} \right)^2 \right)
+  \left( \sum_{\omega_2 \in \Omega_{a}} E[t_{\omega_2}] \T \frac{m_2}{2}
+  \left( \sum_{d_2 \in \omega} k_{d_2} \right)^2 \right) \\
+  - L(L-1) \left( \sum_{\omega_1 \in \Omega_{b/a}} E[t_{\omega_1}] \T \frac{m_2}{2}
+  \left( \sum_{d_1 \in \omega} k_{d_1} \right)^2 \right)
+  \left( \sum_{\omega_2 \in \Omega_{a/b}} E[t_{\omega_2}] \T \frac{m_2}{2}
+  \left( \sum_{d_2 \in \omega} k_{d_2} \right)^2\right)
+\end{align*}
+The last term is subtracted because $\Omega_{a/b}\times\Omega_{b/c}$ gets
+counted twice. Taking the appropriate derivatives we get
 \begin{align*}
   E[Y_a^2Y_b^2] &= L \T m_4 \sum_{\omega \in \Omega_{a+b}} E[t_\omega] \\
   &+ 3L(L-1) \left( \sum_{\omega \in \Omega_{a+b}} \T m_2 E[t_\omega] \right)^2\\
   &+ L(L-1) \left( \sum_{\omega_1 \in \Omega_{a/b}} E[t_{\omega_1}] \T m_2  \right)
   \left( \sum_{\omega_2 \in \Omega_{b}} E[t_{\omega_2}] \T m_2 \right)\\
   &+ L(L-1) \left( \sum_{\omega_1 \in \Omega_{b/a}} E[t_{\omega_1}] \T m_2  \right)
-  \left( \sum_{\omega_2 \in \Omega_{a}} E[t_{\omega_2}] \T m_2 \right)
+  \left( \sum_{\omega_2 \in \Omega_{a}} E[t_{\omega_2}] \T m_2 \right)\\
+  &- L(L-1) \left( \sum_{\omega_1 \in \Omega_{b/a}} E[t_{\omega_1}] \T m_2 \right)
+  \left( \sum_{\omega_2 \in \Omega_{a/b}} E[t_{\omega_2}] \T m_2 \right)
 \end{align*}
-One way to simplify this is to notice that the last two lines almost sum over
+One way to simplify this is to notice that the last three lines almost sum over
 $\Omega_a\times\Omega_b$ except that they are missing the product over terms
 where both branches contain both $a$ and $b$. If we subtract one of the three
 terms from the second line and add it here we get
@@ -53,7 +64,7 @@ which can be rewritten as
 \begin{equation}
   \label{eq:cross4}
   E[Y_a^2Y_b^2] = L \T m_4 E[\tau_{a+b}]+2L(L-1) \left(\T m_2 E[\tau_{a+b}]\right)^2
-  + L(L-1) \left( \T m_2 E[\tau_a]\right)\left( \T m_2 E[\tau_b]\right).
+  + L(L-1) \left( \T m_2 E[T_{MRCA}]\right)^2.
 \end{equation}
 Since $E[\tau_a]$ is the expected length of branches in the entire genealogy
 containing $a$, this is also the same as $E[T_{MRCA}]$.
