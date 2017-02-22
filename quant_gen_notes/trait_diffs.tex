@@ -1,0 +1,55 @@
+The distribution of a single trait value $Y$ is not very interesting because
+this quantity cannot be observed. $Y$ gives the change in the trait value since
+the most recent common ancestor of the sample, but since we don't know what that
+value is we can't measure $Y$ in a sampled individual. What we can observe is
+the differences in trait values between individuals, $Y_a-Y_b$. The results for
+these differences are what one would expect given the distribution of the trait
+values themselves. For instance, the second and fourth moments look exactly like
+\eqref{eq:var} and \eqref{eq:mom4} if one substitutes twice the expected
+coalescent time for the time to the most recent common ancestor of the sample.
+One way to see this is by deriving the moment generating function for the
+difference in trait values between two individuals. Using the same arguments 
+that were used to derive \eqref{eq:sub} we get
+\begin{align}
+  \varphi_{Y_a-Y_b}(k) &= \int \int \prod_{\omega_1 \in \Omega_{a/b}}
+                         e^{kY_{a,\omega_1}}P(Y_{a,\omega_1}=y_{a,\omega_1}|\mathbf{T}=\mathbf{t})dy_{a,\omega_1} \nonumber \\
+  &\times \int \prod_{\omega_2 \in \Omega_{b/a}}
+                         e^{-kY_{b,\omega_2}}P(Y_{b,\omega_2}=y_{b,\omega_2}|\mathbf{T}=\mathbf{t})dy_{a,\omega_2}
+    P(\mathbf{T}=\mathbf{t})d\mathbf{t}.
+\end{align}
+From this we have removed all branches where $Y_a-Y_b$ is necessarily zero. This
+includes branches that subtend both individuals and branches that subtend
+neither individual. From this it is clear, as expected, that the distribution of
+the trait difference between two individuals depends only on the distribution of
+coalescence times for those individuals. Using the same result for compound
+Poisson processes as before we get
+\begin{align}
+  \varphi_{Y_a-Y_b}(k) &= \int \prod_{\omega_1 \in \Omega_{a/b}} 
+                         \exp\left( \T t_{\omega_1} \left( \Phi(k) - 1\right) \right) \nonumber \\
+                       &\times \prod_{\omega_2 \in \Omega_{b/a}} 
+                         \exp\left( \T t_{\omega_2} \left( \Phi(-k) - 1\right) \right) 
+                         P(\mathbf{T}=\mathbf{t})d\mathbf{t}.
+\end{align}
+It is simple to use the low mutation rate approximation as in
+\eqref{eq:mgf_approx_sub} to derive the second and fourth moments of the trait
+difference. These are:
+\begin{equation}
+  E[(Y_a-Y_b)^2]=2L\T m_2 E[\tau_{a/b}].
+\end{equation}
+and
+\begin{equation}
+  E[(Y_a-Y_b)^4]=2L\T m_4 E[\tau_{a/b}] + 12L(L-1)(\T m_2 E[\tau_{a/b}])^2.
+\end{equation}
+The kurtosis is therefore
+\begin{equation}
+  \label{eq:diff_kurt}
+  Kurt[Y_a-Y_b]=\frac{Kurt[M]}{2 L\T m_2 E[\tau_{a/b}]} + 3\left(1-\frac{1}{L} \right).
+\end{equation}
+Again, the kurtosis depends on the kurtosis of the mutational distribution and
+the expected number of mutations affecting the trait. The kurtosis of the
+difference between individuals in different populations will be smaller than for
+individuals sampled within populations because the coalescence times will be
+greater for individuals samples from different populations.
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:
