@@ -1,0 +1,37 @@
+Since the mean of a sample is uninformative, we have $n-1$ meaningful
+observations in a sample of size $n$. Let $Y_0$ be the reference trait value and
+$Y_1-Y_0,Y_2-Y_0,\ldots,y_{n-1}-Y_0$ are the observed trait differences. Let $X$
+be the random vector of these differences. We are now interested in the
+distribution of these differences. The moment generating function is
+\begin{equation}
+  \varphi_{\mathbf{X}}(\mathbf{k}) =
+  \int e^{\mathbf{k} \cdot \mathbf{x} }
+  \int P(\mathbf{X}=\mathbf{x}|\mathbf{T} = \mathbf{t})
+  P(\mathbf{T}=\mathbf{t})d\mathbf{t}d\mathbf{x}.
+\end{equation}
+For the present we're going to look at $Cokurt[X_1,X_2]$, the cokurtosis between
+two trait differences in a sample. This should hopefully tell us something about
+the propensity of extreme trait values to be shared because of shared ancestry
+of the individuals. The mgf for this is
+\begin{equation}
+  \int \int e^{k_1(y_a-y_0) + k_2(y_b-y_0)} P(Y_a-Y_0=y_a-y_0,Y_b-Y_0=y_b-y_0|\mathbf{T}-\mathbf{t})
+  P(\mathbf{T}=\mathbf{t})d\mathbf{y}d\mathbf{t}.
+\end{equation}
+As before we can break this into different sections of the genealogy because the
+changes in trait values along these branches are independent conditional on $T$.
+Ignoring sets of branches where $Y_a-Y_0=Y_b-Y_0=0$, the relevant branch sets
+are $(\Omega_{a/(b,0)},\Omega_{(0+b)/a}\Omega_{b/(0,a)}\Omega_{(0+a)/b}\Omega_{0/(a,b)}\Omega_{(1+b)/0})$.
+Only considering these gives the following mgf
+\begin{align*}
+  \varphi_{Y_a-Y_0,Y_b-Y_0}(k_1,k_2) &=
+  \int \prod_{\omega \in \Omega_{a/(0,b)}}\exp\left( \T t_{\omega} (\phi(k_1)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{(0+b)/a}}\exp\left( \T t_{\omega} (\phi(-k_1)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{b/(0,a)}}\exp\left( \T t_{\omega} (\phi(k_2)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{(0+a)/b}}\exp\left( \T t_{\omega} (\phi(-k_2)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{0/(a,b)}}\exp\left( \T t_{\omega} (\phi(-k_1-k_2)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{(a+b)/0}}\exp\left( \T t_{\omega} (\phi(k_1+k_2)-1) \right)
+  P(\mathbf{T}=\mathbf{t})d\mathbf{t}
+\end{align*}
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:
