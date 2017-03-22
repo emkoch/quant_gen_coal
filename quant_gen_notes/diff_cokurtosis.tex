@@ -76,6 +76,7 @@ $b$ before either coalesces with $0$. This is a much less common a genealogical
 quantity than the expected coalescent time, but it seems to make sense in this
 context. Taking the appropriate derivatives we get
 \begin{align}
+\label{eq:diffcokurt}
   E[Y_a-Y_0,Y_b-Y_0] &= 4L(L-1)E[\tau_{a/0}]E[\tau_{b/0}]\left(\T\right)^2m_2^2 \nonumber \\
                      &+ 2L(L-1)(E[\tau_{0/(a,b)}]+E[\tau_{(a,b)/0}])^2\left( \T \right)^2 m_2^2 \nonumber \\
                      &+ L E[\tau_{0/(a,b)}] \T m_4 + L E[\tau_{(a,b)/0}] \T m_4.
@@ -84,10 +85,22 @@ The cokurtosis is then
 \begin{equation}
   \left( 1 - \frac{1}{L} \right) \left( 1 + 
   \frac{(E[\tau_{0/(a,b)}]+E[\tau_{(a,b)/0}])^2}{2E[\tau_{a/0}]E[\tau_{b/0}]} \right)+ 
-  \frac{Kurt[M]\left(E[\tau_{0/(a,b)}] +  E[\tau_{(a,b)/0}]\right)}{4L \T E[\tau_{a/0}]E[\tau_{b/0}]}
-  % \frac{E[\tau_{0/(a,b)}]Kurt[M]}{4L \T E[\tau_{a/0}]E[\tau_{b/0}]} + 
-  % \frac{E[\tau_{(a,b)/0}]Kurt[M]}{4L \T E[\tau_{a/0}]E[\tau_{b/0}]}
+  \frac{Kurt[M]\left(E[\tau_{0/(a,b)}] +  E[\tau_{(a,b)/0}]\right)}{4L \T E[\tau_{a/0}]E[\tau_{b/0}]}.
 \end{equation}
+The cokurtosis of a multivariate normal distribution is $1+2\rho$ where $\rho$
+is the correlation between the two variables. With this in mind we can
+rewrite \eqref{eq:diffcokurt} as
+\begin{equation}
+  \left( 1 - \frac{1}{L} \right) \left( 1 + 
+  2\frac{(E[\tau_{0/(a,b)}]+E[\tau_{(a,b)/0}])^2}{4E[\tau_{a/0}]E[\tau_{b/0}]} \right)+ 
+  \frac{Kurt[M]\left(E[\tau_{0/(a,b)}] +  E[\tau_{(a,b)/0}]\right)}{4L \T E[\tau_{a/0}]E[\tau_{b/0}]}.
+\end{equation}
+Here,
+$\frac{(E[\tau_{0/(a,b)}]+E[\tau_{(a,b)/0}])^2}{4E[\tau_{a/0}]E[\tau_{b/0}]}$
+makes sense as the correlation between $Y_a-Y_0$ and
+$Y_b-Y_0$. \eqref{eq:diffcokurt} therefore has the same form as the other
+kurtosis formulas where the excess kurtosis above the normal expectation is
+proportional to the mutational kurtosis.
 %%% Local Variables:
 %%% TeX-master: "notes.tex"
 %%% End:

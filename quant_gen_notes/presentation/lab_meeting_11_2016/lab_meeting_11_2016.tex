@@ -101,11 +101,10 @@
   Conditioning on the genealogy...
   \begin{align}
     \varphi_{\mathbf{Y}}(\mathbf{k}) &= \int e^{\mathbf{k} \cdot \mathbf{Y}}
-                                       \int P(\mathbf{Y}=\mathbf{y} | \mathbf{T}=\mathbf{t}) P(\mathbf{T}=\mathbf{t})
-                                       d\mathbf{t} d\mathbf{y}\\
-                                     &= \int \int e^{\mathbf{k} \cdot \mathbf{Y}} P(\mathbf{Y}=\mathbf{y} | \mathbf{T}=\mathbf{t}) d\mathbf{y}
-                                       P(\mathbf{T}=\mathbf{t})
-                                       d\mathbf{t}
+    \int P(\mathbf{Y}=\mathbf{y} | \mathbf{T}=\mathbf{t})
+    P(\mathbf{T}=\mathbf{t}) d\mathbf{t} d\mathbf{y}\\ &= \int \int
+    e^{\mathbf{k} \cdot \mathbf{Y}} P(\mathbf{Y}=\mathbf{y} |
+    \mathbf{T}=\mathbf{t}) d\mathbf{y} P(\mathbf{T}=\mathbf{t}) d\mathbf{t}
   \end{align}
 \end{frame}
 
@@ -142,7 +141,7 @@
     If $X_1=X_2$ then the mgf of their joint distribution is
     $\varphi_{X_1}(k_1+k_2)$.\\
     This is relevant because the effects of mutations along branches are shared
-    by all descendents.
+    by all descendants.
   \end{block}
 \end{frame}
 
@@ -184,12 +183,13 @@
 
 \begin{frame}{An example in structured populations}
   \begin{align}
-    \varphi_{\mathbf{T}}^{\Omega}(\mathbf{s}) &=
-                                                \left( \sum_{i=1}^M \binom{|\Omega_i|}{2}\eta_i  + \sum_{(i,j:i \neq j)} m_{i,j}|\Omega_i| -
-                                                \sum_{i=1}^M \sum_{\omega \in \Omega_i}s_{\omega}\right)^{-1} \nonumber \\
-                                              &\times \left( \sum_{i=1}^M \eta_i \sum_{(a,b) \in \Omega_i:a \neq b}
-                                                \varphi_{\mathbf{T}}^{\Omega(i:a \cup b)}(\mathbf{s}) + 
-                                                \sum_{(i,j):i\neq j}m_{i,j}\sum_{\omega \in \Omega_i} \varphi_{\mathbf{T}}^{\Omega\left( i :-\omega, j: + \omega \right)}(\mathbf{s})\right). \nonumber
+    \varphi_{\mathbf{T}}^{\Omega}(\mathbf{s}) &= \left( \sum_{i=1}^M
+    \binom{|\Omega_i|}{2}\eta_i + \sum_{(i,j:i \neq j)} m_{i,j}|\Omega_i| -
+    \sum_{i=1}^M \sum_{\omega \in \Omega_i}s_{\omega}\right)^{-1} \nonumber
+    \\ &\times \left( \sum_{i=1}^M \eta_i \sum_{(a,b) \in \Omega_i:a \neq b}
+    \varphi_{\mathbf{T}}^{\Omega(i:a \cup b)}(\mathbf{s}) + \sum_{(i,j):i\neq
+      j}m_{i,j}\sum_{\omega \in \Omega_i} \varphi_{\mathbf{T}}^{\Omega\left( i
+      :-\omega, j: + \omega \right)}(\mathbf{s})\right). \nonumber
   \end{align}
 \end{frame}
 

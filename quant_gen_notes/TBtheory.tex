@@ -1,0 +1,78 @@
+We have investigated the fact that, when the number of loci expected to
+experience mutations affecting a trait is low, the kurtosis is higher than that
+for a normal distribution. This kurtosis is over evolutionary realizations. If
+we were to replay evolution then individuals would have more extreme values
+relative to the variance of the distribution than under a normal distribution.
+It is worth asking how this affects selection. Even though the models so far
+have been strictly neutral, we can imagine selection acting on the population
+and producing a change in the mean an variance of trait values. The classical
+theory of quantitative genetics assumes a normal distribution of breeding values
+in the population. In one of a series of papers, \citet{Turelli1990} extended
+the theory of selection on a polygenic character to a more realistic model of
+multilocus population genetics. One conclusion of this work is that selection
+can cause deviations from normality in higher order moments of the distribution
+of breeding values, affecting the progress of selection.
+
+A central result of \citet{Turelli1990} is that the change in the mean phenotype
+due to one generation of selection is
+
+\begin{equation}
+  \Delta \bar{Z} = V_gL_1 + M_{3,g}L_2 + \gamma_4V^2_gL_3 +
+  \left( M_{5,g}-4M_{3,g}V_g\right)L_4 + \ldots.
+\end{equation}
+
+Here, $Z$ refers to a phenotypic value which has an environmental component as
+opposed the breeding value $Y$ which is due entirely to genetics. $V_g$ is the
+variance in breeding values in the population and $\gamma_4$ is the excess
+kurtosis above a normal distribution. The terms $M_{i,g}$ are the $i^{th}$
+central moments of the breeding value distribution in the population. The terms
+$L_i$ describe the effect of selection on the breeding values. These are the
+selection gradients in terms of the genotypic moments.
+
+\begin{equation}
+  L_i = \frac{\partial \ln(\bar{w})}{\partial M_{i,g}}
+\end{equation}
+
+and
+
+\begin{equation}
+  L_1 = \frac{\partial \ln(\bar{w})}{\partial \bar{Y}}.
+\end{equation}
+
+What we can tell immediately from these equations is that the importance of
+higher order moments of the breeding value distribution depends on the specific
+fitness function. For instances, the effect of the skew of the breeding value
+distribution $M_{3,g}$ depends on the effect on the mean fitness of changing the
+variance of the breeding values $\frac{\partial \ln(\bar{w})}{V_g}$. Each of the
+$L_i$ terms correspond to the effects on mean fitness of changing one moment
+while holding the others constant. Therefore, whether or not the excess kurtosis
+that arises due to a sparse trait architecture has a meaningful effect on the
+response to selection depends on the precise shape of that selection.
+\citet{Turelli1990} use trick to calculate the $L_i$. By taking a Taylor series
+expansion of $w_g(Y)$ they get
+
+\begin{equation}
+  \label{eq:wbar}
+  \bar{w} = w_g(\bar{Z}) + \sum_{i=2}^\infty \frac{M_{i,g}w^{(i)}_g(\bar{Z})}{i!}.
+\end{equation}
+
+Differentiating this gives
+
+\begin{equation}
+  \label{eq:l1}
+  L_1= \frac{w_g^{(1)}(\bar{Z)}}{\bar{w}} + \sum_{i=2}^\infty \frac{ M_{i,g}w^{(i+1)}( \bar{Z} ) }{ i! \bar{w} },
+\end{equation}
+
+and
+
+\begin{equation}
+  \label{eq:li}
+  L_i = \frac{w_g^{(i)}(\bar{Z})}{i!\bar{w}}.
+\end{equation}
+
+What this shows is that it is sufficient when calculating $L_i$ to calculate the
+$i^{th}$ derivative of $w_g$ and evaluate this at the population mean.
+
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:

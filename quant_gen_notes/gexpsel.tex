@@ -1,0 +1,31 @@
+The kurtosis of the trait distribution will not affect the response to selection
+when selection is exponential and directional. However, it will have a potential
+effect when selection is stronger than exponential. We represent this by
+considering the following fitness function
+
+\begin{equation}
+  w(z) = e^{(sz + \epsilon z^2)}.
+\end{equation}
+
+We can then calculate the fitness function on genotypes by solving
+
+\begin{equation*}
+  w_g(Y) = \int w(Y + x)p_e(x)dx,
+\end{equation*}
+
+where $p_e$ is the distribution of environmental noise. Assuming this is normal
+with mean zero and variance $V_e$, the genotypic fitness function is
+
+\begin{equation}
+  \label{eq:wg}
+  w_g(Y) = \left( \sqrt{1-2\epsilon V_e} \right)^{-1}
+  \exp\left( \frac{Y(Y\epsilon + s)}{1-2\epsilon V_e}\right).
+\end{equation}
+
+This requires that $2\epsilon V_e > 1$. We can then differentiate \eqref{eq:wg}
+and plug into \eqref{eq:wbar}, \eqref{eq:l1}, and \eqref{eq:li} to calculate the
+selection gradients. 
+
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:
