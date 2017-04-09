@@ -1,0 +1,40 @@
+The expected kurtosis in the population is a quotient and therefore annoying to
+calculate. Instead we will calculate the expected fourth central moment. 
+\begin{equation}
+  E[M_{4,Y}] = E\left[\frac{1}{N} \sum \left( Y_i - \frac{\sum Y_j}{N} \right)^4 \right].
+\end{equation}
+Examining the sum inside the expectation we see that 
+\begin{align}
+  \label{eq:expandkurt}
+  E\left[ \left( Y_i - \frac{\sum Y_j}{N} \right)^4 \right] &= E[Y_i^4] - 
+                                                              4E\left[ Y_i^3 \frac{\sum Y_j}{N} \right] + 
+                                                              6E\left[Y_i^2\left(\frac{\sum Y_j}{N}\right)^2\right] - 
+                                                              4E\left[Y_i\left(\frac{\sum Y_j}{N}\right)^3\right]+ 
+                                                              \left(\frac{\sum Y_j}{N}\right)^4 \nonumber \\
+                                                            &= E[Y_i^4] - 
+                                                              \frac{4}{N}\sum_j E[Y_i^3Y_j] + 
+                                                              \frac{6}{N^2}\sum_{j,k} E[Y_i^2Y_jY_k] \nonumber\\
+                                                              &-\frac{4}{N^3}\sum_{j,k,l}E[Y_iY_jY_kY_l] + 
+                                                              \frac{1}{n^4}\sum_{j,k,l,d}E[Y_jY_kY_lY_d].
+\end{align}
+In calculating these expectations we have to remember that the value depends
+only on the number of times each variable appears in the expectation. That is,
+$E[Y_1^2Y_2Y_3]$ is equivalent to $E[Y_1Y_2^3Y_3]$ as long as all individuals in
+the population are exchangeable. The resulting expansion of
+\eqref{eq:expandkurt} is therefore quite ugly. It can be simplified by only
+considering terms of order one. Other terms can be ignored since we are
+assuming there are a fair number of individuals in the population. This yields
+\begin{align}
+  E\left[ \left( Y_i - \frac{\sum Y_j}{N} \right)^4 \right] &=
+  E[Y_i^4]  - \frac{4(n-1)}{n}E[Y_i^3Y_j] + \frac{6(n-1)(n-2)}{n^2}E[Y_i^3Y_jY_k]  \nonumber \\
+  &- \frac{4(n-1)(n-2)(n-3)}{n^3}E[Y_iY_jY_kY_l] \nonumber \\
+  &+ \frac{(n-1)(n-2)(n-3)(n-4)}{n^4}E[Y_jY_kY_lY_d]
+  + O(n^{-1}) \nonumber \\
+  &\approx E[Y_i^4]  - 4E[Y_i^3Y_j] + 6E[Y_i^2Y_jY_k] - 3E[Y_iY_jY_kY_l].
+\end{align}
+Unfortunately I don't yet have expressions for the last three terms in expected
+branch lengths.
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "notes.tex"
+%%% End: 

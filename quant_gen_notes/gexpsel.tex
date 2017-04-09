@@ -4,7 +4,8 @@ effect when selection is stronger than exponential. We represent this by
 considering the following fitness function
 
 \begin{equation}
-  w(z) = e^{(sz + \epsilon z^2)}.
+  \label{eq:gexpsel}
+  w(z) = e^{sz + \epsilon z^2}.
 \end{equation}
 
 We can then calculate the fitness function on genotypes by solving
@@ -22,9 +23,75 @@ with mean zero and variance $V_e$, the genotypic fitness function is
   \exp\left( \frac{Y(Y\epsilon + s)}{1-2\epsilon V_e}\right).
 \end{equation}
 
-This requires that $2\epsilon V_e > 1$. We can then differentiate \eqref{eq:wg}
+This requires that $2\epsilon V_e < 1$. We can then differentiate \eqref{eq:wg}
 and plug into \eqref{eq:wbar}, \eqref{eq:l1}, and \eqref{eq:li} to calculate the
-selection gradients. 
+selection gradients. Doing so gives
+
+\begin{equation}
+  \bar{w} = w_g(\bar{Z})\left( 1 + \frac{V_g}{2}\left( A^2 + B \right) +
+  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2\right),
+\end{equation}
+
+\begin{equation}
+  L_1 = \frac{A + \frac{3V_g}{2}AB + \frac{M_{3,g}}{2}B^2}{1 + \frac{V_g}{2}\left( A^2 + B \right) +
+  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2},
+\end{equation}
+
+\begin{equation}
+  L_2 = \frac{B+A^2}{2\left( 1 + \frac{V_g}{2}\left( A^2 + B \right) +
+  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2\right)},
+\end{equation}
+
+\begin{equation}
+  L_3 = \frac{AB}{2\left( 1 + \frac{V_g}{2}\left( A^2 + B \right) +
+  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2\right)},
+\end{equation}
+
+and
+
+\begin{equation}
+  L_4 = \frac{B^2}{8\left( 1 + \frac{V_g}{2}\left( A^2 + B \right) +
+  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2\right)}
+\end{equation}
+
+Here $A = \frac{2\bar{Y}\epsilon + s}{1 - 2\epsilon V_e}$ and $B =
+\frac{2\epsilon}{1 - 2\epsilon V_e}.$ In calculating the selection gradients I
+have ignored terms greater than order 2 in $A$ and $B$. Unlike with exponential
+directional selection, moments of the breeding values as well as the
+environmental variance show up in the selection gradients. We can now use these
+results to investigate how much steeper than exponential selection must be in
+order for the excess kurtosis to have an effect. To get a sense for this we can
+plot the effect of excess kurtosis on the response to selection when the
+distribution is normal.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{../programs/sel_resp.pdf}
+  \caption{The effect of excess kurtosis on the response to selection when the
+    fitness function is steeper than exponential. In this example $s=0.3$, the
+    mean breeding value is one, and the heritability is held constant at one half.}
+  \label{fig:selresp}
+\end{figure}
+
+Figure \ref{fig:selresp} shows that the effect of excess kurtosis on the response
+to selection is dependent on the coefficient of variation (CV) of the breeding
+values. When the CV is large increasing the excess kurtosis has a larger effect
+on the response to selection. This makes sense because the excess kurtosis is
+scaled relative to the variance. Increasing the excess kurtosis for a trait with
+a higher CV means a larger absolute increase in the fourth moment which
+\eqref{eq:dz} shows controls the response to selection. In terms of absolute
+increases in the fourth moment, distributions with a lower genetic variance will
+have a greater proportional increase in the response to selection. 
+
+Is a selection function with $s=0.3$ and $\epsilon=0.1$ realistic? An individual
+with breeding value of one will have an average fitness of about two while an
+individual with breeding value three will have an average fitness of about
+eleven. An individual with a breeding value of five will have an average fitness
+of $175$. This is very strong selection that pushes the bounds of what is
+realistic. A feature of the fitness function in \eqref{eq:gexpsel} is that
+extreme values will potentially have orders of magnitude higher fitnesses. A
+higher kurtosis makes these extreme values more likely. The question is then
+whether the sparseness of trait architecture can generate enough kurtosis to
+substantially impact the response to selection.
 
 %%% Local Variables:
 %%% TeX-master: "notes.tex"

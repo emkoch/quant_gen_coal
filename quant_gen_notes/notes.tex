@@ -4,15 +4,18 @@
 \usepackage[textwidth=5.8in, textheight=8in]{geometry}
 \usepackage{lipsum}
 \usepackage[mathscr]{eucal}
+\usepackage{graphicx}
 
 \newcommand{\T}{\frac{\theta}{2}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
 
 \begin{document}
 
 \section{Annotations and notes on \emph{The Mathematical Theory of Selection, Recombination, and Mutation} \citep{burger2000mathematical}}
 \subsection{\citet[chap. 4]{burger2000mathematical}}
 \input{./burgerchap4.tex}
-
 \section{Moment generating functions for the distribution of quantitative trait values}
 \subsection{A generalized form}
 \subsubsection{Stepping stone model}
@@ -32,10 +35,18 @@
 \input{./kurtosis.tex}
 \subsubsection{Cokurtosis}
 \input{./cokurtosis.tex}
+\subsubsection{Additional moments}
+\input{./addmom.tex}
 \subsubsection{Comparison to normal distribution}
 \input{./norm_moment.tex}
 \subsubsection{General moments}
 \input{./gen_moments.tex}
+\subsection{Population moments}
+\input{./pop_mom.tex}
+\subsubsection{Population variance}
+\input{./pop_var.tex}
+\subsubsection{Population kurtosis}
+\input{./pop_kurt.tex}
 \subsection{Differences in trait values}
 \subsubsection{Kurtosis}
 \input{./trait_diffs.tex}
@@ -54,7 +65,9 @@
 \section{Selection}
 \subsection{Selection on a polygenic character}
 \input{./TBtheory.tex}
-\subsection{Faster than exponential selection}
+\subsection{Exponential selection}
+\input{./expsel.tex}
+\subsection{Steeper than exponential selection}
 \input{./gexpsel.tex}
 
 \clearpage

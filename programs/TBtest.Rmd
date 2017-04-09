@@ -1,0 +1,249 @@
+---
+title: "Testing Turelli and Barton (1990) theory"
+author: "Evan Koch"
+date: "April 5, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The theory of Turelli and Barton (1990) provides expressions for the expected changes in trait values under different forms of selection. Here I will attempt to validate that this theory works at the most basic level. Turelli and Barton calculate that the change in the mean phenotype due to one generation of selection is given by 
+$$
+\Delta \bar{Z} = V_gL_1 + M_{3,g}L_2 + \gamma_4V^2_gL_3 +
+  \left( M_{5,g}-4M_{3,g}V_g\right)L_4 + \ldots.
+$$
+In this expression, $V_g$ is the additive genetic variance, $M_{i,g}$ is the ith central moment of the distribution of breeding values, and $\gamma_4$ is the excess kurtosis of the distribution of breeding values. I am going to simulate example populations, subject them to selection and ensure that the change in the mean phenotype is given given by this equation. Let's start by simulating mutations from a Guassian distribution and assigning them randomly per locus to individual haplotypes (so there's no LD). 
+```{r}
+library(ggplot2)
+make.pop <- function(NN=1000, ll=10, mut.dist=rnorm, ...){
+    #  Generate a random effect for each locus from the mutational distribution
+    #& using the parameters passed to make.pop
+    mut.effect <- mut.dist(n=ll, ...)
+    #  Generate allele frequencies for all loci from a beta distribution
+    freqs <- rbeta(ll, shape1=0.5, shape2=0.5)
+    #  Now assign alleles at random to haplotypes
+    alleleic.states <- replicate(n=NN, expr=rbinom(n=ll, size=1, prob=freqs))
+    #  Each row of this will correspond to an allele and now we 
+    #& just have to multiply each row by the alleleic affect
+    alleleic.effects <- t(alleleic.states * mut.effect)
+    individual.effects <- t(alleleic.states) %*% mut.effect
+    return(list(ae=alleleic.effects, ie=individual.effects, me=mut.effect, freqs=freqs))
+}
+# Now test this and plot the distribution of breeding values
+test.pop.1 <- make.pop(mean=0, sd=1)
+test.pop.2 <- make.pop(NN=1000, ll=100, mean=0, sd=1)
+test.bvals <- data.frame(cbind(test.pop.1[[2]], test.pop.2[[2]]))
+colnames(test.bvals) <- c("loci.10", "loci.100")
+test.hist <- ggplot(test.bvals) + xlab("phenotype value") +
+    geom_histogram(aes(x=loci.10, fill="10"), 
+                   alpha=0.6, binwidth=.25) + 
+    geom_histogram(aes(x=loci.100, fill="100"), 
+                   alpha=0.6, binwidth=.25) + theme_bw() +
+    scale_fill_manual("num loci", values=c("red", "blue"))
+test.hist
+```
+
+One thing that we can see just from this small test is that, even though the mutational distribution is centered at zero, the mean breeding values are nonzero in either the population with 10 loci affecting the trait or in the population with 100 loci affecting the trait. Indeed, we do not expect the variance in the mean phenotypic value to go to zero over evolutionary realizations as the number of loci gets large. This is a somewhat counterintuitive result since the law of large numbers would seem to suggest that this variance should go to zero! One way to rationalize this is by realizing that there will necessarily be covariance in breeding values due to shared ancestry. It should be helpful to think of a more population genetics interpretation of this, but I'll save that for later. Instead I'll do a quick derivation just to show that this is the case and ensure the variance in the mean phenotype matches theory.
+
+The mean phenotype in the population is
+$$
+\bar{Y} = \frac{1}{N}\sum_{i=1}^{N}Y_i
+$$
+where 
+$$
+Y_i = \sum_{l=1}^L x_{i,l}m_l.
+$$
+Here, $x_{il}$ is an indicator variable that is one if the individual $i$ carries the phenotype-affecting allele at site $l$ and zero otherwise. $m_l$ is the effect of the allele. For simplicity I'll only consider mutational distributions with mean zero, but the result should generalize. The population variance can then be written as 
+$$
+Var[\bar{Y}] = \frac{1}{N^2}\left( N Var[Y_i]  + N(N-1) Cov[Y_i,Y_j]\right).
+$$
+The first term will go to zero as the population size gets large and so is not of much interest. The second will be 
+$$
+Cov[Y_i,Y_j] = L Cov[m_l x_{i,l}, m_l x_{j,l}] + 
+L(L-1) Cov[m_{l_1} x_{i,l_{1}}, m_{l_1} x_{i,l_{2}}],
+$$
+where
+$$
+Cov[m_l x_{i,l}, m_l x_{j,l}] = Var[m_l]E[x_{i,l}]^2 = Var[m_l](Var[x] + E[x]^2),
+$$
+and
+$$
+Cov[m_{l_1} x_{i,l_{1}}, m_{l_2} x_{i,l_{2}}] = 0
+$$
+because there is no correlation in the mutational affects at different sites. $Var[x]$ refers to the variance in the population allele frequency distribution. We can thus say that 
+$$
+Var[\bar{Y}] \approx L Var[m_l](Var[x] + E[x]^2)
+$$
+Let's test this prediction in the current set of trait simulations. I simulated with mutation effects drawn from a standard normal distribution, so $Var[m_l]=1$ and with allele frequencies drawn $x \sim \mbox{Beta}(\alpha=0.5,\beta=0.5)$. This means that $Var[x]=0.125$ and $E[x]^2=0.25$. Now let's simulate a lot of populations and see what the variance of the mean breeding values is.
+```{r}
+reps <- 1000
+ll.set <- c(10,20,50,100,200,500,1000,1500,2000)
+e.var <- ll.set*1*(0.125+0.25)
+sim.var <- lapply(ll.set, function(ll){
+    means <- replicate(reps, mean(make.pop(NN=100, ll=ll, mean=0, sd=1)$ie))
+    return(means)
+})
+vars <- unlist(lapply(sim.var, var))
+ggplot(data=data.frame(cbind(e.var, vars)), aes(x=e.var, y=vars)) + geom_point() + 
+    scale_x_log10() + scale_y_log10() + geom_abline(intercept = 0, slope = 1) + 
+    theme_bw()
+```
+
+It therefore looks like this is working properly and the increase in variance of the mean breeding value across evolutionary replicates is as we would expect. 
+
+Satisfied that we are simulating breeding values in a appropriate way, we now want to simulate populations and apply selection to them. We will start by applying a simple model of exponential selection. The fitness function for exponential selection is 
+$$
+w(z) = e^{sz}.
+$$
+This will assign a fitness to each individual and we will sample the next generation proportionally to the fitness values of the parents. This is using either a model of no recombination, or this may represent the population after selection but before recombination.
+```{r}
+s.test <- 0.1
+exp.sel <- function(x, s=s.test) return(exp(s*x))
+select.pop <- function(ind.eff, fit.func=exp.sel, ...){
+    fitness.values <- apply(ind.eff, MARGIN=1, FUN=function(x.set){
+        return(fit.func(x=sum(x.set), ...))})
+    #  Now sample rows for a new matrix proportionally to these fitness values
+    NN <- nrow(ind.eff)
+    sel.indicies <- sample.int(n=NN, size=NN, replace=TRUE,
+                           prob=fitness.values/sum(fitness.values))
+    after.sel <- ind.eff[sel.indicies,]
+    return(after.sel)
+}
+#  Plot this to see how selection has worked!
+test.select <- select.pop(test.pop.2[[1]])
+ts <- data.frame(cbind(before.sel=as.numeric(test.pop.2$ie),
+                       after.sel=rowSums(test.select)))
+ggplot(ts) + geom_histogram(aes(x=before.sel, fill="before sel"), alpha=0.5) +
+    geom_histogram(aes(x=after.sel, fill="after sel"), alpha=0.5) +
+    scale_fill_manual("pop state", values=c("red", "blue")) + xlab("phenotype value") +
+    theme_bw()
+```
+
+As we would hope, the mean breeding value in the population increases after selection. We now want to perform this selection a large number of times and see how the change in mean phenotype corresponds to that expected from the Turelli and Barton theory. Under exponential selection they calculate that $L_1=s$ and $L_2\approx s^2/2$ while all other $L_k$ are close to zero. 
+```{r}
+library(moments)
+e.dz <- s.test * var(test.pop.2$ie) + s.test^2 * moment(test.pop.2$ie, 
+                                                   order=3, central=TRUE)
+test.rep.1 <- replicate(500, select.pop(test.pop.2$ae))
+test.rep.1.p <- apply(test.rep.1, MARGIN=3, rowSums)
+test.rep.1.means <- apply(test.rep.1.p, MARGIN=2, mean)
+ggplot(data.frame(dz=test.rep.1.means - mean(test.pop.2$ie))) + 
+    geom_histogram(aes(x=dz), alpha=0.7) + theme_bw() + 
+    geom_vline(xintercept=e.dz, color="red") + 
+    geom_vline(xintercept=mean(test.rep.1.means - mean(test.pop.2$ie)))
+```
+
+As we can see, the simulated change in phenotype due to selection agrees with the theory, indicating that we are doing everything well so far. Let's do a more extensive test of this though to ensure that the agreement at these parameter values isn't a fluke.
+```{r}
+library(plyr)
+#  Simulate a large number of populations
+n.evol <- 1000
+test.pops <- replicate(n.evol, make.pop(NN=1000, ll=20, mean=0, sd=1)$ae)
+#  Apply exponential selection to these populations
+sel.pops <- alply(test.pops, 3, select.pop)
+before.var <- unlist(alply(test.pops, 3, function(X) var(rowSums(X))))
+before.m3 <- unlist(alply(test.pops, 3, function(X) moment(rowSums(X), 
+                                                    order=3, central=TRUE)))
+before.m <- unlist(alply(test.pops, 3, function(X) mean(rowSums(X))))
+after.m <- unlist(lapply(sel.pops, function(X) mean(rowSums(X))))
+e.dzs <- s.test * before.var + s.test^2 * before.m3
+o.dzs <- after.m - before.m
+exp.test <- data.frame(cbind(exp.resp=e.dzs, obs.resp=o.dzs,
+                             var.before=before.var))
+ggplot(exp.test) + 
+    geom_point(aes(x=exp.resp, y=obs.resp, size=var.before), alpha=0.1) + 
+    theme_bw() + geom_abline(intercept=0, slope=1)
+```
+
+This is enough to convince me that the Turelli and Barton equations work at least for exponential selection. The next test will be to see how well the equations that I have derived for steeper than exponential selection work as well. The fitness function for faster than exponential selection is 
+$$
+w(z) = e^{sz + \epsilon z^2}.
+$$
+In this equation $\epsilon$ can be thought of as the degree of selection that is steeper than exponential. I have calculated that the selection gradients for this case are
+$$
+L_1 = \frac{A + \frac{3V_g}{2}AB + \frac{M_{3,g}}{2}B^2}{1 + \frac{V_g}{2}\left( A + B \right) +
+  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{8}B^2},
+$$
+$$
+L_2 = \frac{B+A^2}{2\left( 1 + \frac{V_g}{2}\left( A + B \right) +
+  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{8}B^2\right)},
+$$
+$$
+L_3 = \frac{AB}{2\left( 1 + \frac{V_g}{2}\left( A + B \right) +
+  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{8}B^2\right)},
+$$
+and 
+$$
+L_4 = \frac{B^2}{8\left( 1 + \frac{V_g}{2}\left( A + B \right) +
+  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{8}B^2\right)}.
+$$
+Where $A = \frac{2\bar{Y}\epsilon + s}{1 - 2\epsilon V_e}$ and $B =\frac{2\epsilon}{1 - 2\epsilon V_e}$. These are approximations that ignore terms of order three or greater in $A$ and $B$. It is also worth noting that the selection differentials now include moments of the population variation in breeding values. Let us first define functions to calculate these.
+```{r}
+AA <- function(Ybar, ee, ss, Ve) return((2 * Ybar * ee + ss) / (1 - 2 * ee * Ve))
+BB <- function(ee, Ve) return(ee / (1 - 2 * ee * Ve))
+
+L1 <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
+    A <- AA(Ybar, ee, ss, Ve); B <- BB(ee, Ve)
+    return( (A + 0.5 * Vg * A^3 + 3 * Vg * A * B + 2 * M3g * B^2) / 
+                (1 + 0.5*Vg*(A^2 + 2*B) + M3g*A*B + 0.5*M4g*B^2 ))
+}
+L2 <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
+    A <- AA(Ybar, ee, ss, Ve); B <- BB(ee, Ve)
+    return((2*B + A^2) / 
+               2*(1 + 0.5*Vg*(A^2 + 2*B) + M3g*A*B + 0.5*M4g*B^2))
+}
+L3 <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
+    A <- AA(Ybar, ee, ss, Ve); B <- BB(ee, Ve)
+    return( (A * B + (1/6)*A^3) / 
+               (1 + 0.5*Vg*(A^2 + 2*B) + M3g*A*B + 0.5*M4g*B^2))
+}
+e.steep.dz <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
+    l1 <- L1(Ybar, ee, ss, Ve, Vg, M3g, M4g)
+    l2 <- L2(Ybar, ee, ss, Ve, Vg, M3g, M4g)
+    l3 <- L3(Ybar, ee, ss, Ve, Vg, M3g, M4g)
+    return(Vg * l1 + M3g*l2 + (M4g - 3 * Vg^2) * l3)
+}
+```
+Now let's select a population using an intermediate level of steeper than exponential selection with $s=0.1$ and $\epsilon=0.01$. 
+```{r}
+s.test <- 0.005
+e.test <- 0.008
+ee=e.test; ss=s.test; Ve=0
+Vg=var(test.pop.2$ie)
+M4g=moment(test.pop.2$ie, order=4, central=TRUE)
+M3g=moment(test.pop.2$ie, order=3, central=TRUE)
+A <- AA(Ybar, ee, ss, Ve); B <- BB(ee, Ve)
+st.exp.sel <- function(x, ss=s.test, ee=e.test) return(exp(ss*x + ee*x^2))
+test.select.st <- select.pop(test.pop.2$ae, fit.func=st.exp.sel)
+st.ts <- data.frame(cbind(before.sel=as.numeric(test.pop.2$ie),
+                       after.sel=rowSums(test.select.st)))
+ggplot(st.ts) + geom_histogram(aes(x=before.sel, fill="before sel"), alpha=0.5) +
+    geom_histogram(aes(x=after.sel, fill="after sel"), alpha=0.5) +
+    scale_fill_manual("pop state", values=c("red", "blue")) + xlab("phenotype value")
+```
+
+As we can see this selection is substantially stronger than exponential selection alone. Now let's do the same test as before where we repeat selection on the the same population.
+```{r}
+e.dz <- s.test * var(test.pop.2$ie) + s.test^2 * moment(test.pop.2$ie, 
+                                                   order=3, central=TRUE)
+Ybar=mean(test.pop.2$ie)
+
+## for testing purposes
+
+
+e.dz.st <- e.steep.dz(Ybar=mean(test.pop.2$ie), 
+                      ee=e.test, ss=s.test, Ve=0, 
+                      Vg=var(test.pop.2$ie), 
+                      M3g=moment(test.pop.2$ie, order=3, central=TRUE),
+                      M4g=moment(test.pop.2$ie, order=4, central=TRUE))
+test.rep.1.st <- replicate(300, select.pop(test.pop.2$ae, fit.func=st.exp.sel))
+test.rep.1.p.st <- apply(test.rep.1.st, MARGIN=3, rowSums)
+test.rep.1.means.st <- apply(test.rep.1.p.st, MARGIN=2, mean)
+ggplot(data.frame(dz=test.rep.1.means.st - mean(test.pop.2$ie))) + 
+    geom_histogram(aes(x=dz), alpha=0.7) + theme_bw() + 
+    geom_vline(xintercept=e.dz.st, color="red") + 
+    geom_vline(xintercept=e.dz, color="blue") +
+    geom_vline(xintercept=mean(test.rep.1.means.st - mean(test.pop.2$ie)))
+```
