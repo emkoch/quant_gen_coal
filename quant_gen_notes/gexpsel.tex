@@ -1,61 +1,58 @@
 The kurtosis of the trait distribution will not affect the response to selection
 when selection is exponential and directional. However, it will have a potential
-effect when selection is stronger than exponential. We represent this by
-considering the following fitness function
+effect when selection is stronger than exponential. We have to be very cautious
+though in the analysis of faster than exponential selection. The relative
+strengths of selection are no longer easy to compare between linear
+transformations of the phenotype values. Under exponential selection a linear
+transformation of the phenotype $a + bY$ gives the same ratio $w(Y_1)/w(Y_2)$
+with $s$ scaled by $b$. This is not the case for steeper than exponential
+selection. Additionally, when selection becomes very steep the response to
+selection will be dominated by outlier breeding values in the population. The
+existence of such outliers will only be reflected in very high moments of the
+breeding value distribution. Thus. we will need to describe many more moments of
+the breeding value distribution to accurately predict the response to selection.
 
+We examine steeper than exponential selection by considering the following
+fitness function
 \begin{equation}
   \label{eq:gexpsel}
   w(z) = e^{sz + \epsilon z^2}.
 \end{equation}
-
 We can then calculate the fitness function on genotypes by solving
-
 \begin{equation*}
   w_g(Y) = \int w(Y + x)p_e(x)dx,
 \end{equation*}
-
 where $p_e$ is the distribution of environmental noise. Assuming this is normal
 with mean zero and variance $V_e$, the genotypic fitness function is
-
 \begin{equation}
   \label{eq:wg}
   w_g(Y) = \left( \sqrt{1-2\epsilon V_e} \right)^{-1}
   \exp\left( \frac{Y(Y\epsilon + s)}{1-2\epsilon V_e}\right).
 \end{equation}
-
 This requires that $2\epsilon V_e < 1$. We can then differentiate \eqref{eq:wg}
 and plug into \eqref{eq:wbar}, \eqref{eq:l1}, and \eqref{eq:li} to calculate the
 selection gradients. Doing so gives
-
+\newcommand{\wdenom}{1 + \frac{V_g}{2}\left( A^2 + 2B \right) + M_{3,g}AB + \frac{M_{4.g}}{2}B^2}
 \begin{equation}
-  \bar{w} = w_g(\bar{Z})\left( 1 + \frac{V_g}{2}\left( A^2 + B \right) +
-  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2\right),
+  \bar{w} = w_g(\bar{Z})\left( 1 + \frac{V_g}{2}\left( A^2 + 2B \right) +
+  M_{3,g}AB + \frac{M_{4.g}}{2}B^2\right),
 \end{equation}
-
 \begin{equation}
-  L_1 = \frac{A + \frac{3V_g}{2}AB + \frac{M_{3,g}}{2}B^2}{1 + \frac{V_g}{2}\left( A^2 + B \right) +
-  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2},
+  L_1 = \frac{A + 3V_gAB + 2M_{3,g}B^2}{\wdenom}
 \end{equation}
-
 \begin{equation}
-  L_2 = \frac{B+A^2}{2\left( 1 + \frac{V_g}{2}\left( A^2 + B \right) +
-  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2\right)},
+  L_2 = \frac{B+A^2}{2\left(\wdenom\right)}
 \end{equation}
-
 \begin{equation}
-  L_3 = \frac{AB}{2\left( 1 + \frac{V_g}{2}\left( A^2 + B \right) +
-  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2\right)},
+  L_3 = \frac{AB}{\wdenom}
 \end{equation}
-
 and
-
 \begin{equation}
-  L_4 = \frac{B^2}{8\left( 1 + \frac{V_g}{2}\left( A^2 + B \right) +
-  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{2}B^2\right)}
+  L_4 = \frac{B^2}{2\left(\wdenom\right)}
 \end{equation}
 
 Here $A = \frac{2\bar{Y}\epsilon + s}{1 - 2\epsilon V_e}$ and $B =
-\frac{2\epsilon}{1 - 2\epsilon V_e}.$ In calculating the selection gradients I
+\frac{\epsilon}{1 - 2\epsilon V_e}.$ In calculating the selection gradients I
 have ignored terms greater than order 2 in $A$ and $B$. Unlike with exponential
 directional selection, moments of the breeding values as well as the
 environmental variance show up in the selection gradients. We can now use these
