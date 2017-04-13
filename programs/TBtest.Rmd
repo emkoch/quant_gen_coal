@@ -17,7 +17,7 @@ $$
 In this expression, $V_g$ is the additive genetic variance, $M_{i,g}$ is the ith central moment of the distribution of breeding values, and $\gamma_4$ is the excess kurtosis of the distribution of breeding values. I am going to simulate example populations, subject them to selection and ensure that the change in the mean phenotype is given given by this equation. Let's start by simulating mutations from a Guassian distribution and assigning them randomly per locus to individual haplotypes (so there's no LD). 
 ```{r}
 library(ggplot2)
-make.pop <- function(NN=1000, ll=10, mut.dist=rnorm, ...){
+make.pop <- function(NN=2000, ll=10, mut.dist=rnorm, ...){
     #  Generate a random effect for each locus from the mutational distribution
     #& using the parameters passed to make.pop
     mut.effect <- mut.dist(n=ll, ...)
@@ -33,7 +33,7 @@ make.pop <- function(NN=1000, ll=10, mut.dist=rnorm, ...){
 }
 # Now test this and plot the distribution of breeding values
 test.pop.1 <- make.pop(mean=0, sd=1)
-test.pop.2 <- make.pop(NN=1000, ll=100, mean=0, sd=1)
+test.pop.2 <- make.pop(NN=2000, ll=100, mean=0, sd=1)
 test.bvals <- data.frame(cbind(test.pop.1[[2]], test.pop.2[[2]]))
 colnames(test.bvals) <- c("loci.10", "loci.100")
 test.hist <- ggplot(test.bvals) + xlab("phenotype value") +
@@ -101,9 +101,9 @@ This will assign a fitness to each individual and we will sample the next genera
 ```{r}
 s.test <- 0.1
 exp.sel <- function(x, s=s.test) return(exp(s*x))
-select.pop <- function(ind.eff, fit.func=exp.sel, ...){
+select.pop <- function(ind.eff, fit.func=exp.sel, ancestral.val=0, ...){
     fitness.values <- apply(ind.eff, MARGIN=1, FUN=function(x.set){
-        return(fit.func(x=sum(x.set), ...))})
+        return(fit.func(x=sum(x.set) + ancestral.val, ...))})
     #  Now sample rows for a new matrix proportionally to these fitness values
     NN <- nrow(ind.eff)
     sel.indicies <- sample.int(n=NN, size=NN, replace=TRUE,
@@ -163,40 +163,47 @@ w(z) = e^{sz + \epsilon z^2}.
 $$
 In this equation $\epsilon$ can be thought of as the degree of selection that is steeper than exponential. I have calculated that the selection gradients for this case are
 $$
-L_1 = \frac{A + \frac{3V_g}{2}AB + \frac{M_{3,g}}{2}B^2}{1 + \frac{V_g}{2}\left( A + B \right) +
-  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{8}B^2},
+L_1 = \frac{A + 3V_gAB + 2M_{3,g}B^2}{1 + \frac{V_g}{2}\left( A + 2B \right) +
+  M_{3,g}AB + \frac{M_{4,g}}{2}B^2},
 $$
 $$
-L_2 = \frac{B+A^2}{2\left( 1 + \frac{V_g}{2}\left( A + B \right) +
-  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{8}B^2\right)},
+L_2 = \frac{B+A^2}{2\left( 1 + \frac{V_g}{2}\left( A + 2B \right) +
+  M_{3,g}AB + \frac{M_{4,g}}{2}B^2\right)},
 $$
 $$
-L_3 = \frac{AB}{2\left( 1 + \frac{V_g}{2}\left( A + B \right) +
-  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{8}B^2\right)},
+L_3 = \frac{AB}{ 1 + \frac{V_g}{2}\left( A + 2B \right) +
+  M_{3,g}AB + \frac{M_{4,g}}{2}B^2 },
 $$
 and 
 $$
-L_4 = \frac{B^2}{8\left( 1 + \frac{V_g}{2}\left( A + B \right) +
-  \frac{M_{3,g}}{2}AB + \frac{M_{4.g}}{8}B^2\right)}.
+L_4 = \frac{B^2}{2\left( 1 + \frac{V_g}{2}\left( A + 2B \right) +
+  M_{3,g}AB + \frac{M_{4,g}}{2}B^2\right)}.
 $$
-Where $A = \frac{2\bar{Y}\epsilon + s}{1 - 2\epsilon V_e}$ and $B =\frac{2\epsilon}{1 - 2\epsilon V_e}$. These are approximations that ignore terms of order three or greater in $A$ and $B$. It is also worth noting that the selection differentials now include moments of the population variation in breeding values. Let us first define functions to calculate these.
+Where $A = \frac{2\bar{Y}\epsilon + s}{1 - 2\epsilon V_e}$ and $B =\frac{\epsilon}{1 - 2\epsilon V_e}$. These are approximations that ignore terms of order three or greater in $A$ and $B$. It is also worth noting that the selection differentials now include moments of the population variation in breeding values. Let us first define functions to calculate these.
 ```{r}
 AA <- function(Ybar, ee, ss, Ve) return((2 * Ybar * ee + ss) / (1 - 2 * ee * Ve))
 BB <- function(ee, Ve) return(ee / (1 - 2 * ee * Ve))
 
+st.exp.sel <- function(x, ss=s.test, ee=e.test) return(exp(ss*x + ee*x^2))
+
+wbar <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g, fit.func=st.exp.sel){
+    A <- AA(Ybar, ee, ss, Ve); B <- BB(ee, Ve)
+    return( fit.func(Ybar, ee=ee, ss=ss) *
+                (1 + 0.5*Vg*(A^2 + 2*B) + M3g*A*B + 0.5*M4g*B^2))
+}
 L1 <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
     A <- AA(Ybar, ee, ss, Ve); B <- BB(ee, Ve)
-    return( (A + 0.5 * Vg * A^3 + 3 * Vg * A * B + 2 * M3g * B^2) / 
+    return( (A + 3*Vg*A*B + 2*M3g*B^2) / 
                 (1 + 0.5*Vg*(A^2 + 2*B) + M3g*A*B + 0.5*M4g*B^2 ))
 }
 L2 <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
     A <- AA(Ybar, ee, ss, Ve); B <- BB(ee, Ve)
-    return((2*B + A^2) / 
-               2*(1 + 0.5*Vg*(A^2 + 2*B) + M3g*A*B + 0.5*M4g*B^2))
+    return( (B + A^2) / 
+               (2*(1 + 0.5*Vg*(A^2 + 2*B) + M3g*A*B + 0.5*M4g*B^2)))
 }
 L3 <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
     A <- AA(Ybar, ee, ss, Ve); B <- BB(ee, Ve)
-    return( (A * B + (1/6)*A^3) / 
+    return( A*B / 
                (1 + 0.5*Vg*(A^2 + 2*B) + M3g*A*B + 0.5*M4g*B^2))
 }
 e.steep.dz <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
@@ -205,45 +212,146 @@ e.steep.dz <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
     l3 <- L3(Ybar, ee, ss, Ve, Vg, M3g, M4g)
     return(Vg * l1 + M3g*l2 + (M4g - 3 * Vg^2) * l3)
 }
+e.steep.dz.simple <- function(Ybar, ee, ss, Ve, Vg, M3g, M4g){
+    l1 <- L1(Ybar, ee, ss, Ve, Vg, M3g, M4g)
+    return(Vg * l1)
+}
 ```
-Now let's select a population using an intermediate level of steeper than exponential selection with $s=0.1$ and $\epsilon=0.01$. 
+Add 100 to all breeding values to ensure that they are all non-negative. The central moments: Vg, M4g, M3g are not affected by this the mean value will of course be affected and that's important for steeper then exponential selection. Note that $\bar{Y}$ only appears in the response to selection in the term $A$ where it is multiplied by $\epsilon$. This implies we expect approximately the same response to selection if we scale $\epsilon$ by the mean breeding value or by the expected breeding value. This scaling won't be exact because because $\epsilon$ also appears elsewhere in the equation for the response to selection, and of course the approximation will cease to work rather quickly as well. 
 ```{r}
-s.test <- 0.005
-e.test <- 0.008
+anc.val <- 100
+s.test <- 0.000005
+e.test <- 0.5/anc.val
 ee=e.test; ss=s.test; Ve=0
-Vg=var(test.pop.2$ie)
-M4g=moment(test.pop.2$ie, order=4, central=TRUE)
-M3g=moment(test.pop.2$ie, order=3, central=TRUE)
+
+test.bigvals <- test.pop.2$ie + anc.val
+( Ybar <- mean(test.bigvals) )
+( Vg <- var(test.bigvals) )
+( M4g <- moment(test.bigvals, order=4, central=TRUE) )
+( M3g <- moment(test.bigvals, order=3, central=TRUE) )
+
 A <- AA(Ybar, ee, ss, Ve); B <- BB(ee, Ve)
-st.exp.sel <- function(x, ss=s.test, ee=e.test) return(exp(ss*x + ee*x^2))
-test.select.st <- select.pop(test.pop.2$ae, fit.func=st.exp.sel)
-st.ts <- data.frame(cbind(before.sel=as.numeric(test.pop.2$ie),
-                       after.sel=rowSums(test.select.st)))
+
+test.select.st <- select.pop(test.pop.2$ae, fit.func=st.exp.sel, 
+                             ancestral.val = anc.val)
+st.ts <- data.frame(cbind(before.sel=as.numeric(test.bigvals),
+                       after.sel=rowSums(test.select.st) + anc.val))
+
 ggplot(st.ts) + geom_histogram(aes(x=before.sel, fill="before sel"), alpha=0.5) +
     geom_histogram(aes(x=after.sel, fill="after sel"), alpha=0.5) +
-    scale_fill_manual("pop state", values=c("red", "blue")) + xlab("phenotype value")
+    scale_fill_manual("pop state", values=c("red", "blue")) + xlab("phenotype value") +
+    theme_bw()
 ```
 
 As we can see this selection is substantially stronger than exponential selection alone. Now let's do the same test as before where we repeat selection on the the same population.
 ```{r}
-e.dz <- s.test * var(test.pop.2$ie) + s.test^2 * moment(test.pop.2$ie, 
-                                                   order=3, central=TRUE)
-Ybar=mean(test.pop.2$ie)
-
-## for testing purposes
-
-
-e.dz.st <- e.steep.dz(Ybar=mean(test.pop.2$ie), 
-                      ee=e.test, ss=s.test, Ve=0, 
-                      Vg=var(test.pop.2$ie), 
-                      M3g=moment(test.pop.2$ie, order=3, central=TRUE),
-                      M4g=moment(test.pop.2$ie, order=4, central=TRUE))
-test.rep.1.st <- replicate(300, select.pop(test.pop.2$ae, fit.func=st.exp.sel))
+e.dz <- s.test*Vg + s.test^2*M3g
+e.dz.st <- e.steep.dz(Ybar=Ybar, 
+                      ee=e.test, ss=s.test, Ve=0, Vg=Vg, M3g=M3g, M4g=M4g)
+test.rep.1.st <- replicate(300, select.pop(test.pop.2$ae, fit.func=st.exp.sel, 
+                                           ancestral.val=anc.val))
 test.rep.1.p.st <- apply(test.rep.1.st, MARGIN=3, rowSums)
-test.rep.1.means.st <- apply(test.rep.1.p.st, MARGIN=2, mean)
+test.rep.1.means.st <- apply(test.rep.1.p.st, MARGIN=2, mean) + anc.val
 ggplot(data.frame(dz=test.rep.1.means.st - mean(test.pop.2$ie))) + 
     geom_histogram(aes(x=dz), alpha=0.7) + theme_bw() + 
-    geom_vline(xintercept=e.dz.st, color="red") + 
-    geom_vline(xintercept=e.dz, color="blue") +
+    geom_vline(xintercept=anc.val + e.dz.st, color="red") + 
+    geom_vline(xintercept=anc.val + e.dz, color="blue") +
     geom_vline(xintercept=mean(test.rep.1.means.st - mean(test.pop.2$ie)))
 ```
+
+Now we want to evaluate how well this apprixmation works as the strength of selection increases.
+```{r}
+e.set <- c(0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5) / anc.val
+after.sel.means <- list()
+e.sel.means <- numeric(0); e.sel.means.simple <- numeric(0)
+for( ii in 1:length(e.set) ){
+    ee.val <- e.set[ii]
+    test.rep.st <- replicate(300, select.pop(test.pop.2$ae, fit.func=st.exp.sel, 
+                                           ancestral.val=anc.val, 
+                                           ss=s.test, ee <- ee.val))
+    test.rep.p.st <- apply(test.rep.st, MARGIN=3, rowSums)
+    test.rep.means.st <- apply(test.rep.p.st, MARGIN=2, mean) + anc.val
+    after.sel.means[[ii]] <- test.rep.means.st
+    e.sel.means[ii] <- e.steep.dz(Ybar=Ybar, 
+                                  ee=ee.val, ss=s.test, Ve=0, Vg=Vg, M3g=M3g, M4g=M4g)
+}
+for( ii in 1:length(e.set)){ 
+    e.sel.means[ii] <- e.steep.dz(Ybar=Ybar, ee=e.set[ii], 
+                                 ss=s.test, Ve=0, Vg=Vg, M3g=M3g, M4g=M4g)
+    }
+for( ii in 1:length(e.set)){ 
+    e.sel.means.simple[ii] <- e.steep.dz.simple(Ybar=Ybar, ee=e.set[ii], 
+                                 ss=s.test, Ve=0, Vg=Vg, M3g=M3g, M4g=M4g)
+    }
+plot(e.set, unlist(lapply(after.sel.means,mean)) - Ybar, type="b", log="x")
+points(e.set, e.sel.means, type="b", col="red")
+points(e.set, e.sel.means.simple, type="b", col="green")
+
+# after.sel.popfit <- list()
+# for ( ii in 1:length(e.set)){
+#     after.sel.popfit[[ii]] <- st.exp.sel(after.sel.means[[ii]], ee=e.set[ii] ,ss=s.test)
+# }
+# 
+# plot(1,1, type="n", ylim=range(after.sel.popfit), xlim=range(e.set), log="xy")
+# for(ii in 1:length(e.set)){
+#     points(rep(e.set[ii], length(after.sel.popfit[[1]])), after.sel.popfit[[ii]])
+# }
+```
+
+Now test how well our approximation does at estimating the mean fitness for different selection coefficients.
+```{r}
+# simulate 100 populations
+pops <- alply(replicate(100, make.pop(NN=1000, ll=100, mean=0, sd=1)$ae),3)
+# for each one calculate the mean fitness using different strengths of selection
+popfits <- lapply(pops, function(X){
+    trait.vals.tmp <- apply(X, 1, sum) + anc.val
+    fit.vals.tmp <- do.call(mapply, c(cbind, lapply(trait.vals.tmp, 
+                           function(x) st.exp.sel(x, ss=s.test, ee=e.set))))
+    mean.fit.tmp <- apply(fit.vals.tmp, 2, mean)
+    return(mean.fit.tmp)
+})
+e.popfits <- lapply(pops, function(X){
+    trait.vals.tmp <- apply(X,1,sum) + anc.val
+    Ybar.tmp <- mean(trait.vals.tmp)
+    Vg.tmp <- var(trait.vals.tmp)
+    M3g.tmp <- moment(test.bigvals, order=3, central=TRUE)
+    M4g.tmp <- moment(test.bigvals, order=4, central=TRUE)
+    return(wbar(Ybar=Ybar.tmp, ee=e.set, ss=s.test, Ve=0, 
+                Vg=Vg.tmp, M3g=M3g.tmp, M4g=M4g.tmp, fit.func=st.exp.sel))
+})
+popfits <- do.call(mapply, c(cbind, popfits))
+e.popfits <- do.call(mapply, c(cbind, e.popfits))
+diff.popfits <- popfits - e.popfits
+m.e.popfits <- apply(e.popfits, 2, mean)
+# plot(1,1, type="n", ylim=range(.00000001,10000), xlim=range(e.set), log="xy", ylab="(sim - obs mean fit.)/mean fit.",
+#      xlab="epsilon")
+# for(ii in 1:length(e.set)){
+#     points( rep(e.set[ii], length(diff.popfits[,1])), abs(diff.popfits[,ii] / m.e.popfits[ii]) )
+#     points(e.set[ii], median(abs(diff.popfits[,ii] / m.e.popfits[ii])), pch=5, col="red")
+# }
+```
+
+
+```{r}
+e.popfits.2 <- lapply(pops, function(X){
+    trait.vals.tmp <- apply(X,1,sum) + anc.val
+    Ybar.tmp <- mean(trait.vals.tmp)
+    return(st.exp.sel(Ybar.tmp,ss = s.test,ee=e.set))
+})
+e.popfits.2 <- do.call(mapply, c(cbind, e.popfits.2))
+diff.popfits.2 <- popfits - e.popfits.2
+m.e.popfits.2 <- apply(e.popfits.2, 2, mean)
+plot(1,1, type="n", ylim=range(.00000001,10000), xlim=range(e.set), log="xy", ylab="(sim - obs mean fit.)/mean fit.",
+     xlab="epsilon")
+for(ii in 1:length(e.set)){
+    points( rep(e.set[ii], length(diff.popfits.2[,1])), 
+            abs(diff.popfits.2[,ii] / m.e.popfits.2[ii]) )
+    points(e.set[ii], median(abs(diff.popfits.2[,ii] / m.e.popfits.2[ii])), pch=5, col="red")
+    
+    points( rep(e.set[ii], length(diff.popfits[,1])) * 1.2, abs(diff.popfits[,ii] / m.e.popfits[ii]), pch=6 )
+    points(e.set[ii] * 1.2, median(abs(diff.popfits[,ii] / m.e.popfits[ii])), pch=5, col="green")
+}
+legend("topleft", legend=c("naive", "corrected"), pch=c(1,6))
+```
+
+One thing this shows is that we sometimes severely underestimates what the mean population fitness should be at intermediate ranges. Jensen's inequality explains why we multiply the fitness at the mean breeding value by a number greater than zero. Our fitness functions are convex. As a check, we also plot how the fitness of the mean breeding value would do as a prediction of the simulated mean fitness. It's reassuring to see that the approximation to the mean fitness that takes into account Jensen's inequality does do better than naively applying the fitness function to the mean. Unfortunately there is still a lot of variation. This probably corresponds to how much higher order moments of the breeding value distribution affect the mean fitness. However, if the approximation to the mean fitness tends to underestimate, then we would expect to overestimate the response to selection. As we saw before this is not the case since we tended to underestimate the response. A possible explanation is that we've failed to include enough moments in the calculation of $L_1$. The range in which we do get prediction is essentially entirely due to the first term in $L_1$. 
