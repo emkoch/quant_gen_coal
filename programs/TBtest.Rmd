@@ -103,7 +103,7 @@ s.test <- 0.1
 exp.sel <- function(x, s=s.test) return(exp(s*x))
 select.pop <- function(ind.eff, fit.func=exp.sel, ancestral.val=0, ...){
     fitness.values <- apply(ind.eff, MARGIN=1, FUN=function(x.set){
-        return(fit.func(x=sum(x.set) + ancestral.val, ...))})
+        return(fit.func(sum(x.set) + ancestral.val, ...))})
     #  Now sample rows for a new matrix proportionally to these fitness values
     NN <- nrow(ind.eff)
     sel.indicies <- sample.int(n=NN, size=NN, replace=TRUE,
@@ -355,3 +355,85 @@ legend("topleft", legend=c("naive", "corrected"), pch=c(1,6))
 ```
 
 One thing this shows is that we sometimes severely underestimates what the mean population fitness should be at intermediate ranges. Jensen's inequality explains why we multiply the fitness at the mean breeding value by a number greater than zero. Our fitness functions are convex. As a check, we also plot how the fitness of the mean breeding value would do as a prediction of the simulated mean fitness. It's reassuring to see that the approximation to the mean fitness that takes into account Jensen's inequality does do better than naively applying the fitness function to the mean. Unfortunately there is still a lot of variation. This probably corresponds to how much higher order moments of the breeding value distribution affect the mean fitness. However, if the approximation to the mean fitness tends to underestimate, then we would expect to overestimate the response to selection. As we saw before this is not the case since we tended to underestimate the response. A possible explanation is that we've failed to include enough moments in the calculation of $L_1$. The range in which we do get prediction is essentially entirely due to the first term in $L_1$. 
+
+# Cubic selection
+
+It does not seem like steeper than exponential selection will yield and scenarios where higher order moments of the breeding value distribution are important for the response to selection. The reason for this is that as selection becomes strong enough that second order terms of the selectin coefficient are important it is also strong enough that the weak selection approximation of Turelli and Barton breaks down. As a final test of the potential importance of deviations from normality on the response to selection I'll consider a cubic selection function. We'll play the same game as before and investigate what parameter space we get a good description of the response to selection.
+```{r}
+# Use the same simulated population as before
+pop <- test.pop.2
+# Define a cubic selection function
+cub.sel <- function(x, b0, b3, xm=0) return(ifelse(b0 + b3*(x-xm)^3 < 0, 0, b0 + b3*(x-xm)^3))
+```
+We are going to want to use the parameter $b_0$ to scale things so that fitness values don't go negative. This will give us a baseline fitness value and $b_3$ determines how steep the cubic selection is.
+```{r}
+test.vals <- sort(pop$ie)
+test.mean <- mean(test.vals)
+plot(test.vals, cub.sel(test.vals,50,.01,xm=test.mean), type="l", ylim=c(-0,150))
+points(test.vals, cub.sel(test.vals,50,.05,xm=test.mean), type="l", lty=2)
+points(test.vals, cub.sel(test.vals,50,.1,xm=test.mean), type="l", lty=3)
+legend("topleft", legend=c("b3=0.01", "b3=0.05", "b3=0.1"), lty=c(1,2,3))
+```
+
+Let's also check how fitness values are distributed in this test population.
+```{r}
+hist(cub.sel(test.vals, 50, .01, test.mean)/mean(cub.sel(test.vals, 50, .01,test.mean)))
+hist(cub.sel(test.vals, 50, .05, test.mean)/mean(cub.sel(test.vals, 50, .05, test.mean)))
+hist(cub.sel(test.vals, 50, .1, test.mean)/mean(cub.sel(test.vals, 50, .1, test.mean)))
+```
+
+This distribution of fitness values is not too crazy, so these look like they might be reasonable test parameters. Of course this function has sort of a strange shape, but we're going to forge ahead and hope that it's not too unrealistic. We could hope it would be an ideal situation for higher order moments of the distribution to matter because the fitness function is very flat in the range of the ancestral mean and begins to change rapidly as you move into the tails. Now we're going to select on the test population as before to see how things look.
+```{r}
+cube.seltest <- select.pop(pop$ae, fit.func=cub.sel,b0=50, b3=1)
+cube.bf.af <- data.frame(before=pop$ie, after=apply(cube.seltest, 1, sum))
+ggplot(cube.bf.af) + geom_histogram(aes(x=before, fill="before sel"), alpha=0.5) + 
+    geom_histogram(aes(x=after, fill="after sel"), alpha=0.5) + 
+    scale_fill_manual("pop state", values=c("red", "blue")) + xlab("phenotype value") +
+    theme_bw() + geom_vline(xintercept=mean(apply(cube.seltest, 1, sum)), color="red") + 
+    geom_vline(xintercept=mean(pop$ie), color="blue")
+```
+
+We can see that the change in the mean is rather small, but also that there is a shift in the phenotype distribution that is distinc from the two previous modes of selection we considered. Let's now write down equations that should tell us what the response to selection should be.
+```{r}
+wbar <- function(b0, b3, zbar, Vg, M3g){
+  return(b0 + b3 * zbar^3 + 3*Vg*b3*zbar + M3g*b3)
+}
+L1.3 <- function(b0, b3, zbar, Vg, M3g){
+  return(
+    (3*b3*zbar^2 + Vg * 3*b3) / wbar(b0, b3, zbar, Vg, M3g)
+  )
+}
+L2.3 <- function(b0, b3, zbar, Vg, M3g){
+  return(
+    3*b3*zbar / wbar(b0, b3, zbar, Vg, M3g)
+  )
+}
+L3.3 <- function(b0, b3, zbar, Vg, M3g){
+  return(
+    b3 / wbar(b0, b3, zbar, Vg, M3g)
+  )
+}
+e.dz.3 <- function(b0, b3, zbar, Vg, M3g, M4g){
+  l1 <- L1.3(b0, b3, zbar, Vg, M3g)
+  l2 <- L2.3(b0, b3, zbar, Vg, M3g)
+  l3 <- L3.3(b0, b3, zbar, Vg, M3g)
+  return(Vg * l1 + M3g*l2 + (M4g - 3 * Vg^2) * l3)
+}
+```
+
+Now as before let's repeat the selection on this one test population to get a sense for how well our theory agrees with the result.
+```{r}
+e.change <- e.dz.3(b0=200, b3=0.05, zbar=mean(pop$ie), Vg=var(pop$ie), M3g=moment(pop$ie, order=3, central=TRUE),
+                   M4g=moment(pop$ie, order=4, central=TRUE))
+cube.tests <- replicate(500, select.pop(pop$ae, fit.func=cub.sel,b0=50, b3=.05))
+cube.test.vals <- apply(cube.tests, 3, rowSums)
+cube.test.means <- apply(cube.test.vals, 2, mean)
+ggplot(data.frame(dz = cube.test.means - mean(pop$ie))) + geom_histogram(aes(x=dz)) + theme_bw() + 
+  geom_vline(xintercept=e.change, color="red") + geom_vline(xintercept = mean(cube.test.means - mean(pop$ie)))
+```
+
+Thankfully in this first test our equation seems to do very well. Now we'd like to know the range of $b_3$ for which the approximation works well. 
+```{r}
+b3.set <- c(0.001,0.01,0.02,0.05,0.1,0.2,0.5,1.0)
+
+```
