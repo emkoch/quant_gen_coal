@@ -119,6 +119,7 @@ ggplot(ts) + geom_histogram(aes(x=before.sel, fill="before sel"), alpha=0.5) +
     geom_histogram(aes(x=after.sel, fill="after sel"), alpha=0.5) +
     scale_fill_manual("pop state", values=c("red", "blue")) + xlab("phenotype value") +
     theme_bw()
+remove(test.select)
 ```
 
 As we would hope, the mean breeding value in the population increases after selection. We now want to perform this selection a large number of times and see how the change in mean phenotype corresponds to that expected from the Turelli and Barton theory. Under exponential selection they calculate that $L_1=s$ and $L_2\approx s^2/2$ while all other $L_k$ are close to zero. 
@@ -133,6 +134,7 @@ ggplot(data.frame(dz=test.rep.1.means - mean(test.pop.2$ie))) +
     geom_histogram(aes(x=dz), alpha=0.7) + theme_bw() + 
     geom_vline(xintercept=e.dz, color="red") + 
     geom_vline(xintercept=mean(test.rep.1.means - mean(test.pop.2$ie)))
+remove(test.rep.1)
 ```
 
 As we can see, the simulated change in phenotype due to selection agrees with the theory, indicating that we are doing everything well so far. Let's do a more extensive test of this though to ensure that the agreement at these parameter values isn't a fluke.
@@ -155,6 +157,7 @@ exp.test <- data.frame(cbind(exp.resp=e.dzs, obs.resp=o.dzs,
 ggplot(exp.test) + 
     geom_point(aes(x=exp.resp, y=obs.resp, size=var.before), alpha=0.1) + 
     theme_bw() + geom_abline(intercept=0, slope=1)
+remove(test.pops)
 ```
 
 This is enough to convince me that the Turelli and Barton equations work at least for exponential selection. The next test will be to see how well the equations that I have derived for steeper than exponential selection work as well. The fitness function for faster than exponential selection is 
@@ -241,6 +244,7 @@ ggplot(st.ts) + geom_histogram(aes(x=before.sel, fill="before sel"), alpha=0.5) 
     geom_histogram(aes(x=after.sel, fill="after sel"), alpha=0.5) +
     scale_fill_manual("pop state", values=c("red", "blue")) + xlab("phenotype value") +
     theme_bw()
+remove(test.select.st)
 ```
 
 As we can see this selection is substantially stronger than exponential selection alone. Now let's do the same test as before where we repeat selection on the the same population.
@@ -257,6 +261,7 @@ ggplot(data.frame(dz=test.rep.1.means.st - mean(test.pop.2$ie))) +
     geom_vline(xintercept=anc.val + e.dz.st, color="red") + 
     geom_vline(xintercept=anc.val + e.dz, color="blue") +
     geom_vline(xintercept=mean(test.rep.1.means.st - mean(test.pop.2$ie)))
+remove(test.rep.1.st)
 ```
 
 Now we want to evaluate how well this apprixmation works as the strength of selection increases.
@@ -369,10 +374,19 @@ We are going to want to use the parameter $b_0$ to scale things so that fitness 
 ```{r}
 test.vals <- sort(pop$ie)
 test.mean <- mean(test.vals)
-plot(test.vals, cub.sel(test.vals,50,.01,xm=test.mean), type="l", ylim=c(-0,150))
+plot(test.vals, cub.sel(test.vals,50,.01,xm=test.mean), type="l", ylim=c(-0,150), 
+     xlab="breeding value", ylab="fitness")
 points(test.vals, cub.sel(test.vals,50,.05,xm=test.mean), type="l", lty=2)
 points(test.vals, cub.sel(test.vals,50,.1,xm=test.mean), type="l", lty=3)
 legend("topleft", legend=c("b3=0.01", "b3=0.05", "b3=0.1"), lty=c(1,2,3))
+
+pdf("cub_shape.pdf")
+plot(test.vals, cub.sel(test.vals,50,.01,xm=test.mean), type="l", ylim=c(-0,150), 
+     xlab="breeding value", ylab="fitness", lwd=3)
+points(test.vals, cub.sel(test.vals,50,.05,xm=test.mean), type="l", lty=2, lwd=3)
+points(test.vals, cub.sel(test.vals,50,.1,xm=test.mean), type="l", lty=3, lwd=3)
+legend("topleft", legend=c("b3=0.01", "b3=0.05", "b3=0.1"), lty=c(1,2,3), lwd=rep(3,3))
+dev.off()
 ```
 
 Let's also check how fitness values are distributed in this test population.
@@ -384,7 +398,7 @@ hist(cub.sel(test.vals, 50, .1, test.mean)/mean(cub.sel(test.vals, 50, .1, test.
 
 This distribution of fitness values is not too crazy, so these look like they might be reasonable test parameters. Of course this function has sort of a strange shape, but we're going to forge ahead and hope that it's not too unrealistic. We could hope it would be an ideal situation for higher order moments of the distribution to matter because the fitness function is very flat in the range of the ancestral mean and begins to change rapidly as you move into the tails. Now we're going to select on the test population as before to see how things look.
 ```{r}
-cube.seltest <- select.pop(pop$ae, fit.func=cub.sel,b0=50, b3=1)
+cube.seltest <- select.pop(pop$ae, fit.func=cub.sel,b0=50, b3=0.05)
 cube.bf.af <- data.frame(before=pop$ie, after=apply(cube.seltest, 1, sum))
 ggplot(cube.bf.af) + geom_histogram(aes(x=before, fill="before sel"), alpha=0.5) + 
     geom_histogram(aes(x=after, fill="after sel"), alpha=0.5) + 
@@ -393,19 +407,42 @@ ggplot(cube.bf.af) + geom_histogram(aes(x=before, fill="before sel"), alpha=0.5)
     geom_vline(xintercept=mean(pop$ie), color="blue")
 ```
 
-We can see that the change in the mean is rather small, but also that there is a shift in the phenotype distribution that is distinc from the two previous modes of selection we considered. Let's now write down equations that should tell us what the response to selection should be.
+We can see that the change in the mean is rather small, but also that there is a shift in the phenotype distribution that is distinc from the two previous modes of selection we considered. Let's now write down equations that should tell us what the response to selection should be. We assume that the fitness function on breeding values is
+
+$$
+W_g(Y) = b_0 + b_3(Y-\bar{Y})^3.
+$$
+In this fitness function, the cubic curve is shifted so that the inflection point is at the mean breeding value in the population and the baseline fitness at htis value is $b_0$. This gives a scenario where, even though we are assuming that the evolution of the breeding values is neutral, the selection is centered on the \textit{random} populatio mean. $b_3$ determines how steep the increase in fitness is away from the population mean in one direction and how steep the decrease is in the other. We can calculate the approximate mean fitness and the selection gradients in the same way as before. In taking derivatives however we assume that $\bar{Y}$ does not depend on $Y$. 
+$$
+\bar{w} = b_0 + M_{3,g}b_3,
+$$
+$$
+L_1 = \frac{3V_gb_3}{\bar{w}},
+$$
+$$
+L_2 = 0,
+$$
+$$
+L_3 = \frac{b_3}{\bar{w}}.
+$$
+Combining these gradients into a single term for the response to selection we get.
+$$
+\Delta Y = \frac{3 V_g^2b_3 + (M_{4,g}-3V_g^2)b_3}{b_0 + M_{3,g}b_3} = 
+\frac{M_{4,g}b_3/b_0}{1 + M_{3,g}b_3/b_0} = \frac{M_{4,g}\beta}{1 + M_{3,g}\beta}
+$$
+We can see that the response to cubic selection depends only on $\beta$, the ratio of the steepness of cubic selction to the baseline fitness, as well as the third and fourth moments of the distribution of breeding values. It's important to note that we're considering selection on the breeding values directly here. This equation says more generally that the response to cubic selection depends linearly on the fourth moment of the phenotype distribution.
 ```{r}
 wbar <- function(b0, b3, zbar, Vg, M3g){
-  return(b0 + b3 * zbar^3 + 3*Vg*b3*zbar + M3g*b3)
+    return(b0 + M3g*b3)
 }
 L1.3 <- function(b0, b3, zbar, Vg, M3g){
   return(
-    (3*b3*zbar^2 + Vg * 3*b3) / wbar(b0, b3, zbar, Vg, M3g)
+    (Vg * 3*b3) / wbar(b0, b3, zbar, Vg, M3g)
   )
 }
 L2.3 <- function(b0, b3, zbar, Vg, M3g){
   return(
-    3*b3*zbar / wbar(b0, b3, zbar, Vg, M3g)
+    0
   )
 }
 L3.3 <- function(b0, b3, zbar, Vg, M3g){
@@ -423,9 +460,12 @@ e.dz.3 <- function(b0, b3, zbar, Vg, M3g, M4g){
 
 Now as before let's repeat the selection on this one test population to get a sense for how well our theory agrees with the result.
 ```{r}
-e.change <- e.dz.3(b0=200, b3=0.05, zbar=mean(pop$ie), Vg=var(pop$ie), M3g=moment(pop$ie, order=3, central=TRUE),
+e.change <- e.dz.3(b0=50, b3=0.05, zbar=mean(pop$ie), Vg=var(pop$ie), 
+                   M3g=moment(pop$ie, order=3, central=TRUE),
                    M4g=moment(pop$ie, order=4, central=TRUE))
-cube.tests <- replicate(500, select.pop(pop$ae, fit.func=cub.sel,b0=50, b3=.05))
+cube.tests <- replicate(500, select.pop(pop$ae, 
+                                        fit.func=cub.sel, b0=50,
+                                        b3=.05, xm=mean(pop$ie)))
 cube.test.vals <- apply(cube.tests, 3, rowSums)
 cube.test.means <- apply(cube.test.vals, 2, mean)
 ggplot(data.frame(dz = cube.test.means - mean(pop$ie))) + geom_histogram(aes(x=dz)) + theme_bw() + 
@@ -435,5 +475,28 @@ ggplot(data.frame(dz = cube.test.means - mean(pop$ie))) + geom_histogram(aes(x=d
 Thankfully in this first test our equation seems to do very well. Now we'd like to know the range of $b_3$ for which the approximation works well. 
 ```{r}
 b3.set <- c(0.001,0.01,0.02,0.05,0.1,0.2,0.5,1.0)
+sel.outcome <- lapply(b3.set, function(b3){
+    simulated <- c(); predicted <- c()
+    for(i in 1:50){
+        pop.tmp <- make.pop(NN=2000, ll=100, mean=0, sd=1)
+        mean.tmp <- mean(pop.tmp$ie)
+        var.tmp <- var(pop.tmp$ie)
+        M3.tmp <- moment(pop.tmp$ie, order = 3, central=TRUE)
+        M4.tmp <- moment(pop.tmp$ie, order = 4, central=TRUE)
+        sel.tmp <- select.pop(pop.tmp$ae, fit.func=cub.sel, b0=50, b3=b3, xm=mean.tmp)
+        remove(pop.tmp)
+        m.post.sel <- mean(rowSums(sel.tmp))
+        simulated[i] <- m.post.sel - mean.tmp
+        predicted[i] <- e.dz.3(b0=50, b3=b3, zbar=mean.tmp, Vg=var.tmp, 
+                   M3g=M3.tmp,M4g=M4.tmp)
+    }
+    return(data.frame(sim=simulated, pred=predicted))
+})
+full <- do.call("rbind", sel.outcome)
+full$b3 <- unlist(lapply(b3.set/50, function(x) rep(x, 50)))
 
+pdf("cubic_sel.pdf", height=5, width=10)
+ggplot(full) + geom_point(aes(x=pred, y=sim)) + facet_grid( ~ b3, scales="free") +
+        geom_abline(slope=1,intercept = 0) + theme_bw()
+dev.off()
 ```

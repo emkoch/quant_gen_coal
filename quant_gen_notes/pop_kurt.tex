@@ -25,6 +25,7 @@ the population are exchangeable. The resulting expansion of
 considering terms of order one. Other terms can be ignored since we are
 assuming there are a fair number of individuals in the population. This yields
 \begin{align}
+  \label{eq:popkurt}
   E\left[ \left( Y_i - \frac{\sum Y_j}{N} \right)^4 \right] &=
   E[Y_i^4]  - \frac{4(n-1)}{n}E[Y_i^3Y_j] + \frac{6(n-1)(n-2)}{n^2}E[Y_i^3Y_jY_k]  \nonumber \\
   &- \frac{4(n-1)(n-2)(n-3)}{n^3}E[Y_iY_jY_kY_l] \nonumber \\
@@ -32,9 +33,50 @@ assuming there are a fair number of individuals in the population. This yields
   + O(n^{-1}) \nonumber \\
   &\approx E[Y_i^4]  - 4E[Y_i^3Y_j] + 6E[Y_i^2Y_jY_k] - 3E[Y_iY_jY_kY_l].
 \end{align}
-Unfortunately I don't yet have expressions for the last three terms in expected
-branch lengths.
-%%% Local Variables: 
+
+The first term, $E[Y_i^4]$ was derived in equation \eqref{eq:mom4} as
+\begin{equation*}
+  L\T m_4 E[T_{MRCA}] + 3L(L-1)\left( \T m_2 E[T_{MRCA}] \right)^2.
+\end{equation*}
+The second term, $E[Y_i^3Y_j]$ was derived in equation \eqref{eq:m31} as
+\begin{equation*}
+  L \T m_4 E[\tau_{a+b}] + 3L(L-1) \left(\T m_2\right)^2 E[T_{MRCA}]E[\tau_{a+b}].
+\end{equation*}
+The third term, $E[Y_i^2Y_jY_k]$ was derived in equation \eqref{eq:m211} as
+\begin{equation*}
+  L \T m_4 E[\tau_{a+b+c}] + L(L-1)\left(\T m_2\right)^2E[T_{MRCA}]E[\tau_{a+b}] +
+  2L(L-1) \left(\T m_2\right)^2E[\tau_{a+b}]^2.
+\end{equation*}
+The fourth term, $E[Y_iY_jY_kY_l]$ was derived in equation \eqref{eq:m1111} as
+\begin{equation*}
+  L \T m_4 E[\tau_{a+b+c+d}] + 3L(L-1)\left(\T m_2\right)^2E[\tau_{a+b}]^2.
+\end{equation*}
+Plugging these into \eqref{eq:popkurt} we get
+\begin{align}
+  \label{eq:popm4coal}
+  E[M_{4,Y}] &\approx L \T m_4 \left( E[T_{MRCA}] - 4E[\tau_{a+b}] + 6E[\tau_{a+b+c}] -3E[\tau_{a+b+c+d}] \right)\nonumber \\
+  &+ 3\left( L \T m_2 \right)^2\left(E[T_{MRCA}]- E[\tau_{a+b}]\right)^2.
+\end{align}
+These expressions approximate $L(L-1)$ as $L^2$ as part of the low mutation rate
+approximation. The fourth central moment of a normal distribution is
+$3\sigma^4$. Using the expected population variance we get $3\left(L\T m_2
+E[T_{MRCA}]- E[\tau_{a+b}]\right)^2$. It is clear from \eqref{eq:popm4coal} that
+as $L\T$ gets large the second term will dominate and the population will have
+the same expected kurtosis as a normal distribution. The expected population kurtosis
+is
+\begin{equation*}
+  E[Kurt] \approx 3 + \frac{\mbox{Kurt}[M]( E[T_{MRCA}] - 4E[\tau_{a+b}] +
+    6E[\tau_{a+b+c}] -3E[\tau_{a+b+c+d}])}{L \T E[T_{MRCA}]- E[\tau_{a+b}]}.
+\end{equation*}
+This expression can be written in an easier to interpret form by noting that
+$E[\tau_{a+b}]=E[T_{MRCA}] - E[T_2]$, $E[\tau_{a+b+c}]=E[T_{MRCA}] - E[T_3]$,
+$E[\tau_{a+b+c+d}]=E[T_{MRCA}] - E[T_4]$, where $T_i$ is the expected time it
+takes for $i$ lineages to coalesce.
+\begin{equation}
+  \label{eq:popkurtcoal}
+  E[Kurt] \approx 3 + \frac{\mbox{Kurt}[M]( 4T_2 - 6T_3 + 3T_4)}{L \T T_2}.
+\end{equation}
+In a constant size population this would be $3 + \frac{\mbox{Kurt}[M]}{2L\T}$
 %%% mode: latex
 %%% TeX-master: "notes.tex"
 %%% End: 
