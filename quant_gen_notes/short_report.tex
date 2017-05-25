@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{natbib}
+\usepackage[textwidth=5.8in, textheight=8in]{geometry}
+\usepackage{lipsum}
+\usepackage[mathscr]{eucal}
+\usepackage{graphicx}
+
+\newcommand{\T}{\frac{\theta}{2}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+
+\begin{document}
+
+\title{Quantitative trait distributions and the coalescent process}
+\maketitle
+
+\section{Introduction}
+
+Evolutionary quantitative genetics almost always models phenotypes as normally
+distributed. Indeed, it has been suggested that this is the defining
+characteristic of the field \citep{Rice2004}. In this framework the phenotypic
+distribution at all levels between individuals, families, populations, and
+species is completely described by of a set of means, variances, covariances
+\citep{Falconer1996}. Under the infinitesimal model, beginning with
+\citet{Fisher1919}, the phenotypic trait is controlled by a very large number of
+loci and the normality assumption well-justified.
+
+The infinitesimal model has been a powerful tool in many areas of evolutionary
+genetics. Among others, it has been used to find traits under selection in
+natural populations \citep{Price1984}, determine which dimensions in phenotype
+space are favored by females during sexual selection \citep{Blows2004}, and test
+for phylogenetic signal in phenotypic evolution \citep{Freckleton2002}. Such
+studies and other provide great biological insights without worrying about
+potentially complex evolutionary dynamics at multiple loci because the entire
+system can be described in terms of the first and second order moments.
+
+However, heritable phenotypic variation is ultimately due to discrete mutations
+at discrete loci, and how this variation is distributed depends on the
+genealogies at these loci. Classical neutral models of phenotypic evolution
+incorporate the effects of factors like population size and subdivision on
+genealogies and therefore phenotypic variation \cietp{Lynch1986,Lande1992}.
+These models have examined the dynamics of phenotypic evolution forwards in time
+as a balance between mutation that creates variance, mutation that spreads it
+among subpopulations, and fixation that removes it. The focus has been to find
+equilibrium genetic variances and the rate at which these are approached.
+
+The principle modeling framework for variation in genealogies is the coalescent
+process with all its varied extensions \citep{Wakeley2008}, but few studies have
+attempted to connect this theory with quantitative genetics. The most well known
+of these is \citet{Whitlock1999}, who used a coalescent argument to show that
+$Q_{ST}$ and $F_{ST}$ have the same expected value under general models of
+population subdivision. \citet{Griswold2007} used coalescent simulations to
+investigate the effects of shared ancestry and linkage disequilibrium on the
+matrix of genetic variances and covariances between traits
+($\mbox{\textbf{G}}$). They found that the eigenvalues of the expected matrix
+and the expected eigenvalues can be quite different. Most recently,
+\citet{Schraiber2015} developed a very general model of quantitative trait
+evolution based on the coalescent that allows for an arbitrary distribution of
+mutational effects and number of loci affecting the trait. They derive the
+characteristic function for the distribution of phenotypic values in a sample
+and show how such values can deviate strongly from normality when the number of
+loci is small or the mutational distribution has fat tails.
+
+The results of \citet{Schraiber2015} were derived for a panmictic, constant-size
+population. Here, I generalize their work to an arbitrary distribution of
+coalescent times for which their main result, the characteristic function of the
+sampling distribution of phenotypic values, is a special case. I then show how
+the normal, infinitesimal model arises by taking appropriate limits. I then
+calculate the kurtosis of the phenotypic distribution to illustrate the
+dependence of departures from normality on both the mutational and genealogical
+distributions.
+
+\section{Notation}
+Before deriving anything, it is helpful to describe the various quantities of
+interest and the notation used to describe them. The principle quantity of
+interest are the quantitative trait values. Hereafter I'll simply refer to these
+as trait values even though it might be more precise to call them breeding
+values or additive genetic values. The random vector of trait values in the
+sampled individuals is $\mathbf{Y}$, and an element $Y_a$ of $\mathbf{Y}$ is the
+trait value in individual $a$. An important thing to remember about the trait
+values is that they really refer to the change in the trait value since the most
+recent common ancestor of the sample. Since we do not know what the trait value
+of this ancestor was, these trait values are not directly observed. Rather, they
+determine other summaries one might calculate from a sample of measured
+phenotypes.
+
+The random vector of branch lengths describing the genealogy at a locus is
+$\mathbf{T}$, and an element $T_{a,b}$ of $\mathbf{T}$ is the branch length
+subtending individuals $a$ and $b$. $\omega$ will be used to denote a particular
+set of individuals and hence a branch on the genealogy, and $\Omega$ is the set
+of all possible branches. For instance, if there are three sampled individuals,
+$a$, $b$, and $c$, then $\mathbf{Y}=\{Y_a,Y_b,Y_c\}$,
+$\mathbf{T}=\{T_a,T_b,T_c,T_{a,b},T_{a,c},T_{b,c}\}$, and
+$\Omega=\{(a),(b),(c),(a,b),(a,c),(b,c)\}$. Realizations of the random trait
+values and branch lengths use the same notation with lowercase letters.
+
+Another useful piece of notation is for sums of branch lengths. Let $\tau_{a+b}$
+be the random sum of all branches containing both $a$ and $b$. Conversely,
+$\tau_{a/b}$ will be the random sum of all branches containing $a$ and not $b$.
+Extensions of this for more than two individuals are used. The same notation is
+used when referring to sets of branch indices. So $\Omega_{a+b}$ and
+$\Omega_{a/b}$ would be the sets of branches summed to give the above lengths.
+
+Other important genetic quantities are $L$, the number of loci at which
+mutations affect the trait, and $\T$, the mutation rate. The moment generating
+function for the distribution of mutational effects is $\psi()$ and the moments
+of this distribution are $m_i$. Moment generating functions for the distribution
+of branch lengths and distribution of trait values are $\varphi_{\mathbf{T}}$
+and $\varphi_{\mathbf{Y}}$.
+
+\section{The moment generating function for the distribution of trait values}
+
+
+\bibliographystyle{genetics}
+\bibliography{quant_gen}
+
+\end{document}
