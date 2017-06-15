@@ -40,10 +40,9 @@ Substituting this into equation \ref{eq:mgf_L} we get
   \biggl( 1 &+ \frac{\theta}{2} \sum_{\omega \in \mathcal{O}} E[t_{\omega}]\left( m_1 \left(
   \sum_{a \in \omega} k_a \right) + \frac{m_2}{2} \left( \sum_{a \in \omega}
   k_a\right)^2 + \ldots \right) \\
-  &+ \sum_{\omega_1 \neq \omega_2} \T\left( m_1 \sum_{a \in \omega_1} k_a + \ldots \right)
-  \T \left( m_1 \sum_{b \in \omega_2} k_b + \ldots \right)
-  E[t_{\omega_1\omega_2}] \\
-  &+ \sum_{\omega \in \mathcal{O}} \left(\T\right)^2\left(m_1 \sum_{a \in \omega} k_a +
+  &+ \sum_{\omega_1 \neq \omega_2} E[t_{\omega_1}t_{\omega_2}]\T\left( m_1 \sum_{a \in \omega_1} k_a + \ldots \right)
+  \T \left( m_1 \sum_{b \in \omega_2} k_b + \ldots \right) \\
+  &+ \sum_{\omega \in \mathcal{O}} E[t^2_{\omega}] \left(\T\right)^2\left(m_1 \sum_{a \in \omega} k_a +
   \ldots \right)^2 E[t^2_{\omega}] \biggr)^L.
 \end{align}
 Now if we take the limit such that $L\T m_1 \to \mu$ and $L\T m_2\to \sigma^2$

@@ -1,3 +1,4 @@
+
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{natbib}
@@ -10,6 +11,7 @@
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Pro}{\mathrm{P}}
 
 \begin{document}
 
@@ -23,24 +25,25 @@ distributed. Indeed, it has been suggested that this is the defining
 characteristic of the field \citep{Rice2004}. In this framework the phenotypic
 distribution at all levels between individuals, families, populations, and
 species is completely described by of a set of means, variances, covariances
-\citep{Falconer1996}. Under the infinitesimal model, beginning with
+\citep{Falconer1996}. Under the infinitesimal model that began with
 \citet{Fisher1919}, the phenotypic trait is controlled by a very large number of
-loci and the normality assumption well-justified.
+loci and the normality assumption is well-justified.
 
-The infinitesimal model has been a powerful tool in many areas of evolutionary
-genetics. Among others, it has been used to find traits under selection in
-natural populations \citep{Price1984}, determine which dimensions in phenotype
-space are favored by females during sexual selection \citep{Blows2004}, and test
-for phylogenetic signal in phenotypic evolution \citep{Freckleton2002}. Such
-studies and other provide great biological insights without worrying about
-potentially complex evolutionary dynamics at multiple loci because the entire
-system can be described in terms of the first and second order moments.
+The infinitesimal-normal model has been a powerful tool in many areas of evolutionary
+genetics. Among its many successes, it has been used to find traits under
+selection in natural populations \citep{Price1984}, determine which dimensions
+in phenotype space are favored by females during sexual selection
+\citep{Blows2004}, and test for phylogenetic signal in phenotypic evolution
+\citep{Freckleton2002}. Such studies and other provide great biological insights
+without worrying about potentially complex evolutionary dynamics at multiple
+loci because the entire system can be described in terms of the first and second
+order moments.
 
 However, heritable phenotypic variation is ultimately due to discrete mutations
 at discrete loci, and how this variation is distributed depends on the
 genealogies at these loci. Classical neutral models of phenotypic evolution
 incorporate the effects of factors like population size and subdivision on
-genealogies and therefore phenotypic variation \cietp{Lynch1986,Lande1992}.
+genealogies and therefore phenotypic variation \citep{Lynch1986,Lande1992}.
 These models have examined the dynamics of phenotypic evolution forwards in time
 as a balance between mutation that creates variance, mutation that spreads it
 among subpopulations, and fixation that removes it. The focus has been to find
@@ -55,13 +58,20 @@ population subdivision. \citet{Griswold2007} used coalescent simulations to
 investigate the effects of shared ancestry and linkage disequilibrium on the
 matrix of genetic variances and covariances between traits
 ($\mbox{\textbf{G}}$). They found that the eigenvalues of the expected matrix
-and the expected eigenvalues can be quite different. Most recently,
-\citet{Schraiber2015} developed a very general model of quantitative trait
-evolution based on the coalescent that allows for an arbitrary distribution of
-mutational effects and number of loci affecting the trait. They derive the
-characteristic function for the distribution of phenotypic values in a sample
-and show how such values can deviate strongly from normality when the number of
-loci is small or the mutational distribution has fat tails.
+and the expected eigenvalues can be quite different. \citet{Ovaskainen} used the
+older (but deeply related \citep{\Tavare1984}) formalism of coancestry
+coefficients to model the full distribution of correlated traits in related
+subpopulations. Their main result is that the covaraince in additive genetic
+values, conditional on the G-matrix in the ancestral population, depends only on
+the set of pairwise coancestry coefficients.
+
+Most recently, \citet{Schraiber2015} developed a very general model of
+quantitative trait evolution based on the coalescent that allows for an
+arbitrary distribution of mutational effects and number of loci affecting the
+trait. They derive the characteristic function for the distribution of
+phenotypic values in a sample and show how such values can deviate strongly from
+normality when the number of loci is small or the mutational distribution has
+fat tails.
 
 The results of \citet{Schraiber2015} were derived for a panmictic, constant-size
 population. Here, I generalize their work to an arbitrary distribution of
@@ -111,6 +121,104 @@ of branch lengths and distribution of trait values are $\varphi_{\mathbf{T}}$
 and $\varphi_{\mathbf{Y}}$.
 
 \section{The moment generating function for the distribution of trait values}
+The distribution of trait values in a population sample is rather complex in its
+general form. The distribution has a point mass at zero corresponding the
+possibility that no mutations affecting the trait occur in the history of the
+sample. Correlations between individuals arise because of shared history in the
+genealogies at individual loci with discrete topologies as well was where on
+these genealogies mutations, whose effects may come from a discrete or
+continuous distribution, occur. An analytical expression for the distribution of
+trait values certainly does not exist.
+
+However, it is possible at least in some cases to find the moment generating
+function (mgf) of this distribution. The mgf for the trait values due to a
+single nonrecombining locus is defined as
+\begin{equation}
+  \label{eq:mgfdef}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) = \E\left[ e^{\mathbf{k} \cdot \mathbf{Y}} \right] =
+  \int e^{\mathbf{k} \cdot \mathbf{Y}} \Pro(\mathbf{Y}=\mathbf{y}) \mbox{d}\mathbf{y}.
+\end{equation}
+The vector $\mathbf{k}$ contains dummy variables for the integral transformation
+of the probability distribution. This can be rewritten by conditioning on the
+genealogy to give
+\begin{align}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) &= \int e^{\mathbf{k} \cdot \mathbf{Y}}
+  \int \Pro(\mathbf{Y}=\mathbf{y} | \mathbf{T}=\mathbf{t}) \Pro(\mathbf{T}=\mathbf{t})
+  \mbox{d}\mathbf{t} \mbox{d}\mathbf{y}\\
+  &= \int \int e^{\mathbf{k} \cdot \mathbf{Y}} \Pro(\mathbf{Y}=\mathbf{y} | \mathbf{T}=\mathbf{t}) \mbox{d}\mathbf{y}
+  \Pro(\mathbf{T}=\mathbf{t})
+  \mbox{d}\mathbf{t}.
+\end{align}
+
+To proceed it is necessary to make assumptions about the mutational process.
+These are that mutations occur as a Poisson process along branches and that
+mutations at a locus simply add to the effects of previous mutations (the
+continuum-of-alleles model \citep{Kimura1965}). Under these assumptions, the
+changes in the trait value along each branch are conditionally independent given
+the branch lengths. \citet{Schraiber2015} note that this describes a compound
+Poisson process. The mgf of a compound Poisson process with rate $\lambda$ over
+time $t$ is $\exp(\lambda t (\psi(k)-1))$, where $\psi$ is the mgf of the
+distribution of jumps. Additionally, the mgf of two completely correlated random
+variables with the same marginal distribution is $\varphi_{X_1}(k_1+k_2)$, where
+$\varphi_{X_1}$ is the mgf of the marginal distribution.
+
+The mgf of the trait values is therefore
+\begin{equation}
+  \label{eq:fullmgf}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) = \prod_{\omega \in \mathcal{O}}
+  \int \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)\right)
+  \Pro(\mathbf{T}=\mathbf{t})\mbox{d}\mathbf{t}.
+\end{equation}
+This is simply the moment generating function for $\mathbf{T}$ with
+$\frac{\theta}{2} \left( \psi(\sum_{i \in \omega}k_{\omega}) -1 \right)$
+substituted for the dummy variable of branch $T_{\omega}$. Or,
+\begin{equation}
+  \label{eq:sub}
+  \varphi_{\mathbf{T}}(\mathbf{s})\Bigr|_{s_{\omega}=\frac{\theta}{2} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)}.
+\end{equation}
+
+Equation \eqref{eq:sub} shows that if the mgf of the distribution of branch
+lengths is known, then the mgf of the trait values can be obtained through a
+simple substitution. \citet{Lohse2011} derived genealogy mgfs for various
+population models including migration and splitting of subpopulations. Using
+their result for a single population it is possible to get equation (1) of
+\citet{Schraiber2015} using the substitution defined by equation \eqref{eq:sub}.
+The same could be done for models with migration between subpopulations although
+the number of terms in the recursion for the genealogy mgf quickly becomes very
+large. 
+
+\section{The infinitesimal limit}
+It is instructive to see how this very general model converges to the
+infinitesimal when the right limits are taken. This is done by first
+substituting Taylor series for the genealogical and mutational distributions in
+equation \eqref{eq:fullmgf}. Taking the limits $L\T m_1 \to \mu$,
+$L\T m_2\to \sigma^2$, $L\T m_i\to 0$ for $i>2$, and
+$L^i\left(\T\right)^j \to 0$ for $i<j$ as $L\to \infty$ yields
+\begin{equation}
+  \label{eq:clt}
+  \exp \left( \frac{\theta}{2} \sum_{\omega \in \Omega}E[t_{\omega}] \left( \mu \left(
+  \sum_{a \in \omega} k_a\right) + \frac{\sigma^2}{2}\left( \sum_{a \in \omega}
+  k_a\right)^2\right)\right).
+\end{equation}
+This is the mgf for a multivariate normal distribution where the expected trait
+value is $E[T_{MRCA}] \mu$, the variance is $E[T_{MRCA}]\sigma^2$, and the
+covariance between trait values in two individuals $a$ and $b$ is
+$(E[\tau_{a+b}]) \sigma^2$. $\mu$ can be interpreted as the rate of change in
+the mean trait value per generation per genome due to mutational pressure.
+$\sigma^2$ can be interpreted as the rate of accumulation of variance in trait
+values per generation per genome. Interestingly, the trait variance appears to be
+proportional to the second moment of the mutational distribution and not the
+variance. 
+
+Since the distribution of trait values is normally distributed, any linear
+combination of sampled trait values will be as well. This includes the
+distributions of observable quantities like the differences in trait values from
+some reference individual or from a sample mean. This provides additional
+theoretical justification for studies using normal models to look for
+differences in selection on quantitative traits between populations
+\citep{Ovaskeinen2011,Praebel2013,Berg2014,Robinson2015}. 
+\section{Low mutation rate approximation}
+
 
 
 \bibliographystyle{genetics}
