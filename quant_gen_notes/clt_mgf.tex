@@ -32,7 +32,8 @@ Noting that $\frac{d^n}{dk^n}\varphi_X(k)\Bigr|_{k=0} = E[X^n]$, if we let $m_1$
 be the mean and $m_2$ be the second moment of the mutational distribution, then
 \begin{equation}
   \psi\left( \sum_{a \in \omega} k_a \right) = 1 + m_1 \left( \sum_{a \in \omega}
-  k_a\right) + m_2/2\left( \sum_{a \in \omega} k_a\right)^2 + \ldots.
+  k_a\right) + m_2/2\left( \sum_{a \in \omega} k_a\right)^2 + 
+m_3/2\left( \sum_{a \in \omega} k_a\right)^3 +\ldots.
   \nonumber
 \end{equation}
 Substituting this into equation \ref{eq:mgf_L} we get
@@ -43,7 +44,7 @@ Substituting this into equation \ref{eq:mgf_L} we get
   &+ \sum_{\omega_1 \neq \omega_2} E[t_{\omega_1}t_{\omega_2}]\T\left( m_1 \sum_{a \in \omega_1} k_a + \ldots \right)
   \T \left( m_1 \sum_{b \in \omega_2} k_b + \ldots \right) \\
   &+ \sum_{\omega \in \mathcal{O}} E[t^2_{\omega}] \left(\T\right)^2\left(m_1 \sum_{a \in \omega} k_a +
-  \ldots \right)^2 E[t^2_{\omega}] \biggr)^L.
+  \ldots \right)^2\biggr)^L.
 \end{align}
 Now if we take the limit such that $L\T m_1 \to \mu$ and $L\T m_2\to \sigma^2$
 as $L \to \infty$ we get

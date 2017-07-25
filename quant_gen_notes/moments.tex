@@ -11,7 +11,7 @@ be approximated as
 \begin{equation}
   \label{eq:mgf_approx_1}
   \varphi_{\mathbf{Y}}(\mathbf{k}) \approx \left[ 1 + \sum_{\omega \in \mathcal{O}}
-    E[t_\omega] \T \left( \phi\left( \sum_{a \in \omega} k_a\right) -1 \right) \right]^L.
+    E[t_\omega] \T \left( \psi\left( \sum_{a \in \omega} k_a\right) -1 \right) \right]^L.
 \end{equation}
 This expression ignores any terms of the genealogy moment generation function
 shown in equation \ref{eq:mgf_L} above order one. These terms are not written
@@ -19,23 +19,3 @@ because they contain products of mutation rates and coalescent times of order
 two and greater. Removing these terms means that equation \ref{eq:mgf_approx_1}
 is free of terms giving the expectations of products such as $E[\T t_{\omega_1}
   \T t_{\omega_2}]$.
-
-%% but it still contains products of expectations like $E[\T
-%%   t_{\omega_1}]E[\T t_{\omega_2}]$. Both correspond to the instance where
-%% multiple mutations occurs at a single locus. Such terms can be eliminated
-%% entirely if substitute the Taylor series of the moment generating function of
-%% the mutational distribution into equation \ref{eq:mgf_approx_1}. This gives
-%% \begin{equation}
-%%   \label{eq:mgf_approx_2}
-%%   \varphi_{\mathbf{Y}}(\mathbf{k}) \approx
-%%   1 + \T L \sum_{\omega \in \mathcal{O}} E[t_\omega]
-%%   \left( \sum_{n=1}^\infty \frac{m_n}{n!} ( \sum_{a \in \omega}k_a)^n\right).
-%% \end{equation}
-%% Taking derivatives of equation \ref{eq:mgf_approx_2} and setting $\mathbf{k}$
-%% equal to zero allows easy calculation of any moment of the trait value
-%% distribution. For instance, the moment $E[y_a^i y_b^j y_c^k]$ is
-%% \begin{equation}
-%%   \T L \frac{m_{i+j+k}}{i!j!k!} \sum_{\omega : a,b,c \in \omega} E[t_\omega].
-%% \end{equation}
-%% This has the property that any moment is proportional to the expected shared
-%% branch length.
