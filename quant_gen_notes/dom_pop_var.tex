@@ -1,0 +1,22 @@
+The variance in trait values between individuals determines the expected
+variance in the population. This variance can be written as
+\begin{equation*}
+  \Var( \sum_{l=1}^L f(Y_{1,l,1},Y_{1,l,2}) - \sum_{l=1}^L f(Y_{2,l,1},Y_{2,l,2}) ).
+\end{equation*}
+The important term to calculate is
+$\Cov(f(Y_{1,l,1},Y_{1,l,2}),f(Y_{2,l,1},Y_{2,l,2})) = \E[f(Y_{1,l,1},Y_{1,l,2}),f(Y_{2,l,1},Y_{2,l,2})]$.
+We can use the law of total expectation to calculate this again
+conditioning on different mutational configurations. The configurations
+that lead to a nonzero expectation if one mutation occurs is present in each individual,
+three mutations occur, or four mutations occur. There are four ways for the two individuals
+to each have one mutant copy. When this occurs the expected product will be $b^2m_w$. There
+are four ways for a mutation to be present in three copies and when this occurs the expected
+product will be $2b m_2$. There is one way to have a mutation present in all four copies
+and the expected product is $4m_2$.
+
+We can then us the probability of each type of mutational configuration occurring
+to calculate the covariance. 
+
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:
