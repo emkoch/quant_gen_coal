@@ -1,0 +1,9 @@
+\beamer@endinputifotherversion {3.24pt}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Various models of neutral trait evolution}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Trait models using the coalescent}{6}{0}{1}
+\beamer@subsectionintoc {1}{3}{Goals}{8}{0}{1}
+\beamer@sectionintoc {2}{Results}{9}{0}{2}
+\beamer@subsectionintoc {2}{1}{The moment generating function of the trait value distribution}{9}{0}{2}
+\beamer@subsectionintoc {2}{2}{Low mutation rate approximations}{14}{0}{2}
+\beamer@subsectionintoc {2}{3}{The infinitesimal limit}{18}{0}{2}
