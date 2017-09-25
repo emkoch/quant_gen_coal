@@ -148,10 +148,11 @@ class geneMGF_struct(geneMGF.geneMGF):
                 Eqns.append(deme_part_eqn)
             # Solve the system of equations
             print("Trying to solve a system of " + str(len(Eqns)) + " equations")
-            for Eqn in Eqns:
-                print(Eqn)
+            # for Eqn in Eqns:
+                # print(Eqn)
             solution = sympy.solve(Eqns, deme_part_symbols, simplify=False)
             return deme_partitions, solution
+        
         solution_set = dict()
         for ii in range(num_demes):
             partition = []
@@ -161,6 +162,7 @@ class geneMGF_struct(geneMGF.geneMGF):
                 else: 
                     partition.append([])
             solution_set[make_sol_key(geneMGF.deme_part_to_symbol(partition))] = [partition, sympy.Integer(1)]
-        print(solution_set)
+        # print(solution_set)
+        
         partition, solution = solve_markov(self.lineages, solution_set)
-        return solution
+        return solution#[geneMGF.deme_part_to_symbol(initial_config)]
