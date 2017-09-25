@@ -210,7 +210,7 @@ $E[\tau_{a+b}] \sigma^2$. More detail is given in Appendix \ref{clt}.
 $\mu$ can be interpreted as the rate of change in the mean trait value per
 generation per genome due to mutational pressure. $\sigma^2$ can be interpreted
 as the rate of accumulation of variance in trait values per generation per
-genome. Interestingly, the trait variance appears to be proportional to the
+genome. Interestingly, the rate of variance accumulation is proportional to the
 second moment of the mutational distribution and not the variance.
 
 Since the distribution of trait values is normally distributed, any linear
@@ -277,11 +277,10 @@ differences in trait values between individuals, and equation \eqref{eq:kurt1}
 also holds for the kurtosis of trait differences if the expected TMRCA is
 replaced by twice the expected coalescence time. 
 
-The expected trait kurtosis in a populations of individuals may also be of
-interest as individuals with extreme trait values could be important for future
-selection or could be mistakenly thought to be adapted to a different
-environment. When individuals are exchangeable, the population kurtosis is given
-by
+The expected trait kurtosis in a populations of individuals is also of interest
+as individuals with extreme trait values could be important for future selection
+or could be mistakenly thought to be adapted to a different environment. When
+individuals are exchangeable, the population kurtosis is given by
 \begin{equation}
   \label{eq:popkurtcoal}
   \E[\mbox{Kurt}] \approx 3 + \frac{\kappa( 4\E[T_2] - 6\E[T_3] + 
@@ -289,9 +288,43 @@ by
 \end{equation}
 where $T_i$ is the expected $T_{MRCA}$ for a sample of size $i$. The relative
 values of these different coalescence times affects the population kurtosis. In
-a constant size population equation \eqref{eq:popkurtcoal} reduces to
-$3 + \frac{\kappa}{2L\T \E[T_2]}$ as expected. More details on the derivation of
-both kurtosis values is given in Appendix \ref{kurt}.
+a constant size population equation \eqref{eq:popkurtcoal} reduces to $3 +
+\frac{\kappa}{2L\T \E[T_2]}$ as expected. For a constant size population this
+result agrees with that in \citet{Schraiber2015}. More details on the derivation
+of both kurtosis values is given in Appendix \ref{kurt}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{kurt_land.pdf}
+  \caption{\footnotesize The expected population kurtosis under different step
+    population size changes. Red lines are isoclines where the expected number
+    of mutations is constant. Green lines are isoclines where the expected
+    kurtosis is constant.}
+  \label{fig:kurtscape}
+\end{figure}
+
+The excess kurtosis in Equation \ref{eq:popkurtcoal} can be broken down into
+contributions from the mutational distribution ($\kappa$), from the sparsity of
+the trait's genetic architecture ($L \T \E[T_2]$), and from the deviation of
+the coalescent time distribution from that in a constant-size population
+($\frac{ 4\E[T_2] - 6\E[T_3] + 3\E[T_4] }{ \E[T_2] }$). The interaction of these
+contributions can be investigated by examining the excess kurtosis under
+different demographies. A step change in population size is a simple example do
+this with.
+
+Figure \ref{fig:kurtscape} shows expected excess kurtosis when the population
+size changes at different times (expressed in $N_0$ generations) and to
+different sizes (expressed relative to $N_0$). As expected, the kurtosis
+increases when the population size decreases after the step change. The
+magnitude of this increase is less the longer one waits for the population size
+to change. However, the main reason for this is that a change in population size
+affects the expected number of mutations, and more mutations mean a lower
+kurtosis. The impact of the coalescent time distribution aside from this effect
+is illustrated by the difference between the red isoclines for the expected
+number of mutations and the green isoclines for the expected kurtosis. The
+step-change demography tends to increase the expected kurtosis when the expected
+number of mutations is small and decrease it when the expected number of
+mutations is large.
 
 In general, for the kurtosis to substantially exceed that of the normal
 distribution, the expected number of variants affecting the trait must at least
@@ -425,7 +458,7 @@ which is equivalent to
 \begin{equation*}
   1 + \sum_{\Omega} \E[T_\omega] \T \sum_{n=1}^{\infty} \frac{m_n}{n!} \left(
   \sum_{a \in \omega} k_a \right)^n +
-  \sum_{\Omega \times \Omega} E[T_{\omega_1}T_{\omega_2}]
+  \sum_{\Omega \times \Omega} \frac{1}{2} E[T_{\omega_1}T_{\omega_2}]
   \sum_{n=1}^{\infty} \frac{m_n}{n!} \left(\sum_{a \in \omega_1} k_a \right)^n
   \sum_{n=1}^{\infty} \frac{m_n}{n!} \left(\sum_{a \in \omega_2} k_a \right)^n + \ldots
 \end{equation*}
