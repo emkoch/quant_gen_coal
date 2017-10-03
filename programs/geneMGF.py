@@ -1,6 +1,7 @@
 from copy import deepcopy
 import itertools
 import sympy
+import re
 
 def constGeneMGF(lineages):
     n_lineages = len(lineages)
@@ -58,6 +59,11 @@ def deme_part_to_symbol(deme_part):
     result += '.'.join(['[' + ';'.join(sorted([lin_to_str(lineage) for lineage in deme])) + ']'
                         for deme in deme_part])
     return sympy.symbols(result)
+
+def deme_symbol_to_part(deme_symbol):
+    parts = deme_symbol.split("phi_")[1].split("[")[1:]
+    p = re.compile("\((.*?)\)")
+    return [[lin.split(".") for lin in p.findall(part)] for part in parts]
 
 def deme_part_symbol_after_coal(deme_part, coal_pair):
     result = deepcopy(deme_part)

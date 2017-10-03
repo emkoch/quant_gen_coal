@@ -81,8 +81,59 @@ def make_sol_key(symbol):
               deme_portion in str(symbol).split("_")[1].split("].[")]
     return ".".join(counts)
 
+def safe_sub(expr, swap_list):
+    """ Safely make the substitutions when something like [(s_0, s_1), (s_1, s_0)]
+        would break things using the usual sympy method. """
+    tmp_expr = expr.subs([(pair[0], sympy.symbols("bork_" + str(pair[0]))) 
+                           for pair in swap_list])
+    return tmp_expr.subs([(sympy.symbols("bork_" + str(pair[0])), pair[1])
+                          for pair in swap_list])
 
-class geneMGF_struct(geneMGF.geneMGF):
+def backsub_sol_dict(sol_dict):
+    """ Take a dictionary of solutions for different numbers of lineages in structured pop
+        and make substitutions to get full solutions at each level """
+    max_num_lins = max([int(num_lins) for config in sol_dict.keys() 
+                                      for num_lins in config.split(".")])
+    result = dict()
+    # Add base cases to start with
+    for sol in sol_dict.keys():
+        if sum([int(lins) for lins in sol.split(".")]) == 1:
+            result[sol] = sol_dict[sol]
+    # Starting with two lineages sequentially levels
+    for num_lins in range(2, max_num_lins + 1):
+        for sol in sol_dict.keys():
+            if sum([int(lins) for lins in sol.split(".")]) == num_lins:
+                # Get the \phi terms for that level
+                phi_terms = [str(symbol) for symbol in sol_dict[sol][1].free_symbols 
+                             if "phi" in str(symbol)]
+                new_expr = sol_dict[sol][1]
+                # Substitute each term for its known solution
+                for phi_term in phi_terms:
+                    solution = result[make_sol_key(phi_term)]
+                    #sub_term = solution[1].subs(dummy_swap_list(solution[0], 
+                    #                            geneMGF.deme_symbol_to_part(phi_term))).simplify()
+                    sub_term = safe_sub(solution[1], 
+                                        dummy_swap_list(solution[0],geneMGF.deme_symbol_to_part(phi_term))).simplify()
+                    #print("Making substitution...")
+                    #sympy.pprint(phi_term)
+                    #sympy.pprint(sub_term)
+                    #print("USED:")
+                    #print(solution[0])
+                    #print(geneMGF.deme_symbol_to_part(phi_term))
+                    #print("TO GET:")
+                    #print(dummy_swap_list(solution[0], geneMGF.deme_symbol_to_part(phi_term)))
+                    #print("XXXXXXXXXXXXX")
+                    #new_expr = new_expr.subs(phi_term, 
+                    #                         solution[1].subs(dummy_swap_list(solution[0], 
+                    #                                                          geneMGF.deme_symbol_to_part(phi_term))))
+                    new_expr = new_expr.subs(phi_term, 
+                                             safe_sub(solution[1], 
+                                                      dummy_swap_list(solution[0],
+                                                                      geneMGF.deme_symbol_to_part(phi_term))))
+                result[sol] = [sol_dict[sol][0], new_expr]
+    return result
+
+class geneMGF_faststruct(geneMGF.geneMGF):
     def __init__(self, lineages, **kwargs):
         geneMGF.geneMGF.__init__(self, lineages, **kwargs)
         self.mgf_type = 'structured'
@@ -108,9 +159,12 @@ class geneMGF_struct(geneMGF.geneMGF):
             system_partitions, system_solution = solve_markov(dummy_lineages, sol_dict)
             for ii in range(len(system_partitions)):
                 sol_key = make_sol_key(geneMGF.deme_part_to_symbol(system_partitions[ii]))
+                # print(system_partitions[ii])
+                # print(sol_key)
                 if sol_key not in sol_dict.keys():
                     sol_dict[sol_key] = [system_partitions[ii],
                                          system_solution[geneMGF.deme_part_to_symbol(system_partitions[ii])]]
+            print(len(sol_dict.keys()))
 
         def solve_markov(lineages, sol_dict):
             # Set up the system of equations
@@ -120,8 +174,8 @@ class geneMGF_struct(geneMGF.geneMGF):
             for deme_partition in deme_partitions:
                 deme_part_symbol = geneMGF.deme_part_to_symbol(deme_partition)
                 deme_part_symbols.append(deme_part_symbol)
-                deme_part_eqn = -(make_partition_term(deme_partition, coal_rates, migration_rates)*
-                                  deme_part_symbol)
+                deme_part_eqn = (-make_partition_term(deme_partition, coal_rates, migration_rates)*
+                                 deme_part_symbol)
                 # All of the migration terms (which don't require known solutions)
                 for deme_idx, deme in enumerate(deme_partition):
                     for lin in deme:
@@ -138,21 +192,17 @@ class geneMGF_struct(geneMGF.geneMGF):
                         # If we already have a solution for this configuration after coalescence
                         if sol_key in sol_dict.keys():
                             solution = sol_dict[sol_key]
-                            deme_part_eqn += (coal_rates[deme_idx]*
-                                              solution[1].subs(dummy_swap_list(solution[0],
-                                                                               partition_after_coal)))
+                            deme_part_eqn += coal_rates[deme_idx]*geneMGF.deme_part_to_symbol(partition_after_coal)
+                            # sympy.symbols("phi_" + sol_key)
                         # If we don't already have a solution for this configuration
                         else:
                             update_sol_dict(sol_dict, partition_after_coal)
                             solution = sol_dict[sol_key]
-                            deme_part_eqn += (coal_rates[deme_idx]*
-                                              solution[1].subs(dummy_swap_list(solution[0],
-                                                                               partition_after_coal)))
+                            deme_part_eqn += coal_rates[deme_idx]*geneMGF.deme_part_to_symbol(partition_after_coal)
+                            # sympy.symbols("phi_" + sol_key)
                 Eqns.append(deme_part_eqn)
             # Solve the system of equations
             print("Trying to solve a system of " + str(len(Eqns)) + " equations")
-            # for Eqn in Eqns:
-                # print(Eqn)
             solution = sympy.solve(Eqns, deme_part_symbols, simplify=False)
             return deme_partitions, solution
 
@@ -165,7 +215,8 @@ class geneMGF_struct(geneMGF.geneMGF):
                 else:
                     partition.append([])
             solution_set[make_sol_key(geneMGF.deme_part_to_symbol(partition))] = [partition, sympy.Integer(1)]
-        # print(solution_set)
 
-        partition, solution = solve_markov(self.lineages, solution_set)
-        return solution#[geneMGF.deme_part_to_symbol(initial_config)]
+        update_sol_dict(solution_set, initial_config)
+        # return backsub_sol_dict(solution_set)
+        return backsub_sol_dict(solution_set)[make_sol_key(geneMGF.deme_part_to_symbol(initial_config))][1]
+

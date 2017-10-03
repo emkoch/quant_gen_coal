@@ -8,11 +8,28 @@ def make_subscr(branch_comb):
     branch_strs = ['.'.join([str(bb) for bb in bc]) for bc in branch_comb]
     return sympy.symbols('t_' + 'x'.join(branch_strs))
 
+#def make_subscr_ex(branch_comb):
+#    indivs = list(indiv for branch in branch_comb for indiv in branch)
+#    unique_indivs = list(set(indivs))
+#    ind_mults = Counter(indivs)
+#    ordering = sorted(unique_indivs, key=ind_mults.get, reverse=True)
+#    alt_branch_comb = [sorted([ordering.index(bb) for bb in bc]) for bc in branch_comb]
+#    branch_strs = ['.'.join([str(bb) for bb in bc]) for bc in alt_branch_comb]
+#    return sympy.symbols('t_' + 'x'.join(branch_strs))
+
 def make_subscr_ex(branch_comb):
     indivs = list(indiv for branch in branch_comb for indiv in branch)
     unique_indivs = list(set(indivs))
     ind_mults = Counter(indivs)
-    ordering = sorted(unique_indivs, key=ind_mults.get, reverse=True)
+    ordering = []
+    for mult in sorted(set(list(ind_mults.values()))):
+        mult_vals = []
+        for k in ind_mults.keys():
+            if ind_mults[k] == mult:
+                mult_vals.append(k)
+            indexes = [indivs.index(val) for val in mult_vals]
+        mult_vals_sorted = [val for index, val in sorted(zip(indexes, mult_vals))]
+        ordering += mult_vals_sorted
     alt_branch_comb = [sorted([ordering.index(bb) for bb in bc]) for bc in branch_comb]
     branch_strs = ['.'.join([str(bb) for bb in bc]) for bc in alt_branch_comb]
     return sympy.symbols('t_' + 'x'.join(branch_strs))
@@ -101,16 +118,16 @@ class mgfApproxExchange(mgfApprox):
             branches += itertools.combinations(indivs, branch_size)
         mgf_base = sympy.Integer(1)
         num_loci = sympy.symbols("L", integer=True)
-        for mut_order in range(1, self.moment_order + 1):
-            m_max = self.moment_order - mut_order + 1
-            branch_combos = itertools.combinations_with_replacement(branches, mut_order)
+        for mom_order in range(1, self.moment_order + 1):
+            m_max = self.moment_order - mom_order + 1
+            branch_combos = itertools.combinations_with_replacement(branches, mom_order)
             for branch_combo in branch_combos:
                 branch_mult = list(Counter(branch_combo).values())
                 term_factor = sympy.Integer(1)
                 for multi in branch_mult:
                     term_factor *= sympy.factorial(multi)
                 bc_term = (make_subscr_ex(branch_combo)*
-                           sympy.symbols('theta')**mut_order*term_factor**-1)
+                           sympy.symbols('theta')**mom_order*term_factor**-1)
                 for branch in branch_combo:
                     branch_sum = sympy.Integer(0)
                     for indiv in branch:
