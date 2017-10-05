@@ -45,6 +45,21 @@ def sub_ti(branch_moment, all_trees):
         result += to_add
     return 1/sympy.S(len(all_trees))*result
 
+def sub_all_ti(expr, indivs):
+    """ Substitute T_i terms for all branch moments in the given expression
+    Arguments:
+    expr   -- The expression where we want to subst for internal branch moments
+    indivs -- A list of all individuals in the population ... titles should be in parens
+              ex: [['0'], ['1'], ['3']]
+    """
+    all_trees = list(generate_all_trees([indivs], size=len(indivs)))
+    result = expr
+    all_branch_moments = [free_sym for free_sym in expr.free_symbols
+                          if 't_' in str(free_sym)]
+    for branch_moment in all_branch_moments:
+        result = result.subs(branch_moment, sub_ti(branch_moment, all_trees))
+    return result
+
 def make_subscr(branch_comb):
     """ Make sympy symbol for a given moment of internal branches. """
     branch_strs = ['.'.join([str(bb) for bb in bc]) for bc in branch_comb]
