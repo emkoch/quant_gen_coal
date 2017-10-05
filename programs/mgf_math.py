@@ -1,25 +1,58 @@
 from collections import Counter
-import sys
 import itertools
+import copy
 import sympy
+
 from geneMGF import *
 
+def generate_all_trees(levels, size):
+    """ Generate a list of all possible trees for a set of tips. """
+    if len(levels) == (size - 1):
+        yield levels
+        # return
+    else:
+        for branch1, branch2 in itertools.combinations(levels[-1], 2):
+            new_level = copy.deepcopy(levels[-1])
+            new_level.remove(branch1)
+            new_level.remove(branch2)
+            new_level.append(sorted(branch1 + branch2))
+            new_levels = copy.deepcopy(levels)
+            new_levels.append(new_level)
+            for tree in generate_all_trees(new_levels, size):
+                yield tree
+
+def sub_ti(branch_moment, all_trees):
+    """ Substitute a combination of T_i terms for a particular branch moment
+        assuming that lineages are exchangeable. """
+    branch_counts = Counter(str(branch_moment).split("t_")[1].split("x"))
+    branches = list(branch_counts.keys())
+    result = sympy.S(0)
+    for tree in all_trees:
+        # Initialize dictionary that will store the length of each branch in Ti
+        # for a given tree topology
+        branches_ti = dict()
+        for branch in branches:
+            branches_ti[branch] = sympy.S(0)
+        # For each level of the tree add the corresponding Ti to that branch's
+        # term if the branch is present at that level
+        for split in tree:
+            for branch in branches:
+                if sorted(branch.split('.')) in split:
+                    branches_ti[branch] += sympy.symbols('T_' + str(len(split)))
+        to_add = sympy.S(1)
+        for branch in branches:
+            to_add *= branches_ti[branch]**branch_counts[branch]
+        result += to_add
+    return 1/sympy.S(len(all_trees))*result
+
 def make_subscr(branch_comb):
+    """ Make sympy symbol for a given moment of internal branches. """
     branch_strs = ['.'.join([str(bb) for bb in bc]) for bc in branch_comb]
     return sympy.symbols('t_' + 'x'.join(branch_strs))
 
-#def make_subscr_ex(branch_comb):
-#    indivs = list(indiv for branch in branch_comb for indiv in branch)
-#    unique_indivs = list(set(indivs))
-#    ind_mults = Counter(indivs)
-#    ordering = sorted(unique_indivs, key=ind_mults.get, reverse=True)
-#    alt_branch_comb = [sorted([ordering.index(bb) for bb in bc]) for bc in branch_comb]
-#    branch_strs = ['.'.join([str(bb) for bb in bc]) for bc in alt_branch_comb]
-#    return sympy.symbols('t_' + 'x'.join(branch_strs))
-
 def make_subscr_ex(branch_comb):
+    """ Make sympy symbol for a given moment of exchangeable internal branches. """
     indivs = list(indiv for branch in branch_comb for indiv in branch)
-    unique_indivs = list(set(indivs))
     ind_mults = Counter(indivs)
     ordering = []
     for mult in sorted(set(list(ind_mults.values()))):
@@ -42,6 +75,7 @@ class mgfApprox(object):
         self.mgf_type = 'taylor'
 
     def create_mgf_expr(self):
+        """ Create sympy expression for the simple taylor expansion of the mgf. """
         indivs = range(self.n_indivs)
         branches = []
         for branch_size in range(1, self.n_indivs):
