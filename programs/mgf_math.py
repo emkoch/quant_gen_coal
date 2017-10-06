@@ -216,17 +216,19 @@ class traitMGF(object):
             else:
                 self.mgf[approx_type][order] = mgfApproxExchange(self.num_indiv, order)
 
-    def calc_moment(self, pows, approx_type = 'taylor', gene_mgf = None):
+    def calc_moment(self, pows, approx_type='taylor', gene_mgf=None):
         """ Calculate a moment specifying an approximation type.
         Arguments:
         pows        -- list of powers (ints) for trait values in each individual
         approx_type -- what approximation to use for calculating the moment
         gene_mgf    -- geneMGF object necessary if using 'full' approximation
         """
+        # Check if the moment has already been derived
         mom_hash = '.'.join([str(power) for power in pows])
         if mom_hash in self.moments[approx_type].keys():
             return self.moments[approx_type][mom_hash]
         print('making mgf approx...')
+        # Make mgf a appropriate approx leve if doesn't already exist
         self.make_mgf(sum(pows), approx_type, gene_mgf)
         d_mgf = self.mgf[approx_type][sum(pows)].approx
         dummies_nonzero = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)
@@ -239,13 +241,16 @@ class traitMGF(object):
         for indiv in range(self.num_indiv):
             if pows[indiv] > 0:
                 for power in range(pows[indiv]):
-                    print('taking derivative ' + str(dummies[indiv]) + ' order ' + str(power + 1))
+                    print('taking derivative ' + str(dummies[indiv]) +
+                          ' order ' + str(power + 1))
                     d_mgf = sympy.diff(d_mgf, dummies[indiv], 1)
+                # Remove all remaining instances of term after derivs taken
+                d_mgf = d_mgf.subs(sympy.symbols('k_' + str(indiv)), 0)
         result = d_mgf.subs([(kk, 0) for kk in dummies_nonzero])
         self.moments[approx_type][mom_hash] = result
         return result
 
-    def mom_lmr(self, pows, approx_type = 'taylor', gene_mgf = None):
+    def mom_lmr(self, pows, approx_type='taylor', gene_mgf=None):
         mom_hash = '.'.join([str(power) for power in pows])
         if mom_hash not in self.moments[approx_type].keys():
             self.calc_moment(pows, approx_type, gene_mgf)
