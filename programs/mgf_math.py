@@ -224,6 +224,7 @@ class traitMGF(object):
         gene_mgf    -- geneMGF object necessary if using 'full' approximation
         """
         # Check if the moment has already been derived
+        print("new...")
         mom_hash = '.'.join([str(power) for power in pows])
         if mom_hash in self.moments[approx_type].keys():
             return self.moments[approx_type][mom_hash]
