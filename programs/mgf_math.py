@@ -213,10 +213,10 @@ class traitMGF(object):
                 self.mgf[approx_type][order] = mgfApproxLMR(self.num_indiv, order)
             elif approx_type == 'full':
                 self.mgf[approx_type][order] = mgfApproxFull(self.num_indiv, order, gene_mgf)
-            else:
+            elif approx_type == "exchangeable":
                 self.mgf[approx_type][order] = mgfApproxExchange(self.num_indiv, order)
 
-    def calc_moment(self, pows, approx_type='taylor', gene_mgf=None):
+    def calc_moment_old(self, pows, approx_type='taylor', gene_mgf=None):
         """ Calculate a moment specifying an approximation type.
         Arguments:
         pows        -- list of powers (ints) for trait values in each individual
@@ -224,8 +224,10 @@ class traitMGF(object):
         gene_mgf    -- geneMGF object necessary if using 'full' approximation
         """
         # Check if the moment has already been derived
+        print("Old method... calc_moment should give the same answer and be faster")
         print("new...")
         mom_hash = '.'.join([str(power) for power in pows])
+
         if mom_hash in self.moments[approx_type].keys():
             return self.moments[approx_type][mom_hash]
         print('making mgf approx...')
@@ -251,6 +253,47 @@ class traitMGF(object):
         self.moments[approx_type][mom_hash] = result
         return result
 
+    def calc_moment(self, pows, approx_type='taylor', gene_mgf=None):
+        """ Calculate a moment specifying an approximation type.
+        Arguments:
+        pows        -- list of powers (ints) for trait values in each individual
+        approx_type -- what approximation to use for calculating the moment
+        gene_mgf    -- geneMGF object necessary if using 'full' approximation
+        """
+        # Check if the moment has already been derived
+        print("new...")
+        mom_hash = '.'.join([str(power) for power in pows])
+        if mom_hash in self.moments[approx_type].keys():
+            return self.moments[approx_type][mom_hash]
+        print('making mgf approx...')
+        # Make mgf a appropriate approx leve if doesn't already exist
+        self.make_mgf(sum(pows), approx_type, gene_mgf)
+        d_mgf = self.mgf[approx_type][sum(pows)].approx
+        dummies_nonzero = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)
+                                         if pows[ii] > 0])
+        # dummies_zero = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)
+        #                               if pows[ii] == 0])
+        dummies = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)])
+        print('simplifying mgf...')
+        single_locus_expr = self.mgf[approx_type][sum(pows)].approx.args[0].expand()
+        d_mgf = sympy.S(0)
+        for term in single_locus_expr.args:
+            if str(term) != "1":
+                d_mgf += check_term(term.expand(), pows)
+            else:
+                d_mgf += term
+        for indiv in range(self.num_indiv):
+            if pows[indiv] > 0:
+                for power in range(pows[indiv]):
+                    print('taking derivative ' + str(dummies[indiv]) +
+                          ' order ' + str(power + 1))
+                    d_mgf = sympy.diff(d_mgf, dummies[indiv], 1)
+                # Remove all remaining instances of term after derivs taken
+                d_mgf = d_mgf.subs(sympy.symbols('k_' + str(indiv)), 0)
+        result = d_mgf.subs([(kk, 0) for kk in dummies_nonzero])
+        self.moments[approx_type][mom_hash] = result
+        return result
+
     def mom_lmr(self, pows, approx_type='taylor', gene_mgf=None):
         mom_hash = '.'.join([str(power) for power in pows])
         if mom_hash not in self.moments[approx_type].keys():
@@ -263,3 +306,22 @@ class traitMGF(object):
         result = sympy.expand(mom_full).subs(num_loci*theta, sympy.symbols('M'))
         result = result.subs(theta, 0).subs(sympy.symbols('M'), theta*num_loci)
         return result
+
+def check_term(term, pows):
+    """ Check that no k_i part of term has a power greater than
+        that in pows. """
+    assert isinstance(term, sympy.Mul), "Term not of type Mul"
+    # check each part of the term
+    for part in term.args:
+        sym = None
+        if isinstance(part, sympy.Pow):
+            sym = part.args[0]
+            power = part.args[1]
+        elif isinstance(part, sympy.Symbol):
+            sym = part
+            power = sympy.S(1)
+        if 'k_' in str(sym):
+            if int(power) > pows[int(str(sym).split('k_')[1])]:
+                return sympy.S(0)
+    return term
+
