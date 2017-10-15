@@ -21,7 +21,9 @@ def generate_all_trees(levels, size):
             for tree in generate_all_trees(new_levels, size):
                 yield tree
 
-def sub_ti(branch_moment, all_trees):
+def sub_ti(branch_moment, all_trees, samp_size):
+    def rewrite_to_add(to_add):
+        """ Rewrite the expectation for a particular tree """
     """ Substitute a combination of T_i terms for a particular branch moment
         assuming that lineages are exchangeable. """
     branch_counts = Counter(str(branch_moment).split("t_")[1].split("x"))
@@ -31,6 +33,7 @@ def sub_ti(branch_moment, all_trees):
         # Initialize dictionary that will store the length of each branch in Ti
         # for a given tree topology
         branches_ti = dict()
+        branches_ti_alt = dict()
         for branch in branches:
             branches_ti[branch] = sympy.S(0)
         # For each level of the tree add the corresponding Ti to that branch's
@@ -38,18 +41,20 @@ def sub_ti(branch_moment, all_trees):
         for split in tree:
             for branch in branches:
                 if sorted(branch.split('.')) in split:
-                    branches_ti[branch] += sympy.symbols('T_' + str(len(split)))
+                    branches_ti[branch] += sympy.symbols('T_' + str(len(split))
+                                                         + '.' + str(samp_size))
         to_add = sympy.S(1)
         for branch in branches:
             to_add *= branches_ti[branch]**branch_counts[branch]
         result += to_add
+        
     return 1/sympy.S(len(all_trees))*result
 
 def sub_all_ti(expr, indivs):
     """ Substitute T_i terms for all branch moments in the given expression
     Arguments:
     expr   -- The expression where we want to subst for internal branch moments
-    indivs -- A list of all individuals in the population ... titles should be in parens
+    indivs -- A list of all individuals in the sample ... titles should be in parens
               ex: [['0'], ['1'], ['3']]
     """
     all_trees = list(generate_all_trees([indivs], size=len(indivs)))
@@ -57,7 +62,7 @@ def sub_all_ti(expr, indivs):
     all_branch_moments = [free_sym for free_sym in expr.free_symbols
                           if 't_' in str(free_sym)]
     for branch_moment in all_branch_moments:
-        result = result.subs(branch_moment, sub_ti(branch_moment, all_trees))
+        result = result.subs(branch_moment, sub_ti(branch_moment, all_trees, len(indivs)))
     return result
 
 def make_subscr(branch_comb):
@@ -261,20 +266,17 @@ class traitMGF(object):
         gene_mgf    -- geneMGF object necessary if using 'full' approximation
         """
         # Check if the moment has already been derived
-        print("new...")
         mom_hash = '.'.join([str(power) for power in pows])
         if mom_hash in self.moments[approx_type].keys():
             return self.moments[approx_type][mom_hash]
-        print('making mgf approx...')
-        # Make mgf a appropriate approx leve if doesn't already exist
+        # print('making mgf approx...')
+        # Make mgf a appropriate approx level if doesn't already exist
         self.make_mgf(sum(pows), approx_type, gene_mgf)
         d_mgf = self.mgf[approx_type][sum(pows)].approx
         dummies_nonzero = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)
                                          if pows[ii] > 0])
-        # dummies_zero = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)
-        #                               if pows[ii] == 0])
         dummies = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)])
-        print('simplifying mgf...')
+        # print('simplifying mgf...')
         single_locus_expr = self.mgf[approx_type][sum(pows)].approx.args[0].expand()
         d_mgf = sympy.S(0)
         for term in single_locus_expr.args:
@@ -282,6 +284,7 @@ class traitMGF(object):
                 d_mgf += check_term(term.expand(), pows)
             else:
                 d_mgf += term
+        d_mgf = d_mgf**sympy.symbols('L')
         for indiv in range(self.num_indiv):
             if pows[indiv] > 0:
                 for power in range(pows[indiv]):
