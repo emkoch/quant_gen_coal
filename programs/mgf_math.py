@@ -1,3 +1,4 @@
+import sys
 from collections import Counter
 import itertools
 import copy
@@ -22,10 +23,51 @@ def generate_all_trees(levels, size):
                 yield tree
 
 def sub_ti(branch_moment, all_trees, samp_size):
-    def rewrite_to_add(to_add):
-        """ Rewrite the expectation for a particular tree """
     """ Substitute a combination of T_i terms for a particular branch moment
-        assuming that lineages are exchangeable. """
+    assuming that lineages are exchangeable. """
+    def single_mom_rewrite(term, samp_size):
+        """ Rewrite a single moment term"""
+        if term == sympy.S(0):
+            return term
+        T_terms = term.free_symbols
+        T_pows = dict()
+        mult = sympy.S(1)
+        # complex term
+        if isinstance(term, sympy.Mul):
+            for arg in term.args:
+                if isinstance(arg, sympy.Integer):
+                    mult = arg
+                elif isinstance(arg, sympy.Symbol):
+                    T_pows[arg] = 1
+                elif isinstance(arg, sympy.Pow):
+                    T_pows[arg.args[0]] = arg.args[1]
+                else:
+                    print(arg, type(arg))
+                    return None
+        # simple term
+        else:
+            if isinstance(term, sympy.Symbol):
+                    T_pows[term] = 1
+            elif isinstance(term, sympy.Pow):
+                T_pows[term.args[0]] = term.args[1]
+            else:
+                print(term, type(term))
+                return None
+        result = "T_" + "x".join([str(T_term).split("T_")[1] + "." + str(T_pows[T_term])
+                                  for T_term in T_terms]) + "n" + str(samp_size)
+        return mult*sympy.symbols(result)
+
+    def rewrite_to_add(to_add, samp_size):
+        """ Rewrite the expectation for a particular tree/topology """
+        result = sympy.S(0)
+        # if there are multiple terms
+        if isinstance(to_add, sympy.Add):
+            for term in to_add.args:
+                result += single_mom_rewrite(term, samp_size)
+        else:
+            result += single_mom_rewrite(to_add, samp_size)
+        return result
+
     branch_counts = Counter(str(branch_moment).split("t_")[1].split("x"))
     branches = list(branch_counts.keys())
     result = sympy.S(0)
@@ -41,13 +83,13 @@ def sub_ti(branch_moment, all_trees, samp_size):
         for split in tree:
             for branch in branches:
                 if sorted(branch.split('.')) in split:
-                    branches_ti[branch] += sympy.symbols('T_' + str(len(split))
-                                                         + '.' + str(samp_size))
+                    branches_ti[branch] += sympy.symbols('T_' + str(len(split)))
+
         to_add = sympy.S(1)
         for branch in branches:
             to_add *= branches_ti[branch]**branch_counts[branch]
-        result += to_add
-        
+        to_add = to_add.expand()
+        result += rewrite_to_add(to_add, samp_size)
     return 1/sympy.S(len(all_trees))*result
 
 def sub_all_ti(expr, indivs):
