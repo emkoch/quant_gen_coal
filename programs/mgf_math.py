@@ -1,4 +1,5 @@
 import sys
+import math
 from collections import Counter
 import itertools
 import copy
@@ -47,7 +48,7 @@ def sub_ti(branch_moment, all_trees, samp_size):
         # simple term
         else:
             if isinstance(term, sympy.Symbol):
-                    T_pows[term] = 1
+                T_pows[term] = 1
             elif isinstance(term, sympy.Pow):
                 T_pows[term.args[0]] = term.args[1]
             else:
@@ -68,14 +69,14 @@ def sub_ti(branch_moment, all_trees, samp_size):
             result += single_mom_rewrite(to_add, samp_size)
         return result
 
-    branch_counts = Counter(str(branch_moment).split("t_")[1].split("x"))
-    branches = list(branch_counts.keys())
+    branch_counts = Counter(str(branch_moment).split("t_")[1].split("x")) # order of branches within moment
+    branches = list(branch_counts.keys()) # all branches in moment
     result = sympy.S(0)
     for tree in all_trees:
         # Initialize dictionary that will store the length of each branch in Ti
         # for a given tree topology
         branches_ti = dict()
-        branches_ti_alt = dict()
+        # branches_ti_alt = dict()
         for branch in branches:
             branches_ti[branch] = sympy.S(0)
         # For each level of the tree add the corresponding Ti to that branch's
@@ -208,22 +209,33 @@ class mgfApproxExchange(mgfApprox):
         self.mgf_type = "exchangeable"
 
     def create_mgf_expr(self):
+        """ Creat the mgf expression for the desired order """
         indivs = range(self.n_indivs)
         branches = []
+        # At each coalescence level (# lineages remaining) the possible branches
+        # are all combinations of that many lineages
         for branch_size in range(1, self.n_indivs):
             branches += itertools.combinations(indivs, branch_size)
         mgf_base = sympy.Integer(1)
         num_loci = sympy.symbols("L", integer=True)
+        # For each order of terms up to the desired order add all relevant terms
+        # Moment order basically refers to which term in the taylor expansion of
+        # the branch mgf we're considering
         for mom_order in range(1, self.moment_order + 1):
             m_max = self.moment_order - mom_order + 1
+            # m_max = math.floor(self.moment_order/mom_order)
+            # Generate all the possible combinations of branches that would be
+            # made by expanding terms of the given order
             branch_combos = itertools.combinations_with_replacement(branches, mom_order)
             for branch_combo in branch_combos:
                 branch_mult = list(Counter(branch_combo).values())
+                # calculate the binomial multinomial coefficient for the particular term
                 term_factor = sympy.Integer(1)
                 for multi in branch_mult:
                     term_factor *= sympy.factorial(multi)
-                bc_term = (make_subscr_ex(branch_combo)*
-                           sympy.symbols('theta')**mom_order*term_factor**-1)
+                # make a moment term corresponding to the particular branch moment
+                # and mulitply it by theta and the term_factor
+                bc_term = sympy.S(1)
                 for branch in branch_combo:
                     branch_sum = sympy.Integer(0)
                     for indiv in branch:
@@ -233,6 +245,8 @@ class mgfApproxExchange(mgfApprox):
                         branch_term += (sympy.symbols('m_' + str(mut_order))/
                                         sympy.factorial(mut_order)*branch_sum**mut_order)
                     bc_term *= branch_term
+                bc_term *= (make_subscr_ex(branch_combo)*
+                            sympy.symbols('theta')**mom_order*term_factor**-1)
                 mgf_base += bc_term
         return mgf_base**num_loci
 
@@ -311,22 +325,30 @@ class traitMGF(object):
         mom_hash = '.'.join([str(power) for power in pows])
         if mom_hash in self.moments[approx_type].keys():
             return self.moments[approx_type][mom_hash]
-        # print('making mgf approx...')
-        # Make mgf a appropriate approx level if doesn't already exist
+        print('making mgf approx...')
+        # Make mgf at appropriate approx level if doesn't already exist
         self.make_mgf(sum(pows), approx_type, gene_mgf)
         d_mgf = self.mgf[approx_type][sum(pows)].approx
         dummies_nonzero = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)
                                          if pows[ii] > 0])
         dummies = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)])
-        # print('simplifying mgf...')
-        single_locus_expr = self.mgf[approx_type][sum(pows)].approx.args[0].expand()
-        d_mgf = sympy.S(0)
-        for term in single_locus_expr.args:
-            if str(term) != "1":
-                d_mgf += check_term(term.expand(), pows)
-            else:
-                d_mgf += term
-        d_mgf = d_mgf**sympy.symbols('L')
+        # if not using full gene mgf do a smart pruning of taylor series terms
+        if approx_type != "full":
+            print('simplifying mgf...')
+            single_locus_expr = self.mgf[approx_type][sum(pows)].approx.args[0].expand()
+            d_mgf = sympy.S(0)
+            for term in single_locus_expr.args:
+                if str(term) != "1":
+                    d_mgf += check_term(term.expand(), pows)
+                else:
+                    d_mgf += term
+            d_mgf = d_mgf**sympy.symbols('L')
+        # if using full gene mgf just kill off k values for indivs not in moment
+        else:
+
+            dummies_zero = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)
+                                      if pows[ii] == 0])
+            d_mgf = d_mgf.subs([(kk, 0) for kk in dummies_zero])
         for indiv in range(self.num_indiv):
             if pows[indiv] > 0:
                 for power in range(pows[indiv]):
@@ -338,6 +360,7 @@ class traitMGF(object):
         result = d_mgf.subs([(kk, 0) for kk in dummies_nonzero])
         self.moments[approx_type][mom_hash] = result
         return result
+
 
     def mom_lmr(self, pows, approx_type='taylor', gene_mgf=None):
         mom_hash = '.'.join([str(power) for power in pows])
