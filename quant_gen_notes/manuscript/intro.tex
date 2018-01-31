@@ -1,0 +1,105 @@
+Evolutionary quantitative genetics almost always begins by modeling phenotypes
+as normally distributed whether this is among offspring within a family, among
+members of a population, or between species \citep{Turelli2017}. Indeed, it has
+been suggested this is the defining characteristic of the
+field \citep{Rice2004}. This assumption might be well-justified by the notion
+that phenotypes are influenced by a large number of sufficiently independently
+inherited Mendelian factors \citep{Fisher1918}, or it could simply appear to be
+approximately true in practice. In any case, there now exists a large and
+successful body of research where the phenotypic distribution at various levels is
+described by of a set of means, variances, and covariances \citep{Falconer1996}.
+
+Such work has found its way into many areas of evolution and
+ecology \citep{Walsh2013,Kruuk2004}. \citet{Lande1983} used this approach to
+measure the action of natural selection on correlated traits over a single
+generation. Over much greater time scales, \citet{Freckleton2002} and others
+used Brownian motion to detect and correct for phylogenetic dependence in
+studies of phenotypic evolution. Models of phenotypic evolution have also
+incorporated genetic drift by including factors like population size and
+subdivision \citep{Chakraborty1982,Lynch1986,Lande1992}. These models have
+typically examined the dynamics of phenotypic evolution forwards in time as a
+balance between mutation creating variance, migration spreading it among
+subpopulations, and fixation removing it. This allows one to derive the
+equilibrium genetic variance and the rate it is approached.
+
+Of course, there is nothing really remarkable about modeling phenotypes
+according to a normal distribution. The strength and broad applicability of
+quantitative genetics is that traits can be studied without worrying about the
+number of sites where mutations would affect a trait, the genealogies at these
+sites, or the distribution of mutational effects. However, heritable phenotypic
+variation is ultimately due to discrete mutations at discrete loci, and how this
+variation is distributed depends on the genealogies at these loci. When the
+number of loci affecting a trait is large the central limit theorem ensures
+most of these details can be ignored, but a full model would have to include
+them.
+
+%% Among its many successes, it has been used to find traits under
+%% selection in natural populations \citep{Price1984}, determine which dimensions
+%% in phenotype space are favored by females during sexual selection
+%% \citep{Blows2004}, and test for phylogenetic signal in phenotypic evolution
+%% \citep{Freckleton2002}. Such studies and other provide great biological insights
+%% without worrying about potentially complex evolutionary dynamics at multiple
+%% loci because the entire system can be described in terms of the first and second
+%% order moments.
+
+The principle modeling framework for genealogical variation is the coalescent
+process \citep{Wakeley2008}, but few studies have connected this with
+quantitative genetics. The most well-known of these is
+\citet{Whitlock1999}, who used a coalescent argument to argue that measures of trait ($Q_{ST}$) and
+genetic ($F_{ST}$) differentiation have the same expected value under general
+models of population subdivision. \citet{Griswold2007} used coalescent
+simulations to investigate the effects of shared ancestry and linkage
+disequilibrium on the matrix of genetic variances and covariances between traits
+($\mbox{\textbf{G}}$). They found that the eigenvalues of the expected
+$\mbox{\textbf{G}}$ and the expected eigenvalues can be different. Although not
+explicitly connected to the coalescent,
+\citet{Ovaskainen2011} used the formalism of coancestry coefficients to model
+the full distribution of correlated traits in related subpopulations. The method
+they developed was based on the result that the covariance in trait values,
+conditional on the G-matrix in the ancestral population, depends only on the
+pairwise coancestry coefficients.
+
+Most recently, \citet{Schraiber2015} developed a very general model of
+quantitative trait evolution based on the coalescent that allows for an
+arbitrary distribution of mutational effects and number of loci affecting the
+trait. They derived the characteristic function for the distribution of
+phenotypic values in a sample and showed how such values can deviate strongly
+from normality when the number of loci is small or the mutational distribution
+has fat tails. Their model is very closely related to an earlier one due
+to \citet{Khaitovich2005} that attempted to model the evolution of gene
+expression values on phylogenetic trees but assumed a single non-recombining
+locus.
+
+\citet{Schraiber2015} derived their results for a panmictic, constant-size
+population. Natural populations are often far from equilibrium and show
+considerable spatial structure, and it is unclear how this might influence
+deviation from normality. Additionally, the analysis of quantitative traits in
+structured populations is of particular interest when searching for evidence of
+local adaptation or stabilizing selection. To this end the $Q_{ST}$ paradigm has
+been developed \citep{Whitlock2008,Spitze1993}. $Q_{ST}$, defined as the ratio
+of the variance between subpopulations to the total variance in a quantitative
+trait, is compared to $F_{ST}$ which measures the same property for genetic
+variation. $F_{ST}$ for neutral genetic variation is used to define a null
+distribution for $Q_{ST}$. If an observed $Q_{ST}$ is sufficiently extreme
+relative to this null it is concluded that natural selection has acted. Modern
+extensions of this idea have been developed by \citet{Ovaskainen2011} for
+genetic values measured in breeding experiments and by \citet{Berg2014} for
+genetic values measured in GWAS. Understanding the neutral distribution of trait
+values at the sample and population level is necessary to interpret the results
+of these goodness-of-fit tests.
+
+Here, we generalize the work of \citet{Schraiber2015} to an arbitrary
+distribution of coalescent times by deriving the form of the moment generating
+function (mgf). Their key result, the characteristic function of the sampling
+distribution of phenotypic values, is a special case of this. We then show how a
+normal models arises by taking the infinitesimal limit where the effect size per
+mutation becomes small as the number of loci potentially affecting the trait
+becomes large. We then calculate the third and fourth central moments of the
+trait distribution in panimictic populations to illustrate how departures from
+normality depend both on genetic parameters and genealogical distributions.
+Finally, we discuss the consequences of these results for $Q_{ST}$ tests, the
+response to selection, and the inference of genetic architecture.
+
+%%% Local Variables:
+%%% TeX-master: "short_report.tex"
+%%% End:

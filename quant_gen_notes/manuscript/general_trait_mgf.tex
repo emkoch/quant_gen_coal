@@ -1,0 +1,78 @@
+We first derive the mgf of the distribution of trait values. Our approach
+closely follows that of \citet{Schraiber2015} and \citet{Khaitovich2005}, but
+generalizes to arbitrary demographies and population structure.
+\citet{Khaitovich2005} considered only a single locus with a fixed genealogy,
+while \citet{Schraiber2015} only consider the distribution of genealogies
+produced by the standard neutral coalescent instead of considering this
+distribution in the abstract. The distribution of trait values is considered
+over evolutionary realizations of the combined random processes of drift and
+mutation. This distribution is complex in its general form. It has a point mass
+at zero corresponding the possibility that no mutations affecting the trait
+occur, and the remainder could be discrete or continuous depending on the
+mutational distribution. Correlations between individuals arise because of
+shared history in the genealogies at individual loci with discrete topologies as
+well was where on these genealogies mutations occur. An analytical expression
+for the probability distribution of trait values does not exist except under
+certain limits.
+
+However, it is sometimes possible to find the mgf of this distribution or at
+least use the mgf approach to learn something of the distribution of trait
+values. The mgf for a trait controlled by a single nonrecombining locus is
+defined as
+\begin{equation}
+  \label{eq:mgfdef}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) = \E\left[ e^{\mathbf{k} \cdot \mathbf{Y}} \right] =
+  \int e^{\mathbf{k} \cdot \mathbf{Y}} \Pro(\mathbf{Y}=\mathbf{y}) \mbox{d}\mathbf{y}.
+\end{equation}
+The vector $\mathbf{k}$ contains dummy variables resulting from the integral
+transformation of the probability distribution. Equation \eqref{eq:mgfdef} can be
+rewritten by conditioning on the genealogy to give
+\begin{align}
+  \label{eq:cond}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) &= \int e^{\mathbf{k} \cdot \mathbf{Y}}
+  \int \Pro(\mathbf{Y}=\mathbf{y} | \mathbf{T}=\mathbf{t}) \Pro(\mathbf{T}=\mathbf{t})
+  \mbox{d}\mathbf{t} \mbox{d}\mathbf{y} \nonumber \\
+  &= \int \int e^{\mathbf{k} \cdot \mathbf{Y}} \Pro(\mathbf{Y}=\mathbf{y} | \mathbf{T}=\mathbf{t}) \mbox{d}\mathbf{y}
+  \Pro(\mathbf{T}=\mathbf{t})
+  \mbox{d}\mathbf{t}.
+\end{align}
+
+To proceed it is necessary to make assumptions about the mutational process. The
+first is that mutations occur as a Poisson process along branches and the second
+is that mutations at a locus are additive. Under these assumptions, the changes
+in the trait value along each branch are conditionally independent given the
+branch lengths. \citet{Khaitovich2005} noted that this describes a compound
+Poisson process. The mgf of a compound Poisson process with rate $\lambda$ over
+time $t$ is $\exp(\lambda t (\psi(k)-1))$, where $\psi$ is the mgf of the
+distribution of the jump sizes caused by events in the Poisson process. Using
+this, along with the fact that the mgf of two completely correlated random
+variables with the same marginal distribution is $\varphi_{X_1}(k_1+k_2)$, we
+can rewrite equation \eqref{eq:cond} to get
+\begin{equation}
+  \label{eq:fullmgf}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) = 
+  \int \prod_{\omega \in \Omega} \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)\right)
+  \Pro(\mathbf{T}=\mathbf{t})\mbox{d}\mathbf{t}.
+\end{equation}
+This can be recognized as the moment generating function for $\mathbf{T}$ with
+$\frac{\theta}{2} \left( \psi(\sum_{a \in \omega}k_{a}) -1 \right)$ substituted
+for the dummy variable of branch $T_{\omega}$. Or,
+\begin{equation}
+  \label{eq:sub}
+  \varphi_{\mathbf{T}}(\mathbf{s})\Bigr|_{s_{\omega}=\frac{\theta}{2} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)}.
+\end{equation}
+
+Equation \eqref{eq:sub} shows that, if the mgf of the distribution of branch
+lengths is known, then the mgf of the trait values can be obtained through a
+simple substitution. When the trait is controlled by $L$ independent loci the
+mgf is obtained by raising this to the power $L$. \citet{Lohse2011} derived the
+mgf of the genealogy in various population models including migration and
+splitting of subpopulations. Using their result for a single population it is
+possible to get equation (1) of \citet{Schraiber2015} using equation
+\eqref{eq:sub}. The same could be done for models with migration between
+subpopulations although the number of terms in the recursion for the genealogy
+mgf blows up as the sample size increases.
+
+%%% Local Variables:
+%%% TeX-master: "short_report.tex"
+%%% End:

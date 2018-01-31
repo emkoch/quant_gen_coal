@@ -1,0 +1,283 @@
+We can use the low mutation rate approximation to the moment generating function
+to calculate moments of the distribution of trait vales. We'll start by
+calculating the first and second moments. We start, as we did in deriving the
+normal distribution, by substituting the Taylor series of the mutational mgf.
+\begin{equation}
+  \label{eq:mgf_approx_sub}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) \approx \left[ 1 + \sum_{\omega \in \Omega}
+    \E[T_\omega] \T \left( m_1 \sum_{a \in \omega} k_a +
+    \frac{m_2}{2!}\left( \sum_{a \in \omega} k_a\right)^2 +
+    \frac{m_3}{3!}\left( \sum_{a \in \omega} k_a\right)^3 +
+    \frac{m_4}{4!}\left( \sum_{a \in \omega} k_a\right)^4 \ldots \right) \right]^L
+\end{equation}
+We can expand this out using multinomial coefficients to get
+\begin{align}
+  \label{eq:mgf_approx_expand}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) &\approx 1 +
+  L\T \sum_{\omega \in \mathcal{O}} \E[T_{\omega}]\left( m_1 \sum_{a \in \omega} k_a +
+  \frac{m_2}{2}\left( \sum_{a \in \omega} k_a\right)^2 + \ldots \right) \nonumber \\
+  &+ \frac{L(L-1)}{2} \left(\T\right)^2 \sum_{\omega \in \Omega} E[T_{\omega}]^2
+  \left( m_1 \sum_{a \in \omega} k_a +
+  \frac{m_2}{2}\left( \sum_{a \in \omega} k_a\right)^2 + \ldots \right)^2 \nonumber \\
+  &+ L(L-1)\left(\T\right)^2\sum_{\omega_1, \omega_2 \in \Omega}\E[T_{\omega_1}]\E[T_{\omega_2}]
+  \left( m_1 \sum_{a \in \omega_1} k_a + \ldots \right)
+  \left( m_1 \sum_{a \in \omega_2} k_a + \ldots \right) + \ldots.
+\end{align}
+The first coefficient is $\binom{L}{L-1,1,\mathbf{0}}$, the second is
+$\binom{L}{L-2,2,\mathbf{0}}$, and the third is $\binom{L}{L-2,1,1,\mathbf{0}}$.
+To calculate the moments of this distribution one takes the partial derivatives
+of the mgf and sets the dummy variables to zero.
+\begin{equation}
+  \label{eq:deriv}
+  \E[Y_1^{r_1}\ldots Y_n^{r_n}] = \frac{\partial^{r_1 + \ldots + r_n}}{\partial k_1^{r_1} \ldots \partial k_n^{r_n}}
+  \varphi_{\mathbf{Y}}(\mathbf{k})\Bigr|_{\mathbf{k}=0}
+\end{equation}
+Using this to calculate the first moment of the trait distribution we get
+\begin{equation}
+  \label{eq:mom1}
+  \E[Y_a] \approx L\T m_1 \sum_{\omega \in \Omega_a} \E[T_\omega].
+\end{equation}
+The second moment is more complicated because there are $k_a^2$ terms in all
+three lines of equation \ref{eq:mgf_approx_expand}.
+\begin{align}
+  \E[Y_a^2] &\approx L\T m_2 \sum_{\omega \in \Omega_a} E[t_\omega] \nonumber \\
+  &+ \frac{L(L-1)}{2} \left(\T \right)^2 m_1^2 \sum_{\omega \in \Omega_a} 2 \E[T_\omega]^2 \nonumber \\
+  &+ L(L-1) \left(\T \right)^2 m_1^2 \sum_{\omega_1 , \omega_2 \in \Omega_{a+b}} 2 \E[T_{\omega_1}]E[T_{\omega_2}]
+\end{align}
+Terms with $(\T)^2$ are kept because they also include a second order term of
+$L$ in front of them. We can now calculated the variance using $\Var[Y]=\E[Y^2] -
+\E[Y]^2$. The squared first moment can be written as
+\begin{align}
+  \left(L\T m_1 \sum_{\omega \in \Omega_a} \E[t_\omega] \right)^2 &=
+  L^2\left(\T\right)^2 m_1^2 \sum_{\omega \in \Omega_a} \E[T_\omega]^2 \nonumber \\
+  &+ L^2\left(\T\right)^2 m_1^2 \sum_{\omega_1 , \omega_2 \in \Omega_{a+b}} \E[T_{\omega_1}]\E[T_{\omega_2}].
+\end{align}
+Subtracting this from the second moment gives
+\begin{align}
+  \label{eq:var}
+  \Var[Y_a] &\approx L\T m_2 \sum_{\omega \in \Omega_a} \E[T_\omega] \nonumber \\
+  &- L \left(\T\right)^2 m_1^2 \sum_{\omega \in \Omega_a}\E[T_\omega]^2 \nonumber \\
+  &-  2L \left(\T\right)^2 m_1^2 \sum_{\omega_1 , \omega_2 \in \Omega_{a+b}} \E[T_{\omega_1}]\E[T_{\omega_2}] \nonumber \\
+  &= L\T m_2 \sum_{\omega \in \Omega_a} \E[T_\omega] -
+  L\left( \T m_1 \sum_{\omega \in \Omega_a} \E[T_\omega] \right)^2 \nonumber \\
+  &= L\T m_2 \E[T_{MRCA}] - L\left( \T m_1 \E[T_{MRCA}] \right)^2  \\
+  &\approx L\T m_2 \E[T_{MRCA}].  \nonumber
+\end{align}
+
+Due to the large number of terms I only derive the fourth moment of the trait
+value distribution for the case when the mean mutational effect is zero. The
+terms of \eqref{eq:mgf_approx_sub} appearing in the fourth moment after we apply
+\eqref{eq:deriv} are
+\begin{equation*}
+  L \left(\T\right) \frac{m_4}{24}
+  \sum_{\omega \in \Omega_a} \E[T_\omega] \left(\sum_{a \in \omega} k_a\right)^4
+\end{equation*}
+for the fourth moment along one branch,
+\begin{equation*}
+  \binom{L}{L-2,2,\mathbf{0}}\left(\T\right)^2\left(\frac{m_2}{2}\right)^2
+  24 \sum_{\omega \in \Omega_a} \E[T_\omega]^2 \left(\sum_{a \in \omega} k_a\right)^4
+\end{equation*}
+for the second moment of the same branch chosen twice, and
+\begin{equation*}
+  \binom{L}{L-2,1,1,\mathbf{0}}\left(\T\right)^2\left(\frac{m_2}{2}\right)^2
+  24 \sum_{\omega_1 , \omega_2 \in \Omega_{a+b}} \E[T_{\omega_1}]\E[T_{\omega_2}]
+  \left(\sum_{a \in \omega_1} k_a\right)^2\left(\sum_{a \in \omega_2} k_a\right)^2
+\end{equation*}
+for the second moments on two different branches. Taking the fourth derivatives
+of these in terms of the desired branch we get
+\begin{align}
+  \label{eq:mom4}
+  \E[Y_a^4] &= L\T m_4 \E[T_{MRCA}] \nonumber \\
+  &+ \frac{L(L-1)}{2} \left(\T\right)^2\left( \frac{m_2}{2} \right)^2
+  24 \sum_{\omega \in \Omega_a} \E[t_\omega]^2 \nonumber \\
+  &+ L(L-1) \left(\T\right)^2\left( \frac{m_2}{2} \right)^2
+  24 \sum_{\omega_1 , \omega_2 \in \Omega_{a+b}} \E[T_{\omega_1}]\E[T_{\omega_2}] \nonumber \\
+  &= L\T m_4 \E[T_{MRCA}] +
+  3L(L-1)\left( \T m_2 \sum_{\omega \in \Omega_a} \E[T_\omega] \right)^2x \nonumber \\
+  &= L\T m_4 \E[T_{MRCA}] +
+  3L(L-1)\left( \T m_2 \E[T_{MRCA}] \right)^2 \\
+  &\approx L\T m_4 \E[T_{MRCA}] +
+  3\left(L \T m_2 \E[T_{MRCA}] \right)^2. \nonumber 
+\end{align}
+
+The kurtosis is defined as
+\begin{equation*}
+  Kurt[X]=\frac{E[(X-E[X])^4]}{E[(X-E[X])]^2]^2.}
+\end{equation*}
+This is the fourth central moment divided by the variance. It is possible to
+calculate the kurtosis of a single trait value over evolutionary realization.
+For ease of calculation, we'll examine this in the case where the mean mutation
+effect (and therefore trait value) is zero. If we plug \eqref{eq:var} and
+\eqref{eq:mom4} into the expression for the kurtosis we get
+\begin{align*}
+  \Kurt[Y_a] &= \frac{L\T m_4 \E[T_{MRCA}]}{\left(L\T m_2 \E[T_{MRCA}]\right)^2} +
+  \frac{3L(L-1)\left( \T m_2  \E[T_{MRCA}]\right)^2}{\left(L\T m_2 \E[T_{MRCA}]\right)^2} \nonumber \\
+  &= \frac{m_4}{L\T m_2^2\E[T_{MRCA}]} + \frac{3(L^2-L)}{L^2} \nonumber \\
+  &= \frac{\kappa}{L\T \E[T_{MRCA}]} + 3\left( 1 - \frac{1}{L} \right).
+\end{align*}
+
+We also calculate some additional moments having less clear interpretations but
+are useful later on when calculating the expected fourth central moment in the
+population. The first of these is $\E[Y_a^3Y_b]$. The terms of
+\eqref{eq:mgf_approx_sub} appearing in this are
+\begin{equation*}
+  L \left(\T\right) \frac{m_4}{24} 4 k_a^3k_b \sum_{\omega \in \Omega_{a+b}} \E[T_\omega]
+\end{equation*}
+and
+\begin{equation*}
+  L(L-1)\left(\T \frac{m_2}{2}\right)^2 k_a^2 \times 2k_ak_b
+  \left( \sum_{\omega \in \Omega_{a+b}} \E[T_\omega] \right) \left( \sum_{\omega \in \Omega_a} \E[T_\omega] \right).
+\end{equation*}
+This ultimately gives
+\begin{equation}
+  \label{eq:m31}
+  E[Y_a^3Y_b] = L \T m_4 \E[\tau_{a+b}] + 3L(L-1) \left(\T m_2\right)^2 \E[T_{MRCA}]\E[\tau_{a+b}].
+\end{equation}
+The next fourth moment of interest is $\E[Y_a^2Y_bY_c]$. The terms of
+\eqref{eq:mgf_approx_sub} are
+\begin{equation*}
+  L \T \frac{m_4}{24} 12k_a^2k_bk_c \sum_{\omega \in \Omega_{a+b+c}} \E[T_\omega],
+\end{equation*}
+\begin{equation*}
+  L(L-1) \left(\T \frac{m_2}{2}\right)^2 k_a^2 \times 2k_bk_c
+  \left( \sum_{\omega \in \Omega_a} \E[T_\omega] \right)\left( \sum_{\omega \in \Omega_{a+b}} \E[T_\omega] \right),
+\end{equation*}
+and 
+\begin{equation*}
+  L(L-1) \left(\T \frac{m_2}{2}\right)^2 2k_ak_b \times 2k_ak_c \left( \sum_{\omega \in \Omega_{a+b}} \E[T_\omega] \right)
+  \left( \sum_{\omega \in \omega_{b+c}} \E[T_\omega] \right).
+\end{equation*}
+Taking the appropriate derivatives of these gives
+\begin{equation}
+  \label{eq:m211}
+  L \T m_4 \E[\tau_{a+b+c}] + L(L-1)\left(\T m_2\right)^2\E[T_{MRCA}]\E[\tau_{b+c}] +
+  2L(L-1) \left(\T m_2\right)^2\E[\tau_{a+b}]\E[\tau_{a+c}].
+\end{equation}
+Individuals in the population are exchangeable as long as it is not structured.
+The pairwise expected shared branch lengths are in that case all equal and we
+can write \eqref{eq:m211} as
+\begin{equation}
+  \label{eq:m211s}
+  L \T m_4 \E[\tau_{a+b+c}] + L(L-1)\left(\T m_2\right)^2\E[T_{MRCA}]\E[\tau_{a+b}] +
+  2L(L-1) \left(\T m_2\right)^2\E[\tau_{a+b}]^2.
+\end{equation}
+The final moment we'll look at is $\E[Y_aY_bY_cY_d]$ which has relevant terms
+%% The set of branches containing all individuals
+\begin{equation*}
+  L \T \frac{m_4}{24} 24k_ak_bk_ck_d \sum_{\omega \in \Omega_{a+b+c+d}} \E[T_\omega],
+\end{equation*}
+%% Cross set of a-b branches and c-d branches
+\begin{equation*}
+  L(L-1) \left(\T \frac{m_2}{2}\right)^2 2k_ak_b \times 2k_ck_d \left( \sum_{\omega \in \Omega_{a+b}} \E[T_\omega] \right)
+  \left( \sum_{\omega \in \Omega_{c+d}} \E[T_\omega] \right),
+\end{equation*}
+%% Cross set of a-c branches and b-d branches
+\begin{equation*}
+  L(L-1) \left(\T \frac{m_2}{2}\right)^2 2k_ak_c \times 2k_bk_d \left( \sum_{\omega \in \Omega_{a+c}} \E[T_\omega] \right)
+  \left( \sum_{\omega \in \Omega_{b+d}} \E[T_\omega] \right),
+\end{equation*}
+and
+%% cross set of a-d branches and b-c branches
+\begin{equation*}
+  L(L-1) \left(\T \frac{m_2}{2}\right)^2 2k_ak_d \times 2k_bk_c \left( \sum_{\omega \in \Omega_{a+d}} \E[T_\omega] \right)
+  \left( \sum_{\omega \in \omega_{b+c}} \E[T_\omega] \right).
+\end{equation*}
+When the appropriate fourth order partial derivatives are taken of this we get
+\begin{align*}
+  L \T m_4 \E[\tau_{a+b+c+d}] \\
+  + L(L-1)\left(\T m_2\right)^2\E[\tau_{a+b}]\E[\tau_{c+d}] \\
+  + L(L-1)\left(\T m_2\right)^2\E[\tau_{a+c}]\E[\tau_{b+d}] \\
+  + L(L-1)\left(\T m_2\right)^2\E[\tau_{a+d}]\E[\tau_{b+c}].
+\end{align*}
+We can again simplify this expression for populations with exchangeable
+individuals. This gives
+\begin{equation}
+  \label{eq:m1111}
+  L \T m_4 \E[\tau_{a+b+c+d}] + 3L(L-1)\left(\T m_2\right)^2\E[\tau_{a+b}]^2.
+\end{equation}
+
+The expected kurtosis in the population is a quotient and therefore annoying to
+calculate. Instead we will calculate the expected fourth central moment. 
+\begin{equation}
+  \E[M_{4,Y}] = \E\left[\frac{1}{N} \sum \left( Y_i - \frac{\sum Y_j}{N} \right)^4 \right].
+\end{equation}
+Examining the sum inside the expectation we see that 
+\begin{align}
+  \label{eq:expandkurt}
+  \E\left[ \left( Y_i - \frac{\sum Y_j}{N} \right)^4 \right] &= \E[Y_i^4] - 
+                                                              4\E\left[ Y_i^3 \frac{\sum Y_j}{N} \right] + 
+                                                              6\E\left[Y_i^2\left(\frac{\sum Y_j}{N}\right)^2\right] - 
+                                                              4\E\left[Y_i\left(\frac{\sum Y_j}{N}\right)^3\right]+ 
+                                                              \left(\frac{\sum Y_j}{N}\right)^4 \nonumber \\
+                                                            &= \E[Y_i^4] - 
+                                                              \frac{4}{N}\sum_j \E[Y_i^3Y_j] + 
+                                                              \frac{6}{N^2}\sum_{j,k} \E[Y_i^2Y_jY_k] \nonumber\\
+                                                              &-\frac{4}{N^3}\sum_{j,k,l}\E[Y_iY_jY_kY_l] + 
+                                                              \frac{1}{n^4}\sum_{j,k,l,d}\E[Y_jY_kY_lY_d].
+\end{align}
+In calculating these expectations we have to remember that the value depends
+only on the number of times each variable appears in the expectation. That is,
+$\E[Y_1^2Y_2Y_3]$ is equivalent to $\E[Y_1Y_2^3Y_3]$ as long as all individuals
+in the population are exchangeable. The resulting expansion of
+\eqref{eq:expandkurt} is therefore quite ugly. It can be simplified by only
+considering terms of order one. Other terms can be ignored since we are assuming
+there are a large number of individuals in the population. This yields
+\begin{align}
+  \label{eq:popkurt}
+  \E\left[ \left( Y_i - \frac{\sum Y_j}{N} \right)^4 \right] &=
+  \E[Y_i^4]  - \frac{4(n-1)}{n}\E[Y_i^3Y_j] + \frac{6(n-1)(n-2)}{n^2}\E[Y_i^3Y_jY_k]  \nonumber \\
+  &- \frac{4(n-1)(n-2)(n-3)}{n^3}\E[Y_iY_jY_kY_l] \nonumber \\
+  &+ \frac{(n-1)(n-2)(n-3)(n-4)}{n^4}\E[Y_jY_kY_lY_d]
+  + O(n^{-1}) \nonumber \\
+  &\approx \E[Y_i^4]  - 4\E[Y_i^3Y_j] + 6\E[Y_i^2Y_jY_k] - 3\E[Y_iY_jY_kY_l].
+\end{align}
+
+The first term, $\E[Y_i^4]$ was derived in equation \eqref{eq:mom4} as
+\begin{equation*}
+  L\T m_4 \E[T_{MRCA}] + 3L(L-1)\left( \T m_2 \E[T_{MRCA}] \right)^2.
+\end{equation*}
+The second term, $\E[Y_i^3Y_j]$ was derived in equation \eqref{eq:m31} as
+\begin{equation*}
+  L \T m_4 \E[\tau_{a+b}] + 3L(L-1) \left(\T m_2\right)^2 \E[T_{MRCA}]\\E[\tau_{a+b}].
+\end{equation*}
+The third term, $\E[Y_i^2Y_jY_k]$ was derived in equation \eqref{eq:m211} as
+\begin{equation*}
+  L \T m_4 \E[\tau_{a+b+c}] + L(L-1)\left(\T m_2\right)^2\E[T_{MRCA}]\E[\tau_{a+b}] +
+  2L(L-1) \left(\T m_2\right)^2\E[\tau_{a+b}]^2.
+\end{equation*}
+The fourth term, $\E[Y_iY_jY_kY_l]$ was derived in equation \eqref{eq:m1111} as
+\begin{equation*}
+  L \T m_4 \E[\tau_{a+b+c+d}] + 3L(L-1)\left(\T m_2\right)^2\E[\tau_{a+b}]^2.
+\end{equation*}
+Plugging these into \eqref{eq:popkurt} we get
+\begin{align}
+  \label{eq:popm4coal}
+  \E[M_{4,Y}] &\approx L \T m_4 \left( \E[T_{MRCA}] - 4\E[\tau_{a+b}] + 6\E[\tau_{a+b+c}] -3\E[\tau_{a+b+c+d}] \right)\nonumber \\
+  &+ 3\left( L \T m_2 \right)^2\left(\E[T_{MRCA}]- \E[\tau_{a+b}]\right)^2.
+\end{align}
+With some simple manipulation this can be rewritten in terms of $\mathbbm{T}_{i,j}$.
+
+% These expressions approximate $L(L-1)$ as $L^2$ as part of the low mutation rate
+% approximation. The fourth central moment of a normal distribution is
+% $3\sigma^4$. Using the expected population  variance we get $3\left(L\T m_2
+% \E[T_{MRCA}]- \E[\tau_{a+b}]\right)^2$. It is clear from \eqref{eq:popm4coal} that
+% as $L\T$ gets large the second term will dominate and the population will have
+% the same expected kurtosis as a normal distribution. The expected population kurtosis
+% is
+% \begin{equation*}
+%   \E[\mbox{Kurt}] \approx 3 + \frac{\kappa( \E[T_{MRCA}] - 4\E[\tau_{a+b}] +
+%     6\E[\tau_{a+b+c}] -3\E[\tau_{a+b+c+d}])}{L \T \E[T_{MRCA}]- \E[\tau_{a+b}]}.
+% \end{equation*}
+% This expression can be written in an easier to interpret form by noting that
+% $\E[\tau_{a+b}]=\E[T_{MRCA}] - \E[T_2]$, $\E[\tau_{a+b+c}]=\E[T_{MRCA}] - \E[T_3]$,
+% $\E[\tau_{a+b+c+d}]=\E[T_{MRCA}] - \E[T_4]$, where $T_i$ is the expected time it
+% takes for $i$ lineages to coalesce.
+% \begin{equation}
+%   \label{eq:popkurtcoal}
+%   \E[\mbox{Kurt}] \approx 3 + \frac{\kappa( 4T_2 - 6T_3 + 3T_4)}{L \T T_2}.
+% \end{equation}
+% In a constant size population this would be $3 + \frac{\kappa}{2L\T}$.
+
+%%% Local Variables:
+%%% TeX-master: "short_report.tex"
+%%% End:

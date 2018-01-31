@@ -1,0 +1,146 @@
+Neutral models of quantitative trait evolution are important for establishing a
+baseline against which to test for selection. \citet{Schraiber2015} recently
+analyzed a neutral model of trait evolution that made few assumptions about the
+number of loci potentially affecting the trait and the distribution of
+mutational effects at these loci. However, they only derived results for
+constant-size, panmictic populations. This study extends their results to
+populations with arbitrary distribution of coalescent times and therefore
+demographies and population structures. As their key result
+\citet{Schraiber2015} derived the characteristic function of the distribution of
+trait values in a sample. In this paper we instead work with the moment
+generating function, but the two approaches are interchangeable as long as the
+mgf for the distribution of mutational effects exists (which it will provided
+the moments are all finite). Our main result, given in equation \eqref{eq:sub} is
+to show that the generating function obtained by \citet{Schraiber2015} is a
+special case of a general procedure whereby the moment generation function for a
+trait distribution can be obtained by making a simple substitution into the
+moment generating function for a distribution over genealogies. The moment
+generating functions for many demographic histories of interest and sample sizes
+above two are sufficiently complex that solving for them is impractical
+\citep{Lohse2011}. However, progress can still be made by using Taylor
+expansions to write moment of the trait distribution in terms of moments of the
+genealogical and mutational distributions.
+
+This result extends previous work using coalescent theory to investigate neutral
+models of quantitative traits \citep{Whitlock1999,Schraiber2015}. Ours is the
+most general model yet analyzed and as a natural first step we show that the
+infinitesimal limit suggested by \citet{Fisher1918} leads to a model where
+phenotypes are normally distributed as the number of loci becomes large and the
+variance of effect sizes becomes small. In the limiting distribution, the
+variance of the difference in trait values between two individual is
+proportional to the expected pairwise coalescent time between them, and the
+covariance between a pair of differences more generally is $\Cov[Y_a - Y_b,Y_c -
+Y_d] \propto \E[\mathcal{T}_{a,d}] + \E[\mathcal{T}_{b,c}] -
+\E[\mathcal{T}_{a,c}] - \E[\mathcal{T}_{b,d}]$. The resulting covariance matrix
+completely specifies the neutral distribution under the infinitesimal model.
+This is similar to classic models in evolutionary quantitative genetics
+considering the neutral divergence of trait values after population splits
+\citep{Lande1976,Lynch1989} but holds regardless of the precise details of
+population structure and history. \citet{Schraiber2015} derive essentially the
+same distribution using a central limit theorem argument. It is worth nothing
+that the covariance matrix is scaled by the second moment of the mutational
+distribution and not the variance.
+
+Sparse traits were compared to the normal model by calculating how the first
+four expected central moments different from those expected under normality.
+This showed how demography and the genetic architecture separately influence the
+expected deviation from normality. For a fixed expected trait sparsity,
+population growth produces greater deviations in the fourth central moment while
+population bottlenecks produce lower deviations (Figures
+\ref{fig:Qexp},\ref{fig:Qland}). However, for realistic demographic scenarios,
+we find that the effects attributable demography are small (Figure
+\ref{fig:afeucomp}). No cases were analyzed where the individuals in the
+population were not all exchangeable, but this would likely increase deviations
+from normality as drift will lead to differences in trait means between
+subpopulations.
+
+We next apply the above theory to three simple problems where a coalescent
+perspective on the neutral distribution of a quantitative trait could be useful.
+The first of these is the question of the appropriate null distribution for
+$Q_{ST}$ at the population level. We show how the null distribution under the
+normal model can be easily simulated from, providing a much better approximation
+when populations are correlated than previous approaches \citep{Whitlock2009}
+(Figure \ref{fig:qst_deme}). The second case shows how the single-generation
+response to cubic selection depends on the third and fourth central moments of
+the trait distribution \citep{Turelli1990}, moments whose expectation depends on
+genetic architecture and demography. Lastly, we show it is theoretically
+possible for sparse traits to infer the shape of the mutational distribution but
+not the mutational target size or magnitude of mutational effects without
+assuming a particular shape.
+
+Even though we have broadened the model space for neutral traits, many features
+of real populations have not yet been incorporated. Linkage between loci is a
+particular concern as these is substantial linkage disequilibrium between QTLs
+\citep{Bulik-Sullivan2015}. \citet{Lohse2011} derived the form of the moment
+generating function for linked loci and future work will attempt to incorporate
+this using equation \eqref{eq:sub}. In particular, it will be interesting to see
+how this affects the distribution in the infinitesimal limit. Diploidy,
+dominance, and epistasis have also been ignored thus far. The qualitative
+effects described here should hold under diploidy, but having trait values
+within individuals summed over loci from two copies of the genome will decrease
+deviations from normality. Dominance will also lead to a normal distribution as
+the effects are independent between loci, but future work is needed to examine
+how this interacts with the distribution of genealogies to affect the trait
+distribution.
+
+\citet{Barton2017} recently performed a deep mathematical investigation of a
+more formal ``infinitesimal model'' different from the infinitesimal limit
+considered here. They proved conditions under which the trait values of
+offspring within a family are normally distributed with variance independent of
+the parental trait values conditional on the pedigree and segregation variance
+in the base population. Interestingly, they found the normality for offspring
+trait values still holds under some forms of pairwise epistasis that are not too
+extreme. This implies it may be possible to include epistasis in the
+infinitesimal limit considered here. It would be important to know how epistasis
+affects the neutral divergence of trait between populations and species.
+
+Although GWAS of many trait have shown them to be controlled by large numbers of
+loci \citep{Boyle2017}, this will not necessarily be the case for every trait of
+interest to biologists. It has been suggested, for instance, that gene
+expression levels have a sparse genetic architecture \citep{Wheeler2016}. Since
+there is much interest in testing whether natural selection has acted on gene
+expression levels \citep{Whitehead2006,Gilad2006,Yang2017}, well-calibrated
+goodness-of-fit tests will need to take into account the complications that
+arise when trait distributions deviate from normality \citep{Khaitovich2005}.
+Direct measurements of mutational distributions \citep{Gruber2012,Metzger2016}
+could aid in such as calibration. Finally, equation \eqref{eq:emoms} suggests a
+means to determine whether sparsity is impacting trait distributions.
+Populations with a greater $\mathbbm{T}_{3,3}$ to $\mathbbm{T}_{2,2}$ ratio are also expected to
+show a greater $M_3$ to $M_2$ ratio, so this comparison could be made in studies
+of multiple populations. Because gene expression studies generally measure a
+large number of traits, observing such a trend on average could be a good sign
+of deviations from normality.
+
+%% The main result of this work has been to show that the characteristic function
+%% for the distribution of trait values derived by \citet{Schraiber2015} is a
+%% special case of the general relationship given in equation \eqref{eq:sub}. What
+%% this implies is that to get mgf of the trait value distribution one must first
+%% be able to write the mgf for the genealogical distribution. These functions have
+%% been studied by \citet{Lohse2011} and in subsequent papers. They are recursive
+%% in nature and the number of terms becomes quickly intractable as the number of
+%% individuals increases. Things are simplified substantially when either a low
+%% mutation approximation or infinitesimal model is used. In these cases only the
+%% mean branch lengths or expected pair coalescent times, respectively, are
+%% necessary to describe the trait value distribution.
+
+%% The focus on kurtosis here is perhaps undue. It is presented mostly as an
+%% example of how a simple and intuitive result can be obtained from the given
+%% mgfs. For many traits the infinitesimal model surely provides a good null
+%% distribution. For traits that do have sparse genetic architectures and
+%% mutational distributions with large tails it is possible that aspects of the
+%% mutational distribution could be learned from population samples, but it would
+%% likely be necessary to somehow pool information across a large number of traits.
+%% A possible instance where this could be achieved is for gene expression levels
+%% \citep{Wheeler2016}.
+
+%% It would be interesting to extend these results, which are only for the haploid,
+%% unlinked, additive case to include factors like dominance, epistasis and
+%% linkage. For epistasis this is likely to be very difficult since there are no
+%% nice relationships for the mgf of a nonlinear combination of random variables.
+%% Still, some approximations may be possible for particular forms of epistasis.
+%% These would be of particular interest when testing for departures from
+%% neutrality in structured populations as in \citet{Ovaskainen2011}.
+
+%%% Local Variables:
+%%% TeX-master: "short_report.tex"
+%%% End:

@@ -6,6 +6,10 @@ quant_gen_notes/*.aux
 quant_gen_notes/*.bbl
 quant_gen_notes/*.blg
 quant_gen_notes/*.log
+quant_gen_notes/manuscript/*.aux
+quant_gen_notes/manuscript/*.bbl
+quant_gen_notes/manuscript/*.blg
+quant_gen_notes/manuscript/*.log
 quant_gen_notes/notes.pdf
 quant_gen_notes/presenation/lab_meeting_11_2016/*.aux
 quant_gen_notes/presenation/lab_meeting_11_2016/*.bbl
