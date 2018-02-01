@@ -30,48 +30,36 @@ which is equivalent to
 
 This is raised to the power $L$ for a trait controlled by $L$ loci. We want the
 limit as the number of loci increases while the size of mutational decreases.
-This can be expressed by the limits $L \T m_1 \to \mu$, $L \T m_2\to \sigma^2$
-and $L \T m_i\to 0$ for $i>2$ as $L \to \infty$. These limits also imply we
-should retain terms of order $L m_1^2$, so we will also let $L \left(\T\right)^2
-m_1^2 \to \eta$ as $L \to \infty$. Knowing we will not be retaining $m_3$ and
+This can be expressed by the limits $L m_1 \to \mu$, $L m_2\to \sigma^2$
+and $L m_i\to 0$ for $i>2$ as $L \to \infty$. These limits also imply we
+should retain terms of order $L m_1^2$. Knowing we will not be retaining $m_3$ and
 above we can rewrite the mgf as
 \begin{equation*}
-  \left(1 + \sum_{\Omega} \E[T_\omega] \T \left(m_1 \left(\sum_{a \in \omega} k_a \right) +
-  \frac{m_2}{2} \left(\sum_{a \in \omega} k_a \right)^2\right) +
-  \sum_{\Omega \times \Omega} \frac{1}{2} \E[T_{\omega_1}T_{\omega_2}]
-  \T m_1 \left(\sum_{a \in \omega_1} k_a \right)
-  \T m_1 \left(\sum_{a \in \omega_2} k_a \right)\right)^L.
+  \left(1 + \sum_{\Omega} \E[T_\omega] \T \left(m_1 \sum_{a \in \omega} k_a +
+  \frac{m_2}{2} \left(\sum_{a \in \omega} k_a \right)^2\right)\right)^L.
 \end{equation*}
-Doing so is tedious, but the result of taking these limits is
+The result of taking these limits is
 \begin{equation}
   \label{eq:norm_mgf}
-  \exp \left( \sum_{\omega \in \Omega}\E[T_{\omega}] \left( \mu 
+  \exp \left( \sum_{\omega \in \Omega}\E[T_{\omega}] \T \left( \mu 
   \sum_{a \in \omega} k_a + \frac{\sigma^2}{2}\left( \sum_{a \in \omega}
-  k_a\right)^2\right) +
-\sum_{\Omega \times \Omega} \Cov[T_{\omega_1},T_{\omega_2}]\frac{\eta}{2}
-\left(\sum_{a \in \omega_1} k_a\right) \left(\sum_{b \in \omega_1} k_b\right)\right).
+  k_a\right)^2\right)\right).
 \end{equation}
 
-This is multivariate normal distribution with mean equal to $\E[T_{MRCA}]\mu$,
-variance equal to $\E[T_{MRCA}]\sigma^2 + \Var[T_{MRCA}]\eta$, and covariance
-between $Y_a$ and $Y_b$ equal to $\E[\tau_{a+b}]\sigma^2 + \Var[T_{MRCA}]\eta$.
-This can be seen from equation \eqref{eq:norm_mgf} by noting that in the mgf for
-a multivariate normal distribution the coefficient in the exponential of $k_a$
-is the mean of $Y_a$ and the coefficient of $k_ak_b$ is $2\Cov[Y_a,Y_b]$ if
-$a\neq b$ and $\Var[Y_a]$ if $a=b$. The terms depending on $\eta$ and the
-variance of the $T_{MRCA}$ correspond to more than on mutation occuring per
-locus. A low mutation rate approximation can be taken by ignoring these.
+This is multivariate normal distribution with mean equal to $\E[T_{MRCA}] \T \mu$,
+variance equal to $\E[T_{MRCA}] \T \sigma^2$, and covariance between $Y_a$ and $Y_b$
+equal to $\E[\tau_{a+b}] \T \sigma^2$. This can be seen from equation
+\eqref{eq:norm_mgf} by noting that in the mgf for a multivariate normal
+distribution the coefficient in the exponential of $k_a$ is the mean of $Y_a$
+and the coefficient of $k_ak_b$ is $2\Cov[Y_a,Y_b]$ if $a\neq b$ and $\Var[Y_a]$
+if $a=b$.
 
-These $Y$ value can never be directly observed. Rather, differences beteween
+These $Y$ value can never be directly observed. Rather, differences between
 individual trait values are what analyses would be based on. Since the $Y$ are
-normal so will be differences like $Y_a-Y_b$. Conviently, the second term that
-depends on the variance of the $T_{MRCA}$ in the variance and covariance terms
-of the normal distribution does not appear in the distribution of trait
+normal so will be differences like $Y_a-Y_b$. 
 differences.
 \begin{align*}
   \Var[Y_a-Y_b] &= Var[Y_a] + \Var[Y_b] - 2\Cov[Y_a,Y_b]\\
-                &= 2(\E[T_{MRCA}]\sigma^2 + \Var[T_{MRCA}]\eta) -
-                  2(\E[\tau_{a+b}]\sigma^2 + \Var[T_{MRCA}]\eta)\\
                 &= 2(\E[T_{MRCA}] - \E[\tau_{a+b}])\sigma^2.
 \end{align*}
 This also tells us that the distribution of trait differences will be the same
@@ -119,6 +107,10 @@ Therefore we have
 \begin{equation}
   \Cov[Y_a,Y_b] = \T m_2 \E[\tau_{a+b}] + \left( \T m_1 \right)^2 \Var[T_{MRCA}].
 \end{equation}
+
+The terms proportional to the variance of the $T_{MRCA}$ disappear because
+$Lm_1^2 \to 0$ as $L \to \infty$.
+
 %%% Local Variables:
 %%% TeX-master: "short_report.tex"
 %%% End:

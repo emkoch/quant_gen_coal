@@ -2,22 +2,20 @@ This general model converges to a normal model when the infinitesimal limit is
 taken. This can be done by first substituting Taylor series for the genealogical
 and mutational distributions in equation \eqref{eq:fullmgf}. The infinitesimal
 limit should correspond to the situation where the effect sizes of mutations
-becomes small as the number of loci becomes large. Assuming mutation rates are
-low such that at most one mutation occurs per locus, the resulting distribution
-is multivariate normal where the expected trait value is $E[T_{MRCA}] \mu$, the
-variance is $E[T_{MRCA}]\sigma^2$, and the covariance between trait values in
-two individuals $a$ and $b$ is $E[\tau_{a+b}] \sigma^2$. This limit requires
+becomes small as the number of loci becomes large. The resulting distribution is
+multivariate normal where the expected trait value is $E[T_{MRCA}] \T \mu$, the
+variance is $E[T_{MRCA}] \T \sigma^2$, and the covariance between trait values in
+two individuals $a$ and $b$ is $E[\tau_{a+b}] \T \sigma^2$. This limit requires
 that the products of $L$ and moments three and greater of the mutational
 distribution go to zero as the number of loci becomes large and the effect size
 per mutation becomes small. This can be thought of as requiring the mutational
-distribution to not have too fat of tails. Details of the derivation and a
-generalization to allow multiple mutations per locus are given in
-Appendix \ref{clt}.
+distribution to not have too fat of tails. Details of the derivation are given
+in Appendix \ref{clt}.
 
-In this normal distribution, $\mu$ can be interpreted as the rate of change in
-the mean trait value per generation per genome due to mutational pressure.
-$\sigma^2$ can be interpreted as the rate of accumulation of variance in trait
-values per generation per genome. Interestingly, the rate of variance
+In this normal distribution, $\T \mu$ can be interpreted as the rate of change
+in the mean trait value per time unit per genome due to mutational pressure.
+$\T \sigma^2$ can be interpreted as the rate of accumulation of variance in
+trait values per generation per genome. Interestingly, the rate of variance
 accumulation is proportional to the second moment of the mutational distribution
 and not to the variance. The intuition for why this is can be seen by
 considering a degenerate distribution where each mutation has the same effect.
@@ -28,7 +26,7 @@ values thus has a component due to differences in the number of mutations in
 addition to a component due to differences in the effects of these mutations.
 The first is proportional to the square of the mean mutational effect, while the
 second is proportional to the mutational variance, so their sum is proportional
-to $m_2$, the mean squared effect. 
+to $m_2$, the mean squared effect.
 
 Since the trait values are normally distributed, any linear combination of
 sampled trait values will be as well. This includes the distributions of
@@ -36,13 +34,12 @@ observable quantities like the differences in trait values from some reference
 individual or from a sample mean. The distribution of trait differences between
 individuals is multivariate normal with mean zero and the following covariance,
 \begin{equation}
-\Cov[Y_1-Y_2,Y_3-Y_4] = \sigma^2\left( \E[\mathcal{T}_{1,4}] + \E[\mathcal{T}_{2,3}] -
+\Cov[Y_1-Y_2,Y_3-Y_4] = \sigma^2\T\left( \E[\mathcal{T}_{1,4}] + \E[\mathcal{T}_{2,3}] -
 \E[\mathcal{T}_{1,3}] - \E[\mathcal{T}_{2,4}] \right).
 \end{equation}
-This holds regardless of whether one assumes the per locus mutation rate is low
-(Appendix \ref{clt}). The normal model in the infinitesimal limit provides
-additional theoretical justification for studies using normal models to look for
-differences in selection on quantitative traits between populations
+The normal model in the infinitesimal limit provides additional theoretical
+justification for studies using normal models to look for differences in
+selection on quantitative traits between populations
 \citep{Ovaskainen2011,Praebel2013,Robinson2015}. Additionally, this implies 
 a covariance matrix based on mean coalescent times rather than population split
 times should be used when modeling traits as normally distributed in

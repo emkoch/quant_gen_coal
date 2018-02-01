@@ -3,7 +3,7 @@
 \newcommand{\CCC}{\E[\mathbbm{T}_{4,4}] - \frac{1}{6}\E[\mathbbm{T}_{3,4}] - \frac{1}{9}\E[\mathbbm{T}_{2,4}]}
 
 For most population genetic models and reasonable sample sizes, the recursive
-nature of the trait distribution mgf makes it computationally infeasible to
+nature of the trait distribution mgf makes it computationally unfeasible to
 solve under general parameter values. However, it is not necessary to have an
 expression for the full mgf in order to derive moments of the trait distribution
 in terms of moments of branch lengths and moments of the mutational
@@ -48,7 +48,9 @@ history are
 \end{align}
 \end{subequations}
 Some moment calculations done by hand under low mutation rates are presented in
-Appendix \ref{kurt}. In the derivation of the normal model it was assumed that
+Appendix \ref{kurt}.
+
+In the derivation of the normal model it was assumed that
 $L\T m_3$, $L \T m_4$, and $L \left( \T \right)^2 m_2$ go to zero as $L\to
 \infty$. The expectations of the third and fourth moments thus go to zero and
 $3\left(L \T \E[\mathbbm{T}_{2,2}] m_2\right)^2$ as expected for a normal distribution.
