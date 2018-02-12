@@ -1,5 +1,19 @@
-The expected kurtosis in the population is a quotient and therefore annoying to
-calculate. Instead we will calculate the expected fourth central moment. 
+A good measure for the deviation from a normal distribution is the kurtosis,
+which is the ratio of the fourth central moment to the square of the variance.
+For the normal distribution this value is three. The kurtosis measures the
+propensity of a distribution to produce outliers. By calculating the expected
+kurtosis for a given genetic architecture and population history we could assess
+the propensity of those parameters to produce trait distributions (at the
+population level) with frequent outliers. 
+
+However, the expected kurtosis in the population is a quotient and therefore
+very annoying to calculate. We could approximate the kurtosis by taking the
+expected fourth moment divided by the expectation of the square of the variance.
+A better approximation could be obtained through a Taylor expansion, but that
+would involve calculation of trait moments of order eight and greater. 
+
+Instead we will calculate the expected fourth central moment relative to the
+expected fourth moment in a normal distribution. 
 \begin{equation}
   E[M_{4,Y}] = E\left[\frac{1}{N} \sum \left( Y_i - \frac{\sum Y_j}{N} \right)^4 \right].
 \end{equation}
