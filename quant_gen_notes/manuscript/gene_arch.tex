@@ -1,19 +1,20 @@
 \citet{Schraiber2015} suggested it might be possible to infer something about
 the genetic architecture and distribution of mutational effects for sparse
 traits whose distributions deviate from normality. Using the expressions for the
-expected moments in equation \eqref{eq:emoms} we could imagine a method of moments
-estimator for these quantities. If $\hat{D}_{i,j}$ is an estimator of
-$\T \E[\mathbbm{T}_{i,j}]$, the system of equations for the first four moments under the
-low mutation rate approximation is
+expected moments in equation \eqref{eq:emoms} we could imagine a method of
+moments estimator for these quantities. If $\hat{D}_{i,j}$ is an estimator of
+$\T \E[\mathbbm{T}_{i,j}]$, the system of equations for the first four moments
+under the low mutation rate approximation is
 \begin{align}
+\label{eq:genearch}
   &\hat{M}_2 = \hat{D}_{2,2}Lm_2 \nonumber \\
   &\hat{M}_3 = \frac{1}{3}\hat{D}_{3,3}Lm_3 \nonumber \\
   &\hat{M}_4 = 3\hat{M}_2^2 + (\hat{D}_{4,4} + \frac{1}{3} \hat{D}_{3,4} + \frac{2}{9} \hat{D}_{2,4})Lm_4.
 \end{align}
-From this we can see that the moments of the trait distribution only enter
-through products with the number of loci potentially affecting the trait. This
-implies it is possible to infer the shape of the mutational distribution, but it
-is not possible to discern the number of loci affecting a trait from the
+From equation \eqref{eq:genearch} we can see that the moments of the trait
+distribution only enter through products with the number of loci potentially
+affecting the trait. Thus, while we can infer the shape of the mutational
+distribution, we cannot to discern the number of loci affecting a trait from the
 magnitude of mutational effect sizes.
 
 %%% Local Variables:

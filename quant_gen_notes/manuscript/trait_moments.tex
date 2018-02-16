@@ -6,30 +6,35 @@ For most population genetic models and reasonable sample sizes, the recursive
 nature of the trait distribution mgf makes it computationally unfeasible to
 solve under general parameter values. However, it is not necessary to have an
 expression for the full mgf in order to derive moments of the trait distribution
-in terms of moments of branch lengths and moments of the mutational
-distribution. Under the low mutation rate approximation moments can be
-calculated by differentiating equation \eqref{eq:lowmut}. Even without making
-this approximation, moments can be calculated by taking Taylor expansions in
-equation \eqref{eq:cond} and only considering terms contributing to the desired
-moment's order. A symbolic math program was written to do this, and the details
-are given in Appendix ~\ref{symmath}. The normal distribution is completely
-defined by its first two moments, and the extent to which a trait distribution
-deviates from normality can be measured by the extent to which its moments
-deviate from those of a normal distribution with the same mean and variance.
+in terms of moments of branch lengths and mutational effects. Under the low
+mutation rate approximation moments can be calculated by differentiating
+equation \eqref{eq:lowmut}. Even without making this approximation, moments can
+be calculated by taking Taylor expansions in equation \eqref{eq:cond} and only
+considering terms contributing to the desired moment's order. We implemented a
+symbolic math program to calculate trait moments using this procedure, and the
+details are given in Appendix ~\ref{symmath}. As the normal distribution is
+completely defined by its first two moments, the extent to which a trait
+distribution deviates from normality can be measured by the extent to which its
+moments deviate from those of a normal distribution with the same mean and
+variance.
 
-We have to differentiate between the moments of an individual $Y_a$ and those at
-the population level which are also random quantities. The expectation of $Y_a$
-is $L \T m_1 \E[T_{MRCA}]$, and the variance is $L \T m_1 \E[T_{MRCA}] +
-L(m_1^2\T)\Var[T_{MRCA}]$. Although simple to derive using computer algebra,
-expressions for the higher central moments of $Y_a$ are complicated even under
-the low mutation rate approximation and there is not much to be gained by
-showing them here.
+We have so far considered the distribution of a trait value $Y_a$ over
+evolutionary realizations. The expectation of $Y_a$ is $L \T m_1 \E[T_{MRCA}]$,
+and the variance is $L \T m_1 \E[T_{MRCA}] + L(m_1^2\T)\Var[T_{MRCA}]$. Although
+simple to derive using computer algebra, expressions for the higher central
+moments of $Y_a$ are complicated even under the low mutation rate approximation,
+and there is not much to be gained by showing them here.
 
-Since $Y_a$ is relative to a value that is not directly observed, more insight
-can be gained by considering moments at the population level.
+However, in a given evolutionary realization there will be a distribution of
+trait values in the population. The population-level trait distribution can also
+be described by its moments, but unlike the moments of $Y_a$ the moments at the
+population level are random quantities. Since $Y_a$ is relative to a value that
+is not directly observed, we can gain more insight by considering the expected
+population-level moments. In particular, we are interested in how trait
+distribution at the population level might deviate from normality.
 ~\citet{Schraiber2015} computed the expected first four central moments of a
-constant-size population. These same expectations under an arbitrary demographic
-history are
+constant-size population. We derived the same expectations under an arbitrary
+demographic history,
 \begin{subequations} \label{eq:emoms}
 \begin{align}
   &\E[M_2] = L \T \E[\mathbbm{T}_{2,2}] m_2 \label{eq:emoms2}\\
@@ -47,22 +52,23 @@ history are
   \label{eq:emoms4}
 \end{align}
 \end{subequations}
-Some moment calculations done by hand under low mutation rates are presented in
-Appendix \ref{kurt}.
+To give insight into how the expression in equation \eqref{eq:emoms}, moment
+calculations done by hand under the low mutation rate approximation are
+presented in Appendix \ref{kurt}.
 
-In the derivation of the normal model it was assumed that
-$L\T m_3$, $L \T m_4$, and $L \left( \T \right)^2 m_2$ go to zero as $L\to
-\infty$. The expectations of the third and fourth moments thus go to zero and
-$3\left(L \T \E[\mathbbm{T}_{2,2}] m_2\right)^2$ as expected for a normal distribution.
-Deviations of the population distribution from normality depend on the
-distribution of coalescent times as well as the genetic architecture, and they
-can be investigated by comparison to the expected moments under normality. Even
-though recombination is not included in the model, we can form an idea about how
-linkage might impact deviations from normality by looking at line two of
-equation \eqref{eq:emoms4}. This line corresponds to the contribution from two
-mutations occurring at a locus. The first part indicates that the expected
-fourth moment increases with the variance of the pairwise coalescence time. The
-second part is much harder to interpret but seems likely also to be positive.
+%% In the derivation of the normal model it was assumed that
+%% $L\T m_3$, $L \T m_4$, and $L \left( \T \right)^2 m_2$ go to zero as $L\to
+%% \infty$. The expectations of the third and fourth moments thus go to zero and
+%% $3\left(L \T \E[\mathbbm{T}_{2,2}] m_2\right)^2$ as expected for a normal distribution.
+%% Deviations of the population distribution from normality depend on the
+%% distribution of coalescent times as well as the genetic architecture, and they
+%% can be investigated by comparison to the expected moments under normality. Even
+%% though recombination is not included in the model, we can form an idea about how
+%% linkage might impact deviations from normality by looking at line two of
+%% equation \eqref{eq:emoms4}. This line corresponds to the contribution from two
+%% mutations occurring at a locus. The first part indicates that the expected
+%% fourth moment increases with the variance of the pairwise coalescence time. The
+%% second part is much harder to interpret but seems likely also to be 
 
 %% The kurtosis of a distribution is defined as
 %% \begin{equation*}n
