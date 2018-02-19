@@ -10,13 +10,15 @@ have already been investigated in some depth \citep{Lohse2011}.
 
 Let $\mathbf{T}$ be a random vector containing the lengths of all possible
 branches on a coalescent tree. For instance, if we had a three samples $a$, $b$,
-and $c$, then $\mathbf{T}=\{T_a,T_b,T_c,T_{a,b},T_{a,c},T_{b,c}\}$. Let
-$\mathcal{O}$ contain all possible configurations that coalescent branches can
-subtend. For our example, $\mathcal{O}=\{(a),(b),(c),(a,b),(a,c),(b,c)\}$. Let
-$\mathbf{Y}$ be a random vector containing the quantitative trait values in the
-sampled individuals. For our example, $\mathbf{Y}=\{Y_a,Y_b,Y_c\}$. It is
-important to note that these values indicate the change in the quantitative
-trait since the value in the MRCA of the sample, not their actual values.
+and $c$, then
+$\mathbf{T}=\{T_{\{a\}},T_{\{b\}},T_{\{c\}},T_{\{a,b\}},T_{\{a,c\}},T_{\{b,c\}}\}$.
+Let $\Omega$ contain all possible configurations that coalescent branches can
+subtend. For our example,
+$\Omega=\{\{a\},\{b\},\{c\},\{a,b\},\{a,c\},\{b,c\}\}$. Let $\mathbf{Y}$ be a
+random vector containing the quantitative trait values in the sampled
+individuals. For our example, $\mathbf{Y}=\{Y_a,Y_b,Y_c\}$. It is important to
+note that these values indicate the change in the quantitative trait since the
+value in the MRCA of the sample, not their actual values.
 
 The moment generating function of $\mathbf{Y}$ is
 \begin{equation}
@@ -39,7 +41,7 @@ expression by conditioning on the genealogy we get
 We can write each $Y_i$ as a sum of the change in the trait value
 occuring on each branch of the genealogy.
 \begin{equation}
-  Y_i = \sum_{\omega \in \mathcal{O}} Y_{i,\omega}
+  Y_i = \sum_{\omega \in \Omega} Y_{i,\omega}
 \end{equation}
 Of course, many of these branches will not subtend $i$, so the change
 along them is defined to be zero. The $Y_{i,\omega}$ are correlated
@@ -50,17 +52,17 @@ as a poisson process along the branches. We can therefore factor $\int
 e^{\mathbf{k} \cdot \mathbf{Y}} P(\mathbf{Y}=\mathbf{y}
 |\mathbf{T}=\mathbf{t}) d\mathbf{y}$ into independent parts. We first write
 \begin{equation}
-  \mathbf{k} \cdot \mathbf{y} = \sum_{\omega \in \mathcal{O}}\left( \sum_{i \in \omega} k_iy_{i,\omega}\right)
+  \mathbf{k} \cdot \mathbf{y} = \sum_{\omega \in \Omega}\left( \sum_{i \in \omega} k_iy_{i,\omega}\right)
 \end{equation}
 and
 \begin{equation}
-  P(\mathbf{Y}=\mathbf{y}|\mathbf{T}=\mathbf{t}) = \prod_{\omega \in \mathcal{O}}
+  P(\mathbf{Y}=\mathbf{y}|\mathbf{T}=\mathbf{t}) = \prod_{\omega \in \Omega}
   P(\mathbf{Y}_{\omega}=(y_{i,\omega})_{i \in \omega} | \mathbf{T}=\mathbf{t}).
 \end{equation}
 This yields
 \begin{equation} \label{eq:factor}
   \int e^{\mathbf{k} \cdot \mathbf{Y}} P(\mathbf{Y}=\mathbf{y} |\mathbf{T}=\mathbf{t}) d\mathbf{y} =
-  \prod_{\omega \in \mathcal{O}}\int \exp\left(\sum_{i \in \omega}k_iy_{i,\omega}\right)
+  \prod_{\omega \in \Omega}\int \exp\left(\sum_{i \in \omega}k_iy_{i,\omega}\right)
   P(\mathbf{Y}_{\omega}=(y_{i,\omega})_{i \in \omega} | \mathbf{T}=\mathbf{t})d(y_{i,\omega})_{i \in \omega}.
 \end{equation}
 
@@ -81,8 +83,8 @@ equation \ref{eq:factor} as
 \end{equation}
 This gives
 \begin{equation}
-  \varphi_{\mathbf{Y}}(\mathbf{k}) = \prod_{\omega \in \mathcal{O}}
-  \int \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)\right)
+  \varphi_{\mathbf{Y}}(\mathbf{k}) = \int \prod_{\omega \in \Omega}
+  \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)\right)
   P(\mathbf{T}=\mathbf{t})d\mathbf{t}.
 \end{equation}
 This is simply the moment generating function for the genealogy
