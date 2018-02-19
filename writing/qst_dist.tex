@@ -1,0 +1,75 @@
+$Q_{ST}$ is defined as 
+\begin{equation}
+  \label{eq:qst}
+  Q_{ST} := \frac{V_{\text{between}}}{V_{\text{between}} + V_{\text{within}}}.
+\end{equation}
+This is the proportion of the total phenotypic variance in the population that is due to differences between
+populations. As a sample statistic, $Q_{ST}$ reflects the amount of phenotypic differentiation between population. We
+would use an estimator of the between population variance, $\hat{V}_{\text{between}}$, and similarly
+$\hat{V}_{\text{within}}$ for the within population variance. Let $Y_{ij}$ be the phenotype of individual $j$ from
+population $i$, $\bar{Y}_i$ be the mean of individuals in population $i$, and $\bar{Y}$ be the mean phenotype of all
+individuals in the sample. An estimate of the between population variance would then be
+\begin{equation}
+  \label{eq:between}
+  \hat{V}_{\text{between}} = \sum_i \frac{(\bar{Y}_i-\bar{Y})^2}{K-1}.
+\end{equation}
+We want to calculate the sampling distribution of this statistic. $\bar{Y}_i$ and $\bar{Y}$ are both going to be
+normally distributed because the individual phenotypes are normal. Their difference will therefore also be normal and
+the square of this will distributed as the variance of the difference times a chi-squared random variable with one
+degree of freedom. We thus want to calculate the variance of $(\bar{Y}_i-\bar{Y})^2$. 
+\begin{equation}
+  \label{eq:popmean}
+  \bar{Y}_i = \frac{\sum_jY_{ij}}{n_i}
+\end{equation}
+\begin{equation}
+  \label{eq:grandmean}
+  \bar{Y} = \frac{\sum_i\sum_jY_{ij}}{\sum_in_i}
+\end{equation}
+What we want is
+\begin{equation}
+  \label{eq:varexpand}
+  Var[\frac{\sum_jY_{ij}}{n_i} - \frac{\sum_i\sum_jY_{ij}}{\sum_in_i}] = 
+  Var[\frac{\sum_jY_{ij}}{n_i}] + Var[\frac{\sum_i\sum_jY_{ij}}{\sum_in_i}] - 2 Cov[\frac{\sum_jY_{ij}}{n_i}, \frac{\sum_i\sum_jY_{ij}}{\sum_in_i}].
+\end{equation}
+What we will see is that, because each $Var[Y_{ij}] \propto E[T_{MRCA}]$ and
+$Cov[Y_{ij},Y_{kl}] \propto E[T_{MRCA}] - E[\tau_{i,k}]$, that the expected time to the most recent common ancestor will
+cancle out and the variance will only depend on the expected pairwise coalescence times. For the first term,
+\begin{align}
+  Var[\frac{\sum_jY_{kj}}{n_k}] &= \frac{1}{n_k^2}Var[\sum_j Y_{kj}] \nonumber \\
+                                &= \frac{1}{n_k^2} \left( n_k Var[Y_{kj}] + n_k(n_k-1) Cov[Y_{ki},Y_{kj}] \right) \nonumber \\
+                                &\propto \frac{1}{n_k^2} \left( n_k E[T_{MRCA}] + n_k(n_k-1) (E[T_{MRCA}-E[\tau_{k,k}]) \right) \nonumber \\
+                                &= E[T_{MRCA}] - \frac{n_k-1}{n_k}E[\tau_{k,k}].
+\end{align}
+For the second term,
+\begin{align}
+  Var[\frac{\sum_i\sum_jY_{ij}}{\sum_in_i}] &= \frac{1}{(\sum_in_i)^2} \left( \sum_i\sum_j\sum_l\sum_m Cov[Y_{ij},Y_{lm} ]\right) \nonumber \\
+                                            &\propto \frac{1}{(\sum_in_i)^2} \left( \left(\sum_i n_i\right)^2 E[T_{MRCA}] - \sum_in_i\left(\sum_ln_lE[\tau_{i,l}] - E[\tau_{i,i}]\right) \right) \nonumber \\
+                                            &= E[T_{MRCA}] - \frac{1}{(\sum_in_i)^2} \left(\sum_in_i\left(\sum_ln_lE[\tau_{i,l}] - E[\tau_{i,i}]\right) \right).
+\end{align}
+For the third term,
+\begin{align}
+  Cov[\frac{\sum_jY_{ij}}{n_i}, \frac{\sum_i\sum_jY_{ij}}{\sum_in_i}] &= \frac{1}{n_k\sum_in_i}Cov[\sum_kY_{kj},\sum_i\sum_lY_{il}] \nonumber \\
+                                                                      &\propto \frac{1}{n_k\sum_in_i} \left( n_k\sum_in_iE[T_{MRCA}] - n_k\sum_in_iE[\tau_{k,i}] + n_kE[\tau_{k,k}] \right) \nonumber \\
+                                                                      &=  E[T_{MRCA}] - \frac{1}{\sum_i n_i} \left( \sum_i n_i E[\tau_{k,i}] - E[\tau_{k,k}] \right)
+\end{align}
+We can that the $E[T_{MRCA}]$ terms cancel out and that we end up with 
+\begin{align}
+  \label{eq:diffvar}
+  Var[\bar{Y}_k-\bar{Y}] &= \frac{2}{\sum_i n_i} \left( \sum_i n_i E[\tau_{k,i}] - E[\tau_{k,k}] \right) - \frac{n_k-1}{n_k}E[\tau_{k,k}] \nonumber \\
+                         &- \frac{1}{(\sum_in_i)^2} \left(\sum_in_i\left(\sum_ln_lE[\tau_{i,l}] - E[\tau_{i,i}]\right)\right)
+\end{align}
+We will return to the interpretation of this later. For the within population variance an estimator is 
+\begin{equation}
+  \label{eq:within}
+  \hat{V}_{\text{within}}=\frac{\sum_i\sum_j(Y_{ij}-\bar{Y}_i)^2}{N-K}.
+\end{equation}
+Doing the same thing as for the between population variance we get
+\begin{equation}
+  \label{eq:withinprop}
+  Var[Y_{ij} - \frac{\sum_lY_{il}}{n_i}] \propto \frac{n_i-1}{n_i}E[\tau_{i,i}].
+\end{equation}
+We can then use these to derive what the sampling distribution for this estimator of $Q_{ST}$ should be. 
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "notes.tex"
+%%% End: 

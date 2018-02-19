@@ -1,0 +1,35 @@
+Moments of the trait distribution can be calculated by differentiating equation
+\eqref{eq:fullmgf}. Doing so is tedious so symbolic math programs were written
+using sympy \citep{sympy} to automate the process. To derive moments for an
+arbitrary distribution of coalescent times we take Taylor series of the mgf of
+the mutational distribution to get
+\begin{equation}
+  \left(\int \prod_{\Omega} \exp\left[ t_{\omega} \frac{\theta}{2} \left(
+    \sum_{n=1}^{\infty} \frac{m_n}{n!} \left( \sum_{a \in \omega} k_a \right)^n
+    \right) \right] \mathrm{P}(\mathbf{T} = \mathbf{t}) \mathrm{d}\mathbf{t} \right)^L.
+\end{equation}
+We then also Taylor expand the exponential function appearing in this integral to get
+\begin{equation} \label{eq:taylor}
+  \tiny
+  \left( 1 + \sum_{\Omega} \mathrm{E}[T_\omega] \frac{\theta}{2}
+  \sum_{n=1}^{\infty} \frac{m_n}{n!} \left( \sum_{a \in \omega} k_a \right)^n +
+  \frac{1}{2} \mathrm{E} \left[ \left( \sum_{\Omega} T_\omega \frac{\theta}{2}
+    \sum_{n=1}^{\infty} \frac{m_n}{n!} \left( \sum_{a \in \omega} k_a
+    \right)^n\right)^2 \right] + \frac{1}{6} \mathrm{E}\left[\left(
+    \sum_{\Omega} T_\omega \frac{\theta}{2} \sum_{n=1}^{\infty} \frac{m_n}{n!}
+    \left( \sum_{a \in \omega} k_a \right)^n \right)^3\right] + \ldots \right)^L.
+\end{equation}
+
+Of course, the infinite sums appearing in this expression pose a problem. To
+calculate a particular moment, we only consider terms that will contribute terms
+of that moments order when equation \eqref{eq:taylor} is differentiated and
+zero is substituted for all dummy variables. For example, to calculated
+$E[Y_aY_bY_c]$ we only want terms that could possibly contribute $k$ terms of
+order three then the polynomial in equation \eqref{eq:taylor} is expanded. For
+a moment of order $m$, we only need consider terms of size $m$ and less in the
+series expansion of the exponential, and within in the expansions of the
+mutational mgf we only need consider terms up to order $m-m_t+1$ where $m_t$ is
+the order of the exponential term being considered.
+%%% Local Variables:
+%%% TeX-master: "short_report.tex"
+%%% End:

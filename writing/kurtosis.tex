@@ -1,0 +1,27 @@
+Since we know that the variance in trait values is very close under the low
+mutation rate model as in the normal limit, we might next compare kurtosis which
+provides a measure of the tailedness of the distribution. The kurtosis is
+defined as
+\begin{equation}
+  Kurt[X]=\frac{E[(X-E[X])^4]}{(E[(X-E[X])^4)^2}.
+\end{equation}
+This is the fourth central moment divided by the variance. For ease of
+calculation, we'll examine this in the case where the mean mutation effect (and
+therefore trait value) is zero. If we plug \eqref{eq:var} and \eqref{eq:mom4}
+into the expression for the kurtosis we get
+\begin{align}
+  \label{eq:kurtosis_single}
+  Kurt[Y_a] &= \frac{L\T m_4 E[T_{MRCA}]}{\left(L\T m_2 E[T_{MRCA}]\right)^2} +
+  \frac{3L(L-1)\left( \T m_2  E[T_{MRCA}]\right)^2}{\left(L\T m_2 E[T_{MRCA}]\right)^2} \nonumber \\
+  &= \frac{m_4}{L\T m_2^2E[T_{MRCA}]} + \frac{3(L^2-L)}{L^2} \nonumber \\
+  &= \frac{Kurt[M]}{L\T E[T_{MRCA}]} + 3\left( 1 - \frac{1}{L} \right).
+\end{align}
+What does this mean? The normal approximation will have a kurtosis of $3$, so
+having a finite number of loci will act to decrease the kurtosis of the trait
+distribution. However, it seems this decrease will only be very slight. The term
+on the left shows that the kurtosis is increased by the ratio of the kurtosis of
+the mutational distribution relative to the expected number of segregating sites
+affecting the trait.
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:

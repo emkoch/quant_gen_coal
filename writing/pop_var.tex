@@ -1,0 +1,34 @@
+The expected variance of breeding values in the population, and what in this
+model would be considered the genetic variance is
+
+\begin{equation}
+  \label{eq:popvar}
+  E[V_g] = E\left[ \frac{1}{N}\sum \left( Y_i - \frac{\sum Y_j}{N} \right)^2\right].
+\end{equation}
+
+By assuming that all the individuals in the sample are exchangeable, we can
+expand the inside to get
+
+\begin{align*}
+  E\left[ \left(  Y_i - \frac{\sum Y_j}{N} \right)^2 \right] &= 
+                                                             E\left[ Y_i^2 - 2Y_i\frac{\sum Y_j}{N} + \left( \frac{\sum Y_j}{N} \right)^2 \right] \\
+                                                           &= E[Y_i^2] - \frac{2}{N} E[Y_i^2] - 
+                                                             \frac{2(N-1)}{N} E[Y_iY_j] + \frac{1}{N} E[Y_i^2] + 
+                                                             \frac{N-1}{N} E[Y_iY_j] \\
+                                                           &= \frac{N-1}{N} \left( E[Y_i^2] - E[Y_iY_j]\right).
+\end{align*}
+
+Thus when $N$ is even moderately large
+
+\begin{equation}
+  E[V_g] = E[Y_i^2] - E[Y_iY_j].
+\end{equation}
+
+When $m_1=0$, $E[Y_i^2] \approx L \T m_2 E[T_{MRCA}]$ and
+$E[Y_iY_j] \approx L \T m_2 ( E[T_{MRCA}] - E[\tau_{i,j}])$. The expected
+genetic variance in the population is then proportional to the expected pairwise
+coalescent time as we would expect.
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "notes.tex"
+%%% End: 

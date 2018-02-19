@@ -1,0 +1,15 @@
+Neutral models for quantitative trait evolution have been useful for identifying
+phenotypes under selection in natural populations. However, such models have
+tended to start with a normal distribution of breeding values and assume a
+particular form of population structure. I take a stab at developing and
+analyzing a much more general model for the neutral distribution of a
+quantitative trait. I start with the recent coalescent model developed by
+Schraiber and Landis (2015) but show how this is a special case of a much more
+general results that applies for arbitrary distributions of coalescent times.
+The main mathematical result is to relate the moment generating function of the
+genealogical distribution to that of the trait values. Limits are then taken to
+show how this recovers the classic infinitesimal model, and it is shown how
+arbitrary moments of the trait value distribution can be easily calculated under
+a low mutation rate approximation. As an example deviations from normality are
+investigated by calculating the expected kurtosis of a trait and showing how
+this depends on both the mutational and genealogical distributions. 

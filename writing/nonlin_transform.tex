@@ -1,0 +1,80 @@
+\textit{For now this section is exploratory, so the notation will likely differ
+  from the rest of the notes.}
+
+One simple form of epistasis is a nonlinear transformation of the individual
+trait values. If $X_i$ are the genetic values contributed by each of $L$ loci,
+then the trait value of an individual would be
+\begin{equation*}
+  Y = f\left(\sum_{i=1}^{L} X_i\right).
+\end{equation*}
+Under the infinitesimal model the $\sum X_i$ are normally distributed. As a
+nonlinear transformation of a normal variable, $Y$ will not be normally
+distributed. However, we can still investigate its first two moments to see the
+effects of epistasis. If $f$ is very complicated then this could be a very
+difficult thing to do. We can start by taking a second-order Taylor expansion of
+$f$. Expanding $f$ around zero gives
+\begin{equation*}
+  Y \approx f(0) + f'(0)\sum_{i=1}^L X_i + \frac{1}{2}f''(0)\left(\sum_{i=1}^L X_i\right)^2.
+\end{equation*}
+This assumes that the curvature is the same in each direction, which is not a
+crazy assumption. Let $f(0)=0$, $f'(0)=1$, and $f''(0)=\epsilon$. When deriving
+stuff under the assumption that $\sum X_i$ is normal, let $X=\sum X_i$.
+
+The first thing to investigate is the effect of weak epistasis on the variance.
+This is
+\begin{equation*}
+  \Var[X + \epsilon X^2] = \Var[X] + \epsilon \Var[X^2] + 2 \epsilon \Cov[X,X^2].  
+\end{equation*}
+Using standard results on the normal distribution and previously derived
+results, $\Var[X]=\mu \E T_{MRCA}$, $\Var[X^2]=2\sigma^4\E T_{MRCA}^2+4\sigma^2\mu^2 \E T_{MRCA}^3$,
+and $\Cov[X,X^2]=2\mu\sigma^2 \E T_{MRCA}$. Putting this together and setting $\mu=0$ gives the
+variance
+\begin{equation}
+  \Var[X + \epsilon X^2] = \sigma^2\E T_{MRCA} + 2\epsilon \sigma^2 \E [T_{MRCA}]^2.
+\end{equation}
+The corresponding expectation is
+\begin{equation}
+  \E[X + \epsilon X^2] = \mu \E T_{MRCA} + \epsilon \sigma^2 \E T_{MRCA}.
+\end{equation}
+
+The covariance can be derived in a similar manner.
+\begin{equation}
+  \Cov[X_1 + \epsilon X_1^2,X_2 + \epsilon X_2^2] = \Cov[X_1,X_2] + \epsilon
+  \Cov[X_1,X_2^2] + \epsilon \Cov[X_1^2,X_2] + \epsilon^2 \Cov[X_1^2,X_2^2].
+\end{equation}
+If $\mu=0$ the second and third term are zero and the fourth term is
+\begin{equation*}
+  2\sigma^4\left( \E T_{MRCA} - \tau_{1,2} \right)^2.
+\end{equation*}
+This ultimately gives
+\begin{equation}
+  \Cov[X_1 + \epsilon X_1^2,X_2 + \epsilon X_2^2] = \sigma^2\left(\E T_{MRCA} -
+  \tau_{1,2}\right) + 2\epsilon^2 \sigma^4\left(\E T_{MRCA} -
+  \tau_{1,2}\right)^2.
+\end{equation}
+
+Additionally, the variance in the difference in trait values between sampled
+individuals is a good measure of the amount of variation in the population.
+Indeed, as long as the individuals are exchangeable this is proportional to the
+expected variance in a large population.
+\begin{equation*}
+  \Var[X_1 - \epsilon X_1^2 - X_2 - \epsilon X_2^2] =
+  \Var[X_1 + \epsilon X_1^2] + \Var[X_2 + \epsilon X_2^2] -
+  2\Cov[X_1 + \epsilon X_1^2, X_2 + \epsilon X_2^2].
+\end{equation*}
+Again, if $\mu=0$ we can use previous results to get
+\begin{equation*}
+  \Var[X_1 - \epsilon X_1^2 - X_2 - \epsilon X_2^2] =
+  2\sigma^2\tau_{1,2} + 4\sigma^4\epsilon \left( \E[T_{MRCA}]^2 -
+  \epsilon \sigma^2 (\E T_{MRCA} - \tau_{1,2})^2 \right).
+\end{equation*}
+What is interesting about this is that we can see when the expected population
+variance will be greater than that without epistasis. This is the case when
+\begin{equation}
+  \frac{\E[T_{MRCA}]^2}{\E[T_{MRCA}-\tau_{1,2}]^2} > \epsilon \sigma^2
+\end{equation}
+When $\epsilon < 0$ the variance is always less than under the additive case. 
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:
+

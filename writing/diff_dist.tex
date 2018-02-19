@@ -1,0 +1,25 @@
+In any sample, the absolute phenotypic values will not be meaningful. It is differences between individuals sampled from
+various sub populations that are of interest to us. We are therefore interested in the joint distribution of $Y_i-Y-j$
+for each pair of individuals in the sample. Using the infinitesimal model with a distribution of mutational effects
+centered at zero the differences should have a multivariate normal distribution with mean zero. What matters is the
+covariances of the differences.
+\begin{equation}
+  \label{eq:cov}
+  Cov[Y_1-Y_2,Y_3-Y_4]=Cov[Y_1,Y_3]+Cov[Y_2,Y_4]-Cov[Y_1,Y_4]-Cov[Y_2,Y_3]
+\end{equation}
+We know from previous results that $Cov[Y_1,Y_2]$ is proportional to the shared branch length of individuals $1$ and $2$
+before the most recent common ancestor of the sample. We therefore have
+\begin{equation}
+  \label{eq:covprop}
+  Cov[Y_1,Y_2] \propto E[T_{MRCA}]-E[\tau_{1,2}],
+\end{equation}
+and
+\begin{equation}
+  \label{eq:covcoal}
+  Cov[Y_1-Y_2,Y_3-Y_4] \propto E[\tau_{1,4}] + E[\tau_{2,3}] - E[\tau_{1,3}] - E[\tau_{2,4}].
+\end{equation}
+Where $\tau_{1,2}$ is the expected coalescence time of individuals $1$ and $2$. 
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "notes.tex"
+%%% End: 

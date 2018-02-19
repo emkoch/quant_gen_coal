@@ -1,0 +1,45 @@
+The $Q_{ST}$ statistic measures how much of the phenotypic variation in a
+structure population is partitioned between groups. $Q_{ST}$ is defined as 
+\begin{equation}
+  \label{eq:qst}
+  Q_{ST} := \frac{V_{\text{between}}}{V_{\text{between}} + V_{\text{within}}}.
+\end{equation}
+In the usual analysis of variance framework, the variance between $K$
+populations is $\frac{1}{K} \sum \left( \bar{Y}_i - \bar{Y}\right)^2$ and the
+variance within groups is $\frac{1}{\sum N_k} \sum_i \sum_j \left( Y_{i,j} - \bar{Y}_i\right)^2$.
+To examine the distribution of $Q_{ST}$ at the population level one can
+figure out what the distributions of $V_{between}$ and $V_{within}$ are over
+evolutionary realizations. Even if the full distribution of $Q_{ST}$ does not have
+and analytic form, we can sample from the distributions of the variance to calculate
+tail probabilities.
+
+Under the infinitesimal model, each $Y_{i,j}$ is normally distributed, so the
+means are therefore also normal. When the population size is large enough,
+$(Y_{i,j} - \bar{Y}_i)^2$ and $(Y_{j,l} - \bar{Y}_j)^2$ are nearly uncorrelated
+both within and between populations because each individual contributes little
+to the population means. $V_{within}$ is therefore a sum of squared independent
+normal random variables with mean zero. With enough individuals in the whole
+population, the central limit theorem kicks in and the variance is order $1/\sum N_k$.
+The mean value of $\E[(Y_{i,j} - \bar{Y}_i)^2]$ is $\sigma^2E[\tau_{i,i}]$. 
+We can thus treat $V_{within}$ as a constant with value $\frac{\sum N_k \E[\tau_{k,k}]}{\sum N_k}$. 
+If $c_k$ is the fraction of the total population in group $k$, then $V_{within}=\sum c_k \E[\tau_{k,k}]$. 
+This brings up the issue that the fraction that each group makes up of the total
+population is unlikely to be known. This makes thinking about $Q_{ST}$ as a population
+parameter a bit tricky. I think it is best to think of it as an idealized sample value
+when a large and equal number of samples is taken from each population.
+
+In the variance between groups, the $(\bar{Y}_i - \bar{Y})^2$ terms are
+correlated. The sum of these will have a generalized chi-square distribution. We
+could sample from this distribution by simulating the $\bar{Y}_i - \bar{Y}$ from
+a multivariate normal distribution and adding the squared values. The covariance
+matrix for this distribution is
+\begin{equation}
+  \Cov[\bar{Y}_i - \bar{Y}, \bar{Y}_j - \bar{Y}] = \sigma^2\left(
+  \E[\tau_{i,\cdot}] + \E[\tau_{j,\cdot}] - \E[\tau_{\cdot,\cdot}] -
+  \E[\tau_{i,j}]\right). 
+\end{equation}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "notes.tex"
+%%% End: 

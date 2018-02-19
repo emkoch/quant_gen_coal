@@ -1,0 +1,23 @@
+Thus far, the model assumes that loci are unlinked and can experience an
+infinite number of mutations. However, a useful simplification is that at most
+one mutation per locus occurs. This approximation is reasonable as long as the
+nucleotide positions affecting the trait are loosely linked throughout the
+genome. The low-mutation-rate approximation greatly simplifies the mgf of the
+trait distribution such that it is no longer necessary to know the full form of
+the mgf of the genealogy:
+\begin{equation}
+\label{eq:lowmut}
+\varphi_{\mathbf{Y}}(\mathbf{k}) \approx \left[ 1 + \sum_{\omega \in \Omega}
+  \E[T_\omega] \T \left( \psi\left( \sum_{a \in \omega} k_a\right) -1 \right) +
+  O\left( \theta^2 \right))\right]^L.
+\end{equation}
+Equation \eqref{eq:lowmut} ignores terms that are order two and above in the
+mutation rate. Conveniently this equation depends only on the expected length of
+each branch, whereas equation \eqref{eq:fullmgf} requires moments of branch
+lengths order two and greater. We can use equation \eqref{eq:lowmut} to express
+moments of the trait distribution in terms of expected branch lengths calculated
+from coalescent models.
+
+%%% Local Variables:
+%%% TeX-master: "short_report.tex"
+%%% End:

@@ -1,0 +1,59 @@
+The variance of the population variance over evoultionary realizations is
+another useful quantity. In the infinitesimal limit for a sufficiently large
+population, the variance of the variance will be negligable relative to the
+variance itself. That is, the coefficient of variation of the variance will
+approach zero. Here I will derive the variance of the variance, from which one
+could compute the coefficient of variation.
+
+\begin{align}
+  \label{eq:popvarvar}
+  \Var[V_g] &= \Var\left[ \frac{1}{N}\sum \left( Y_i - \frac{\sum Y_j}{N} \right)^2\right] \nonumber \\
+            &= \frac{1}{N^2}\left( \sum \Var[(Y_i - \frac{\sum Y_j}{N})^2] + 2 \sum_{i \neq j} 
+              \Cov[(Y_i - \frac{\sum Y_k}{N})^2, (Y_j - \frac{\sum Y_k}{N})^2]\right).
+\end{align}
+The first term can be ignored if the population size is large. The second term
+is determined by the covariance in the squared deviations from the mean. The
+covariance can be calculated by considering its individual parts. 
+
+\begin{align*}
+  &\Cov[Y_i^2, Y_j^2] \approx -2\Cov[Y_i^2,Y_j^2] \nonumber \\
+  &\Cov[Y_i^2, -2Y_j \frac{\sum Y_k}{N}] \approx -2\Cov[Y_i^2,Y_jY_k] \nonumber \\
+  &\Cov[Y_i^2, \left(\frac{\sum Y_k}{N}\right)^2] \approx \Cov[Y_i^2,Y_jY_k] \nonumber \\
+  &\Cov[-2Y_i\left(\frac{\sum Y_k}{N}\right), Y_j^2] \approx -2\Cov[Y_i^2,Y_jY_k] \nonumber \\
+  &\Cov[-2Y_i\left(\frac{\sum Y_k}{N}\right),-2Y_j\left(\frac{\sum Y_k}{N}\right)] 
+  \approx 4\Cov[Y_iY_j,Y_kY_l] \nonumber \\
+  &\Cov[-2Y_i\left(\frac{\sum Y_k}{N}\right), \left(\frac{\sum Y_k}{N}\right)] 
+  \approx -2\Cov[Y_iY_j,Y_kY_l] \nonumber \\
+  &\Cov[\left(\frac{\sum Y_k}{N}\right)^2, Y_j^2] 
+  \approx \Cov[Y_j^2,Y_iY_k] \nonumber \\
+  &\Cov[\left(\frac{\sum Y_k}{N}\right)^2,-2Y_j\left(\frac{\sum Y_k}{N}\right)] 
+  \approx -2\Cov[Y_iY_j,Y_kY_l] \nonumber \\
+  &\Cov[\left(\frac{\sum Y_k}{N}\right)^2,\left(\frac{\sum Y_k}{N}\right)^2] 
+  \approx \Cov[Y_iY_j,Y_kY_l] \nonumber
+\end{align*}
+
+Combining all these gives 
+\begin{equation}
+  \Cov[(Y_i - \frac{\sum Y_k}{N})^2, (Y_j - \frac{\sum Y_k}{N})^2] = 
+  \E[Y_i^2Y_j^2] - \E[Y_i^2]^2 - 2\E[Y_i^2Y_jY_k] + 2\E[Y_i^2]E[Y_jY_k] +
+  \E[Y_iY_jY_kY_l] - E[Y_iY_j]^2.
+\end{equation}
+After calculating the various moments included in this sum and using the low
+mutation rate approximation we get
+\begin{equation}
+  L \T m_4 \left( \frac{\E[T_{2,4}]}{9} + \frac{\E[T_{3,4}]}{6} \right).
+  \label{eq:exppopvarvar}
+\end{equation}
+With this, this coefficient of variation of the variance is
+\begin{equation}
+  \sqrt{\frac{\kappa}{L \T \E[T_{2,2}]}} \sqrt{\frac{\frac{\E[T_{2,4}]}{9} + \frac{\E[T_{3,4}]}{6}}{\E[T_{2,2}]}}.
+\end{equation}
+The first term depends on the genetic architecture while the second depends on
+demography. From the first we can see that the coefficient of variation of
+variance decreases with the square root of the expected number of trait
+affecting separating two halpotypes. 
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "notes.tex"
+%%% End: 

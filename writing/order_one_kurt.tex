@@ -1,0 +1,36 @@
+\newcommand{\AAA}{\E[T_{4,4}] + \frac{1}{3}\E[T_{3,4}] + \frac{2}{9}\E[T_{2,4}]}
+\newcommand{\BBB}{\frac{1}{9}\E[T_{2,4}] + \frac{1}{6}\E[T_{3,4}]}
+\newcommand{\CCC}{\E[T_{4,4}] - \frac{1}{6}\E[T_{3,4}] - \frac{1}{9}\E[T_{2,4}]}
+
+The expected kurtosis at the population level is given by
+\begin{equation}
+  \E[\mbox{Kurt}] = \E\left[ \frac{\frac{1}{N}\sum_i(Y_i - \bar{Y})^4}
+    {\left(\frac{1}{N}\sum_i(Y_i - \bar{Y})^2  \right)^2} \right].
+\end{equation}
+A first order approximation to this is
+\begin{equation}
+  \frac{\E[\frac{1}{N}\sum_i(Y_i - \bar{Y})^4]}
+    {\E\left[\left(\frac{1}{N}\sum_i(Y_i - \bar{Y})^2  \right)^2\right]}.
+\end{equation}
+The numerator is just the expected fourth moment at the population level. The
+denominator is $\E[V_p]^2 + \Var[V_p]$ if $V_p$ is the variance at the
+population level. Using the results in equations \ref{eq:exppopvarvar} and
+\ref{eq:popm4coal} the whole expression can be written as
+\begin{align*}
+  \frac{\E[\frac{1}{N}\sum_i(Y_i - \bar{Y})^4]}
+    {\E\left[\left(\frac{1}{N}\sum_i(Y_i - \bar{Y})^2  \right)^2\right]} &= \frac{3\left(L \T \E[T_{2,2}] \right)^2 + L \T m_4 \left(\AAA\right)}
+    {\left( L \T m_2 \E[T_{2.2}]\right)^2 + L \T m_4 \left(\BBB\right)} \nonumber \\
+    &= 3 + \frac{L \T m_4 \left( \AAA - 3(\BBB)\right)}
+    {\left( L \T m_2 \E[T_{2.2}]\right)^2 + L \T m_4 \left(\BBB\right)} \nonumber \\
+    &= 3 + \frac{\kappa \left( \CCC \right)}
+    {L \T \E[T_{2.2}]^2 + \kappa \left( \BBB\right)} \nonumber \\
+    &= 3 + \frac{\kappa \frac{\CCC}{\E[T_{2.2}]}}
+    {L \T \E[T_{2.2}] + \kappa \frac{\BBB}{\E[T_{2.2}]}}.
+\end{align*}
+We can see from this that when $\CCC < 0$ the expected kurtosis might be less
+than three, and that when $\CCC > 0$ it would be greater than three. For the
+standard coalescent model $\CCC = 0$ so the expected kurtosis is about three. 
+
+%%% Local Variables:
+%%% TeX-master: "short_report.tex"
+%%% End:

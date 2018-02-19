@@ -1,0 +1,248 @@
+\begin{thebibliography}{42}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{{\sc Barton} {\em et~al.\/}(2017){\sc Barton}, {\sc Etheridge} and
+  {\sc V{\'{e}}ber}}]{Barton2017}
+{\sc Barton, N.}, {\sc A.~Etheridge}, and {\sc A.~V{\'{e}}ber}, 2017 {The
+  infinitesimal model: Definition, derivation, and implications}.
+\newblock Theoretical Population Biology {\bf 118}: 50--73.
+
+\bibitem[{{\sc Berg} and {\sc Coop}(2014)}]{Berg2014}
+{\sc Berg, J.~J.}, and {\sc G.~Coop}, 2014 {A Population Genetic Signal of
+  Polygenic Adaptation}.
+\newblock PLoS Genetics {\bf 10}.
+
+\bibitem[{{\sc Bonhomme} {\em et~al.\/}(2010){\sc Bonhomme}, {\sc Chevalet},
+  {\sc Servin}, {\sc Boitard}, {\sc Abdallah} {\em et~al.\/}}]{Bonhomme2010}
+{\sc Bonhomme, M.}, {\sc C.~Chevalet}, {\sc B.~Servin}, {\sc S.~Boitard}, {\sc
+  J.~Abdallah}, {\em et~al.\/}, 2010 {Detecting selection in population trees:
+  The Lewontin and Krakauer test extended}.
+\newblock Genetics {\bf 186}: 241--262.
+
+\bibitem[{{\sc Boyle} {\em et~al.\/}(2017){\sc Boyle}, {\sc Li} and {\sc
+  Pritchard}}]{Boyle2017}
+{\sc Boyle, E.~A.}, {\sc Y.~I. Li}, and {\sc J.~K. Pritchard}, 2017 {An
+  Expanded View of Complex Traits: From Polygenic to Omnigenic}.
+\newblock Cell {\bf 169}: 1177--1186.
+
+\bibitem[{{\sc Bulik-Sullivan} {\em et~al.\/}(2015){\sc Bulik-Sullivan}, {\sc
+  Loh}, {\sc Finucane}, {\sc Ripke}, {\sc Yang} {\em
+  et~al.\/}}]{Bulik-Sullivan2015}
+{\sc Bulik-Sullivan, B.~K.}, {\sc P.-r. Loh}, {\sc H.~K. Finucane}, {\sc
+  S.~Ripke}, {\sc J.~Yang}, {\em et~al.\/}, 2015 {LD Score regression
+  distinguishes confounding from polygenicity in genome-wide association
+  studies}.
+\newblock Nature Genetics {\bf 47}: 291--295.
+
+\bibitem[{{\sc Chakraborty} and {\sc Nei}(1982)}]{Chakraborty1982}
+{\sc Chakraborty, R.}, and {\sc M.~Nei}, 1982 {Genetic Differentiation of
+  Quantitative Characters Between Populations of Species}.
+\newblock Genetics Research {\bf 39}: 303--314.
+
+\bibitem[{{\sc Fisher}(1918)}]{Fisher1918}
+{\sc Fisher, R.~A.}, 1918 {XV.—The Correlation between Relatives on the
+  Supposition of Mendelian Inheritance.}
+\newblock Transactions of the Royal Society of Edinburgh {\bf 52}: 399--433.
+
+\bibitem[{{\sc Freckleton} {\em et~al.\/}(2002){\sc Freckleton}, {\sc Harvey}
+  and {\sc Pagel}}]{Freckleton2002}
+{\sc Freckleton, R.~P.}, {\sc P.~H. Harvey}, and {\sc M.~D. Pagel}, 2002
+  {Phylogenetic analysis and comparative data: a test and review of evidence}.
+\newblock American Naturalist {\bf 160}: 712--726.
+
+\bibitem[{{\sc Gilad} {\em et~al.\/}(2006){\sc Gilad}, {\sc Oshlack} and {\sc
+  Rifkin}}]{Gilad2006}
+{\sc Gilad, Y.}, {\sc A.~Oshlack}, and {\sc S.~A. Rifkin}, 2006 {Natural
+  selection on gene expression}.
+\newblock Trends in Genetics {\bf 22}: 456--461.
+
+\bibitem[{{\sc Gilbert} and {\sc Whitlock}(2015)}]{Gilbert2015}
+{\sc Gilbert, K.~J.}, and {\sc M.~C. Whitlock}, 2015 {QST-FST comparisons with
+  unbalanced half-sib designs}.
+\newblock Molecular Ecology Resources {\bf 15}: 262--267.
+
+\bibitem[{{\sc Griffiths} and {\sc Tavar{\'{e}}}(1998)}]{Griffiths1998}
+{\sc Griffiths, R.}, and {\sc S.~Tavar{\'{e}}}, 1998 {The age of a mutation in
+  a general coalescent tree}.
+\newblock Communications in Statistics. Stochastic Models {\bf 14}: 273--295.
+
+\bibitem[{{\sc Griswold} {\em et~al.\/}(2007){\sc Griswold}, {\sc Logsdon} and
+  {\sc Gomulkiewicz}}]{Griswold2007}
+{\sc Griswold, C.~K.}, {\sc B.~Logsdon}, and {\sc R.~Gomulkiewicz}, 2007
+  {Neutral evolution of multiple quantitative characters: a genealogical
+  approach.}
+\newblock Genetics {\bf 176}: 455--66.
+
+\bibitem[{{\sc Gruber} {\em et~al.\/}(2012){\sc Gruber}, {\sc Vogel}, {\sc
+  Kalay} and {\sc Wittkopp}}]{Gruber2012}
+{\sc Gruber, J.~D.}, {\sc K.~Vogel}, {\sc G.~Kalay}, and {\sc P.~J. Wittkopp},
+  2012 {Contrasting properties of gene-specific regulatory, coding, and copy
+  number mutations in saccharomyces cerevisiae: Frequency, effects, and
+  dominance}.
+\newblock PLoS Genetics {\bf 8}.
+
+\bibitem[{{\sc Kelleher} {\em et~al.\/}(2015){\sc Kelleher}, {\sc Etheridge}
+  and {\sc Mcvean}}]{Kelleher2015}
+{\sc Kelleher, J.}, {\sc A.~M. Etheridge}, and {\sc G.~Mcvean}, 2015 {Efficient
+  coalescent simulation and genealogical analysis for large sample sizes}.
+\newblock PLoS Comput Biol : 1--22.
+
+\bibitem[{{\sc Khaitovich} {\em et~al.\/}(2005){\sc Khaitovich}, {\sc
+  P{\"{a}}{\"{a}}bo} and {\sc Weiss}}]{Khaitovich2005}
+{\sc Khaitovich, P.}, {\sc S.~P{\"{a}}{\"{a}}bo}, and {\sc G.~Weiss}, 2005
+  {Toward a Neutral Evolutionary Model of Gene Expression}.
+\newblock Genetics {\bf 170}: 929--939.
+
+\bibitem[{{\sc Lande}(1976)}]{Lande1976}
+{\sc Lande, R.}, 1976 {Natural Selection and Random Genetic Drift in Phenotypic
+  Evolution}.
+\newblock Evolution {\bf 30}: 314.
+
+\bibitem[{{\sc Lande}(1992)}]{Lande1992}
+{\sc Lande, R.}, 1992 {Neutral theory of quantitative genetic variance in an
+  island model with local extinction and colonization}.
+\newblock Evolution {\bf 46}: 381--389.
+
+\bibitem[{{\sc Lewontin} and {\sc Krakauer}(1973)}]{Lewontin1973}
+{\sc Lewontin, R.}, and {\sc J.~Krakauer}, 1973 {Distribution of gene frequency
+  as a test of the theory of the selective neutrality of polymorphisms}.
+\newblock Genetics : 175--195.
+
+\bibitem[{{\sc Lohse} {\em et~al.\/}(2011){\sc Lohse}, {\sc Harrison} and {\sc
+  Barton}}]{Lohse2011}
+{\sc Lohse, K.}, {\sc R.~J. Harrison}, and {\sc N.~H. Barton}, 2011 {A general
+  method for calculating likelihoods under the coalescent process.}
+\newblock Genetics {\bf 189}: 977--87.
+
+\bibitem[{{\sc Lynch}(1989)}]{Lynch1989}
+{\sc Lynch, M.}, 1989 {Phylogenetic Hypotheses Under the Assumption of Neutral
+  Quantitative- Genetic Variation}.
+\newblock Evolution {\bf 43}: 1--17.
+
+\bibitem[{{\sc Lynch} and {\sc Hill}(1986)}]{Lynch1986}
+{\sc Lynch, M.}, and {\sc W.~G. Hill}, 1986 {Phenotypic Evolution by Neutral
+  Mutation}.
+\newblock Evolution {\bf 40}: 915--935.
+
+\bibitem[{{\sc Metzger} {\em et~al.\/}(2016){\sc Metzger}, {\sc Duveau}, {\sc
+  Yuan}, {\sc Tryban}, {\sc Yang} {\em et~al.\/}}]{Metzger2016}
+{\sc Metzger, B.~P.}, {\sc F.~Duveau}, {\sc D.~C. Yuan}, {\sc S.~Tryban}, {\sc
+  B.~Yang}, {\em et~al.\/}, 2016 {Contrasting Frequencies and Effects of cis-
+  and trans-Regulatory Mutations Affecting Gene Expression}.
+\newblock Molecular Biology and Evolution {\bf 33}: 1131--1146.
+
+\bibitem[{{\sc Meurer} {\em et~al.\/}(2017){\sc Meurer}, {\sc Smith}, {\sc
+  Paprocki}, {\sc \v{C}ert\'{i}k}, {\sc Kirpichev} {\em et~al.\/}}]{sympy}
+{\sc Meurer, A.}, {\sc C.~P. Smith}, {\sc M.~Paprocki}, {\sc
+  O.~\v{C}ert\'{i}k}, {\sc S.~B. Kirpichev}, {\em et~al.\/}, 2017 Sympy:
+  symbolic computing in python.
+\newblock PeerJ Computer Science {\bf 3}: e103.
+
+\bibitem[{{\sc Ovaskainen} {\em et~al.\/}(2011){\sc Ovaskainen}, {\sc
+  Karhunen}, {\sc Zheng}, {\sc Arias} and {\sc Meril{\"{a}}}}]{Ovaskainen2011}
+{\sc Ovaskainen, O.}, {\sc M.~Karhunen}, {\sc C.~Zheng}, {\sc J.~M.~C. Arias},
+  and {\sc J.~Meril{\"{a}}}, 2011 {A new method to uncover signatures of
+  divergent and stabilizing selection in quantitative traits}.
+\newblock Genetics {\bf 189}: 621--632.
+
+\bibitem[{{\sc Praebel} {\em et~al.\/}(2013){\sc Praebel}, {\sc Knudsen}, {\sc
+  Siwertsson}, {\sc Karhunen}, {\sc Kahilainen} {\em et~al.\/}}]{Praebel2013}
+{\sc Praebel, K.}, {\sc R.~Knudsen}, {\sc A.~Siwertsson}, {\sc M.~Karhunen},
+  {\sc K.~K. Kahilainen}, {\em et~al.\/}, 2013 {Ecological speciation in
+  postglacial European whitefish: rapid adaptive radiations into the littoral,
+  pelagic, and profundal lake habitats}.
+\newblock Ecology and Evolution {\bf 3}: 4970--4986.
+
+\bibitem[{{\sc Rice}(2004)}]{Rice2004}
+{\sc Rice, S.}, 2004 {\em Evolutionary Theory: Mathematical and Conceptual
+  Foundations\/}.
+\newblock Sinauer.
+
+\bibitem[{{\sc Robinson} {\em et~al.\/}(2015){\sc Robinson}, {\sc Hemani}, {\sc
+  Medina-Gomez}, {\sc Mezzavilla}, {\sc Esko} {\em et~al.\/}}]{Robinson2015}
+{\sc Robinson, M.~R.}, {\sc G.~Hemani}, {\sc C.~Medina-Gomez}, {\sc
+  M.~Mezzavilla}, {\sc T.~Esko}, {\em et~al.\/}, 2015 {Population genetic
+  differentiation of height and body mass index across Europe}.
+\newblock Nature Genetics {\bf 47}: 1357--1362.
+
+\bibitem[{{\sc Schraiber} and {\sc Landis}(2015)}]{Schraiber2015}
+{\sc Schraiber, J.~G.}, and {\sc M.~J. Landis}, 2015 {Sensitivity of
+  quantitative traits to mutational effects and number of loci.}
+\newblock Theoretical population biology {\bf 102}: 85--93.
+
+\bibitem[{{\sc Slatkin}(1991)}]{Slatkin1991}
+{\sc Slatkin, M.}, 1991 {Inbreeding coefficients and coalescence times.}
+\newblock Genetical research {\bf 58}: 167--175.
+
+\bibitem[{{\sc Spitze}(1993)}]{Spitze1993}
+{\sc Spitze, K.}, 1993 {Population structure in Daphnia obtusa: Quantitative
+  genetic and allozymic variation}.
+\newblock Genetics {\bf 135}: 367--374.
+
+\bibitem[{{\sc Tennessen} {\em et~al.\/}(2012){\sc Tennessen}, {\sc Bigham},
+  {\sc O'Connor}, {\sc Fu}, {\sc Kenny} {\em et~al.\/}}]{Tennessen2012}
+{\sc Tennessen, J.~a.}, {\sc A.~W. Bigham}, {\sc T.~D. O'Connor}, {\sc W.~Fu},
+  {\sc E.~E. Kenny}, {\em et~al.\/}, 2012 {Evolution and functional impact of
+  rare coding variation from deep sequencing of human exomes.}
+\newblock Science (New York, N.Y.) {\bf 337}: 64--9.
+
+\bibitem[{{\sc Turelli}(2017)}]{Turelli2017}
+{\sc Turelli, M.}, 2017 {Commentary: Fisher's infinitesimal model: A story for
+  the ages}.
+\newblock Theoretical Population Biology {\bf 118}: 46--49.
+
+\bibitem[{{\sc Turelli} and {\sc Barton}(1990)}]{Turelli1990}
+{\sc Turelli, M.}, and {\sc N.~H. Barton}, 1990 {Dynamics of polygenic
+  characters under selection}.
+\newblock Theoretical Population Biology {\bf 38}: 1--57.
+
+\bibitem[{{\sc Wakeley}(2008)}]{Wakeley2008}
+{\sc Wakeley, J.}, 2008 {\em Coalescent Theory: An Introduction\/}.
+\newblock W. H. Freeman.
+
+\bibitem[{{\sc Westfall}(2014)}]{Westfall2014}
+{\sc Westfall, P.~H.}, 2014 {Kurtosis as Peakedness, 1905-2014. R.I.P.}
+\newblock The American Statistician {\bf 68}: 191--195.
+
+\bibitem[{{\sc Wheeler} {\em et~al.\/}(2016){\sc Wheeler}, {\sc Shah}, {\sc
+  Brenner}, {\sc Garcia}, {\sc Aquino-Michaels} {\em et~al.\/}}]{Wheeler2016}
+{\sc Wheeler, H.~E.}, {\sc K.~P. Shah}, {\sc J.~Brenner}, {\sc T.~Garcia}, {\sc
+  K.~Aquino-Michaels}, {\em et~al.\/}, 2016 {Survey of the Heritability and
+  Sparse Architecture of Gene Expression Traits across Human Tissues}.
+\newblock PLOS Genetics {\bf 12}: e1006423.
+
+\bibitem[{{\sc Whitehead} and {\sc Crawford}(2006)}]{Whitehead2006}
+{\sc Whitehead, A.}, and {\sc D.~L. Crawford}, 2006 {Neutral and adaptive
+  variation in gene expression}.
+\newblock Proceedings of the National Academy of Sciences {\bf 103}:
+  5425--5430.
+
+\bibitem[{{\sc Whitlock}(1999)}]{Whitlock1999}
+{\sc Whitlock, M.~C.}, 1999 {Neutral additive genetic variance in a
+  metapopulation}.
+\newblock Genetical Research {\bf 74}: S0016672399004127.
+
+\bibitem[{{\sc Whitlock}(2008)}]{Whitlock2008}
+{\sc Whitlock, M.~C.}, 2008 {Evolutionary inference from QST}.
+\newblock Molecular Ecology {\bf 17}: 1885--1896.
+
+\bibitem[{{\sc Whitlock} and {\sc Guillaume}(2009)}]{Whitlock2009}
+{\sc Whitlock, M.~C.}, and {\sc F.~Guillaume}, 2009 {Testing for spatially
+  divergent selection: Comparing QST to FST}.
+\newblock Genetics {\bf 183}: 1055--1063.
+
+\bibitem[{{\sc Yang} {\em et~al.\/}(2017){\sc Yang}, {\sc Maclean}, {\sc Park},
+  {\sc Zhao} and {\sc Zhang}}]{Yang2017}
+{\sc Yang, J.-R.}, {\sc C.~J. Maclean}, {\sc C.~Park}, {\sc H.~Zhao}, and {\sc
+  J.~Zhang}, 2017 {Intra and Interspecific Variations of Gene Expression Levels
+  in Yeast Are Largely Neutral: (Nei Lecture, SMBE 2016, Gold Coast)}.
+\newblock Molecular Biology and Evolution {\bf 34}: 2125--2139.
+
+\bibitem[{{\sc Yu} {\em et~al.\/}(2002){\sc Yu}, {\sc Chen}, {\sc Ota}, {\sc
+  Jorde}, {\sc Pamilo} {\em et~al.\/}}]{Yu2002}
+{\sc Yu, N.}, {\sc F.~C. Chen}, {\sc S.~Ota}, {\sc L.~B. Jorde}, {\sc
+  P.~Pamilo}, {\em et~al.\/}, 2002 {Larger genetic differences within Africans
+  than between Africans and Eurasians}.
+\newblock Genetics {\bf 161}: 269--274.
+
+\end{thebibliography}

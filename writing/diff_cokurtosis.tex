@@ -1,0 +1,106 @@
+Since the mean of a sample is uninformative, we have $n-1$ meaningful
+observations in a sample of size $n$. Let $Y_0$ be the reference trait value and
+$Y_1-Y_0,Y_2-Y_0,\ldots,y_{n-1}-Y_0$ are the observed trait differences. Let $X$
+be the random vector of these differences. We are now interested in the
+distribution of these differences. The moment generating function is
+\begin{equation}
+  \varphi_{\mathbf{X}}(\mathbf{k}) =
+  \int e^{\mathbf{k} \cdot \mathbf{x} }
+  \int P(\mathbf{X}=\mathbf{x}|\mathbf{T} = \mathbf{t})
+  P(\mathbf{T}=\mathbf{t})d\mathbf{t}d\mathbf{x}.
+\end{equation}
+For the present we're going to look at $Cokurt[X_1,X_1,X_2,X_2]$, the cokurtosis between
+two trait differences in a sample. This should hopefully tell us something about
+the propensity of extreme trait values to be shared because of shared ancestry
+of the individuals. The mgf for this is
+\begin{equation}
+  \int \int e^{k_1(y_a-y_0) + k_2(y_b-y_0)} P(Y_a-Y_0=y_a-y_0,Y_b-Y_0=y_b-y_0|\mathbf{T}-\mathbf{t})
+  P(\mathbf{T}=\mathbf{t})d\mathbf{y}d\mathbf{t}.
+\end{equation}
+As before we can break this into different sections of the genealogy because the
+changes in trait values along these branches are independent conditional on $T$.
+Ignoring sets of branches where $Y_a-Y_0=Y_b-Y_0=0$, the relevant branch sets
+are $(\Omega_{a/(b,0)},\Omega_{(0+b)/a},\Omega_{b/(0,a)},\Omega_{(0+a)/b},\Omega_{0/(a,b)},\Omega_{(a+b)/0})$.
+Only considering these gives the following mgf
+\begin{align*}
+  \varphi_{Y_a-Y_0,Y_b-Y_0}(k_1,k_2) &=
+  \int \prod_{\omega \in \Omega_{a/(0,b)}}\exp\left( \T t_{\omega} (\phi(k_1)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{(0+b)/a}}\exp\left( \T t_{\omega} (\phi(-k_1)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{b/(0,a)}}\exp\left( \T t_{\omega} (\phi(k_2)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{(0+a)/b}}\exp\left( \T t_{\omega} (\phi(-k_2)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{0/(a,b)}}\exp\left( \T t_{\omega} (\phi(-k_1-k_2)-1) \right) \\
+  &\times \prod_{\omega \in \Omega_{(a+b)/0}}\exp\left( \T t_{\omega} (\phi(k_1+k_2)-1) \right)
+  P(\mathbf{T}=\mathbf{t})d\mathbf{t}
+\end{align*}
+Application of the low mutation rate approximation and assuming that $m_1$ and
+$m_3$ are zero gives
+\begin{align*}
+  (1 &+ \sum_{\omega \in \Omega_{a/(0,b)}} E[t_\omega] \T 
+       \left[ \frac{m_2}{2} k_1^2 + \frac{m_4}{24}k_1^4\right] \\
+     &+ \sum_{\omega \in \Omega_{(0+b)/a}} E[t_\omega] \T 
+       \left[ \frac{m_2}{2} k_1^2 + \frac{m_4}{24}k_1^4 \right] \\
+     &+ \sum_{\omega \in \Omega_{b/(0,a)}} E[t_\omega] \T
+       \left[ \frac{m_2}{2} k_2^2 + \frac{m_4}{24}k_2^4 \right] \\
+     &+ \sum_{\omega \in \Omega_{(0+a)/b}} E[t_\omega] \T 
+       \left[ \frac{m_2}{2} k_2^2 + \frac{m_4}{24}k_2^4 \right] \\
+     &+ \sum_{\omega \in \Omega_{0/(a,b)}} E[t_\omega] \T
+       \left[ \frac{m_2}{2} (k_1 + k_2)^2 + \frac{m_4}{24}(k_1 + k_2)^4\right] \\
+     &+ \sum_{\omega \in \Omega_{(a+b)/0}} E[t_\omega] \T 
+       \left[ \frac{m_2}{2} (k_1 + k_2)^2 + \frac{m_4}{24}(k_1 + k_2)^4 \right])^L.
+\end{align*}
+If we ignore terms that won't contribute to the cokurtosis and do some grouping
+we get
+\begin{align*}
+  (1 &+ \sum_{\omega \in \Omega_{0/a}} E[t_\omega] \T \frac{m_2}{2}k_1^2 \\
+     &+ \sum_{\omega \in \Omega_{a/0}} E[t_\omega] \T \frac{m_2}{2}k_1^2 \\
+     &+ \sum_{\omega \in \Omega_{0/b}} E[t_\omega] \T \frac{m_2}{2}k_2^2 \\
+     &+ \sum_{\omega \in \Omega_{b/0}} E[t_\omega] \T \frac{m_2}{2}k_2^2 \\
+     &+ \sum_{\omega \in \Omega_{0/(a,b)}} E[t_\omega] \T 
+       \left[ \frac{m_2}{2} 2k_1k_2 + \frac{m_4}{24}k_1^2k_2^2\right]\\
+     &+ \sum_{\omega \in \Omega_{(a,b)/0}} E[t_\omega] \T 
+       \left[ \frac{m_2}{2} 2k_1k_2 + \frac{m_4}{24}k_1^2k_2^2\right])^L.
+\end{align*}
+These sums over internal branches can be interpreted in terms of coalescence
+times. 
+\begin{align*}
+(1 &+ 2E[\tau_{a/0}] \T \frac{m_2}{2}k_1^2 \\
+   &+ 2E[\tau_{b/0}] \T \frac{m_2}{2}k_2^2 \\
+   &+ E[\tau_{0/(a,b)}] \T \left[ \frac{m_2}{2} 2k_1k_2 + \frac{m_4}{24}6k_1^2k_2^2\right]\\
+   &+ E[\tau_{(a,b)/0}] \T \left[ \frac{m_2}{2} 2k_1k_2 + \frac{m_4}{24}6k_1^2k_2^2\right])^L.
+\end{align*}y
+As before $E[\tau_{a/0}]$ is the expected coalescence time between individuals
+$a$ and $0$. $E[\tau_{0/(a,b)}]$ is the expected total branch length subtending
+individual $0$ before this lineage coalesces with either $a$ or $b$.
+$E[\tau_{(a,b)/0}]$ is the expected total branch length subtending both $a$ and
+$b$ before either coalesces with $0$. This is a much less common a genealogical
+quantity than the expected coalescent time, but it seems to make sense in this
+context. Taking the appropriate derivatives we get
+\begin{align}
+\label{eq:diffcokurt}
+  E[Y_a-Y_0,Y_b-Y_0] &= 4L(L-1)E[\tau_{a/0}]E[\tau_{b/0}]\left(\T\right)^2m_2^2 \nonumber \\
+                     &+ 2L(L-1)(E[\tau_{0/(a,b)}]+E[\tau_{(a,b)/0}])^2\left( \T \right)^2 m_2^2 \nonumber \\
+                     &+ L E[\tau_{0/(a,b)}] \T m_4 + L E[\tau_{(a,b)/0}] \T m_4.
+\end{align}
+The cokurtosis is then 
+\begin{equation}
+  \left( 1 - \frac{1}{L} \right) \left( 1 + 
+  \frac{(E[\tau_{0/(a,b)}]+E[\tau_{(a,b)/0}])^2}{2E[\tau_{a/0}]E[\tau_{b/0}]} \right)+ 
+  \frac{Kurt[M]\left(E[\tau_{0/(a,b)}] +  E[\tau_{(a,b)/0}]\right)}{4L \T E[\tau_{a/0}]E[\tau_{b/0}]}.
+\end{equation}
+The cokurtosis of a multivariate normal distribution is $1+2\rho$ where $\rho$
+is the correlation between the two variables. With this in mind we can
+rewrite \eqref{eq:diffcokurt} as
+\begin{equation}
+  \left( 1 - \frac{1}{L} \right) \left( 1 + 
+  2\frac{(E[\tau_{0/(a,b)}]+E[\tau_{(a,b)/0}])^2}{4E[\tau_{a/0}]E[\tau_{b/0}]} \right)+ 
+  \frac{Kurt[M]\left(E[\tau_{0/(a,b)}] +  E[\tau_{(a,b)/0}]\right)}{4L \T E[\tau_{a/0}]E[\tau_{b/0}]}.
+\end{equation}
+Here,
+$\frac{(E[\tau_{0/(a,b)}]+E[\tau_{(a,b)/0}])^2}{4E[\tau_{a/0}]E[\tau_{b/0}]}$
+makes sense as the correlation between $Y_a-Y_0$ and
+$Y_b-Y_0$. \eqref{eq:diffcokurt} therefore has the same form as the other
+kurtosis formulas where the excess kurtosis above the normal expectation is
+proportional to the mutational kurtosis.
+%%% Local Variables:
+%%% TeX-master: "notes.tex"
+%%% End:
