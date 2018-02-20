@@ -6,7 +6,7 @@ in deriving the normal distribution, by substituting the Taylor series of the
 mutational mgf.
 \begin{equation}
   \label{eq:mgf_approx_sub}
-  \varphi_{\mathbf{Y}}(\mathbf{k}) \approx \left[ 1 + \sum_{\omega \in \mathcal{O}}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) \approx \left[ 1 + \sum_{\omega \in \Omega}
     E[t_\omega] \T \left( m_1 \sum_{a \in \omega} k_a +
     \frac{m_2}{2!}\left( \sum_{a \in \omega} k_a\right)^2 +
     \frac{m_3}{3!}\left( \sum_{a \in \omega} k_a\right)^3 +
@@ -16,12 +16,12 @@ We can expand this out using multinomial coefficients to get
 \begin{align}
   \label{eq:mgf_approx_expand}
   \varphi_{\mathbf{Y}}(\mathbf{k}) &\approx 1 +
-  L\T \sum_{\omega \in \mathcal{O}} E[t_{\omega}]\left( m_1 \sum_{a \in \omega} k_a +
+  L\T \sum_{\omega \in \Omega} E[t_{\omega}]\left( m_1 \sum_{a \in \omega} k_a +
   \frac{m_2}{2}\left( \sum_{a \in \omega} k_a\right)^2 + \ldots \right) \nonumber \\
-  &+ \frac{L(L-1)}{2} \left(\T\right)^2 \sum_{\omega \in \mathcal{O}} E[t_{\omega}]^2
+  &+ \frac{L(L-1)}{2} \left(\T\right)^2 \sum_{\omega \in \Omega} E[t_{\omega}]^2
   \left( m_1 \sum_{a \in \omega} k_a +
   \frac{m_2}{2}\left( \sum_{a \in \omega} k_a\right)^2 + \ldots \right)^2 \nonumber \\
-  &+ L(L-1)\left(\T\right)^2\sum_{\omega_1, \omega_2 \in \mathcal{O}}E[t_{\omega_1}]E[t_{\omega_2}]
+  &+ L(L-1)\left(\T\right)^2\sum_{\omega_1, \omega_2 \in \Omega}E[t_{\omega_1}]E[t_{\omega_2}]
   \left( m_1 \sum_{a \in \omega_1} k_a + \ldots \right)
   \left( m_1 \sum_{a \in \omega_2} k_a + \ldots \right) + \ldots.
 \end{align}
