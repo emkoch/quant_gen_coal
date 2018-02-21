@@ -327,8 +327,8 @@ class traitMGF(object):
             return self.moments[approx_type][mom_hash]
         print('making mgf approx...')
         # Make mgf at appropriate approx level if doesn't already exist
-        self.make_mgf(sum(pows), approx_type, gene_mgf)
-        d_mgf = self.mgf[approx_type][sum(pows)].approx
+        self.make_mgf(self.num_indiv, approx_type, gene_mgf)
+        d_mgf = self.mgf[approx_type][self.num_indiv].approx
         dummies_nonzero = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)
                                          if pows[ii] > 0])
         dummies = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)])
