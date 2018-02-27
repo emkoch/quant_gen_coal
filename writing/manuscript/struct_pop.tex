@@ -1,30 +1,46 @@
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{figures/qst_deme_compare.pdf}
-  \caption{\small A comparison of the Lewontin-Krakauer (LK) distribution with
-    the distribution of $Q_{ST}$ derived in this paper based on the normal
-    distribution arising in the infinitesimal limit. A model of no spatial
-    structure and equal migration between demes is compared to a stepping stone
-    model where populations are arranged in a ring. $F_{ST}$ is held constant
-    while the number of demes is increased by altering the migration rate.
-    Vertical lines show the mean $Q_{ST}$ under the different null
-    distributions. Discordance between these lines illustrates that $Q_{ST}
-    \neq F_{ST}$. }
+  \caption{\small The Lewontin-Krakauer (LK) distribution for $Q_{ST}$ is
+    compared to the null distribution in the infinitesimal limit in a case with
+    and a case without spatial structure. The case with no spatial structure
+    assumes the migration rate is equal between all demes, and the case with
+    spatial structure arranges demes in a ring with migration only between
+    neighboring demes. Migration rates and subpopulation sizes are all equal and
+    are set such that $F_{ST}=0.1$ even as the number of demes is increased
+    \citep{Slatkin1991}. $Q_{ST}$ values for these models are simulated by
+    drawing vectors from a multivariate normal distribution as described in the
+    main text. In the LK distribution $Q_{ST}\sim F_{ST}\chi^2_{n_d -
+      1}/(n_d-1)$, where $n_d$ is the number of demes. Vertical lines show the
+    mean $Q_{ST}$ under the different null distributions. The mean $Q_{ST}$
+    values for the two normal models are nearly identical. Discordance between
+    these lines and that for the LK distribution illustrates that $Q_{ST} \neq
+    F_{ST}$.}
   \label{fig:qst_deme}
 \end{figure}
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{figures/qst_deme_percentile_nospace.pdf}
-  \caption{\small Differences in the $95^{\mathrm{th}}$ percentile of the
-    $Q_{ST}$ distribution.}
+  \caption{\small Differences in the $95^{\mathrm{th}}$ percentile of different
+    $Q_{ST}$ null distributions. The Lewontin-Krakauer (LK) distribution is
+    compared to null distributions for structured populations with and without a
+    spatial component using the normal model.}
   \label{fig:qst_perc}
 \end{figure}
-We can apply the neutral theory of quantitative traits to the divergence between
-groups in structured populations, by asking what level of divergence is expected
-in the infinitesimal limit. A common way to quantify the divergence in trait
-value between groups is $Q_{ST}$, defined as the variance between the group
-means divided by the total variance in the population. Since we use a haploid
-model, we define $Q_{ST} = \frac{V_{between}}{V_{between} + V_{within}}$, where
+
+We can apply the neutral theory of quantitative traits developed above to obtain
+a null distribution for divergence between groups in structured populations. In
+obtaining this null distribution we use the normal model found in the
+infinitesimal limit. A common way to quantify the divergence in trait value
+between groups is $Q_{ST}$, defined as the variance between the group means
+divided by the total variance in the population. The normal model does not
+provide an analytic form for the neutral distribution of $Q_{ST}$, but it does
+provide an efficient way to sample from this distribution. The null distribution
+we obtain through this informed approach performs better than a more naive
+null distribution suggested by \citet{Whitlock2009}. 
+
+Since we use a haploid model, we define $Q_{ST} = \frac{V_{between}}{V_{between}
+  + V_{within}}$, where
 \begin{equation*}
   V_{between} = \frac{1}{K} \sum_i \left( \bar{Y}_i - \bar{Y} \right)^2
 \end{equation*}
@@ -32,7 +48,7 @@ and
 \begin{equation*}
   V_{within} = \frac{1}{\sum_k N_k} \sum_i \sum_j \left( Y_{i,j} - \bar{Y}_i \right)^2.
 \end{equation*}
-Here, $Y_{i,j}$ is the trait value of individual $j$ in population $i$.
+Here, $Y_{i,j}$ is the trait value of individual $j$ in population $a$.
 
 In the normal model, all $Y_{i,j}$ are normally distributed. Therefore,
 $\bar{Y}_{i} - \bar{Y}$ and $Y_{i,j} - \bar{Y}_i$ are also normally distributed.
@@ -41,14 +57,14 @@ nearly uncorrelated as are $V_{between}$ and $V_{within}$. $V_{within}$ is
 nearly constant across evolutionary realizations and is equal to $\sum_k N_k
 E[\mathcal{T}_{k,k}] / \sum_k N_k$ because the within population variances are
 approximately uncorrelated and their variances are order $1/N_k$. While we do
-not have an explicit from for the between group variance, we can simulate from
+not have an explicit form for the between group variance, we can simulate from
 its distribution by drawing a vector of $\bar{Y}_{i} - \bar{Y}$ values from a
 multivariate normal distribution with mean zero and covariance matrix with
-elements
+elements between populations $a$ and $b$
 \begin{equation}
-  \Cov[\bar{Y}_{i} - \bar{Y}, \bar{Y}_{j} - \bar{Y}] =
-  \sigma^2(\bar{\mathcal{T}}_{i,\cdot} + \bar{\mathcal{T}}_{j,\cdot} -
-  \bar{\mathcal{T}}_{\cdot,\cdot} - \bar{\mathcal{T}}_{i,j}).
+  \Cov[\bar{Y}_{a} - \bar{Y}, \bar{Y}_{b} - \bar{Y}] =
+  \sigma^2(\E[\mathcal{T}_{a,\cdot}] + \E[\mathcal{T}_{b,\cdot}] -
+  \E[\mathcal{T}_{\cdot,\cdot}] - \E[\mathcal{T}_{a,b}]).
 \end{equation}
 To simulate $Q_{ST}$ values we do not need to know $\sigma^2$ because the scale
 of the trait variance cancels in the $Q_{ST}$ ratio. Knowing expected coalescent
@@ -74,9 +90,9 @@ to $F_{ST}$, but due to Jensen's inequality, the expectation of this ratio
 The null distribution of $Q_{ST}$ derived here could be useful in testing
 whether an observed value is unlikley under neutrality. Current goodness-of-fit
 tests either compare $Q_{ST}$ to an empirical distribution of $F_{ST}$ values or
-to a $\chi^2$ distribution. In the second, case an identical distribution to
+to a $\chi^2$ distribution. In the second case, an identical distribution to
 that developed by \citet{Lewontin1973} is used as the null distribution for
-$Q_{ST}$. The $chi^2$ testing procedure was suggested by \citet{Whitlock2009}
+$Q_{ST}$. The $\chi^2$ testing procedure was suggested by \citet{Whitlock2009}
 and is implemented in the program \textit{QstFstComp} \citep{Gilbert2015}. The
 Lewontin-Krakauer (LK) distribution assumes independence between demes and
 provides a good approximation in populations without spatial structure (Figure

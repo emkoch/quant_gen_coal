@@ -18,7 +18,7 @@ moment generating function for a distribution over genealogies. The moment
 generating functions for many demographic histories of interest and sample sizes
 above two are sufficiently complex that solving for them is impractical
 \citep{Lohse2011}. However, progress can still be made by using Taylor
-expansions to write moment of the trait distribution in terms of moments of the
+expansions to write moments of the trait distribution in terms of moments of the
 genealogical and mutational distributions.
 
 This result extends previous work using coalescent theory to investigate neutral
@@ -41,32 +41,33 @@ same distribution using a central limit theorem argument. It is worth noting
 that the covariance matrix is scaled by the second moment of the mutational
 distribution and not the variance.
 
-Sparse traits were compared to the normal model by calculating how the first
-four expected central moments different from those expected under normality.
-This showed how demography and the genetic architecture separately influence the
+We compared sparse traits to the normal model by calculating how the first four
+expected central moments different from those expected under normality. This
+showed how demography and the genetic architecture separately influence the
 expected deviation from normality. For a fixed expected trait sparsity,
 population growth produces greater deviations in the fourth central moment while
 population bottlenecks produce lower deviations (Figures
 \ref{fig:Qexp},\ref{fig:Qland}). However, for realistic demographic scenarios,
-we find that the effects attributable demography are small (Figure
+we find that the effects attributable to demography are small (Figure
 \ref{fig:afeucomp}). We only analyzed cases where the individuals in the
-population were exchangeable, but this would likely increase deviations from
-normality as drift will lead to differences in trait means between
-subpopulations.
+population were exchangeable, but adding population would increase deviations
+from normality as drifting trait means between subpopulations will yield a
+multimodal distribution.
 
 We next apply the above theory to three simple problems where a coalescent
 perspective on the neutral distribution of a quantitative trait provides useful
 intuition. The first of these is the question of the appropriate null
 distribution for $Q_{ST}$ at the population level. We show how the null
-distribution under the normal model can be easily simulated from, providing a
-much better approximation when populations are correlated than previous
-approaches \citep{Whitlock2009} (Figure \ref{fig:qst_deme}). The second case
-shows how the single-generation response to cubic selection depends on the third
-and fourth central moments of the trait distribution \citep{Turelli1990},
-moments whose expectation depends on genetic architecture and demography.
-Lastly, we show it is theoretically possible for sparse traits to infer the
-shape of the mutational distribution but not the mutational target size or
-magnitude of mutational effects without assuming a particular shape.
+distribution under the normal model can be easily simulated from by taking
+advantage of the theory presented here, providing a much better approximation
+when populations are correlated than previous approaches \citep{Whitlock2009}
+(Figure \ref{fig:qst_deme}). The second case shows how the single-generation
+response to cubic selection depends on the third and fourth central moments of
+the trait distribution \citep{Turelli1990}, moments whose expectation depends on
+genetic architecture and demography. Lastly, we show it is theoretically
+possible for sparse traits to infer the shape of the mutational distribution but
+not the mutational target size or magnitude of mutational effects without
+assuming a particular shape.
 
 Even though we have broadened the model space for neutral traits, many features
 of real populations have not yet been incorporated. Linkage between loci is a
@@ -109,37 +110,7 @@ Populations with a greater $\mathbbm{T}_{3,3}$ to $\mathbbm{T}_{2,2}$ ratio are
 also expected to show a greater $M_3$ to $M_2$ ratio, so this comparison could
 be made in studies of multiple populations. Because gene expression studies
 generally measure a large number of traits, observing such a trend on average
-could be a convincing sign of deviations from normality.
-
-%% The main result of this work has been to show that the characteristic function
-%% for the distribution of trait values derived by \citet{Schraiber2015} is a
-%% special case of the general relationship given in equation \eqref{eq:sub}. What
-%% this implies is that to get mgf of the trait value distribution one must first
-%% be able to write the mgf for the genealogical distribution. These functions have
-%% been studied by \citet{Lohse2011} and in subsequent papers. They are recursive
-%% in nature and the number of terms becomes quickly intractable as the number of
-%% individuals increases. Things are simplified substantially when either a low
-%% mutation approximation or infinitesimal model is used. In these cases only the
-%% mean branch lengths or expected pair coalescent times, respectively, are
-%% necessary to describe the trait value distribution.
-
-%% The focus on kurtosis here is perhaps undue. It is presented mostly as an
-%% example of how a simple and intuitive result can be obtained from the given
-%% mgfs. For many traits the infinitesimal model surely provides a good null
-%% distribution. For traits that do have sparse genetic architectures and
-%% mutational distributions with large tails it is possible that aspects of the
-%% mutational distribution could be learned from population samples, but it would
-%% likely be necessary to somehow pool information across a large number of traits.
-%% A possible instance where this could be achieved is for gene expression levels
-%% \citep{Wheeler2016}.
-
-%% It would be interesting to extend these results, which are only for the haploid,
-%% unlinked, additive case to include factors like dominance, epistasis and
-%% linkage. For epistasis this is likely to be very difficult since there are no
-%% nice relationships for the mgf of a nonlinear combination of random variables.
-%% Still, some approximations may be possible for particular forms of epistasis.
-%% These would be of particular interest when testing for departures from
-%% neutrality in structured populations as in \citet{Ovaskainen2011}.
+could be a sign of deviations from normality.
 
 %%% Local Variables:
 %%% TeX-master: "short_report.tex"

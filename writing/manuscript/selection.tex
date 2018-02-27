@@ -11,65 +11,40 @@ response to selection in the toy situation of a trait that has evolved neutrally
 up to the current time and is then subjected to one generation of selection
 under a particular fitness function.
 
-According to \citet{Turelli1990}, the response of the mean phenotype in the
-population is
+According to \citet{Turelli1990}, in the absence of environmental effects the
+response of the mean phenotype in the population is
 \begin{equation}
   \label{eq:selresp}
-  \Delta \bar{Z} = M_2L_1 + M_3L_2 + \gamma_4M^2_2L_3 +
+  \Delta \bar{Y} = M_2L_1 + M_3L_2 + \gamma_4M^2_2L_3 +
   \left( M_5-4M_3M_2\right)L_4 + \ldots.
 \end{equation}
-$Z$ refers to a phenotypic value which has an environmental component as opposed
-to the trait value $Y$ which is due entirely to genetics. $V_g$ is the variance
-in trait values in the population, and $\gamma_4$ is the excess kurtosis above a
-normal distribution. The term $M_i$ is again the $i^{th}$ central moment of the
-trait value distribution in the population. The $L_i$ are selection gradients in
-terms of the genotypic moments and describe the shape of the fitness function on
-the trait values. Precisely, $L_i$ is the partial derivative of the log of the
-mean fitness with respect to the $i^{th}$ moment of the trait value distribution
+$\gamma_4$ is the excess kurtosis of the trait values in the population above a
+normal distribution and the $M_i$ terms are again the $i^{th}$ central moments
+of the trait value distribution in the population. The $L_i$ are selection
+gradients in terms of the genotypic moments and describe the shape of the
+fitness function on the trait values.
 
-In the absence of environmental effects equation \eqref{eq:selresp} fully
-describes the response of the mean trait value to one generation of selection.
 Equation \eqref{eq:selresp} shows that whether higher order moments of the trait
 distribution contribute to the selection response depends on the shape of the
 fitness function through the $L_i$. The excess kurtosis affects the response to
-selection linearly with $L_3$, the selection gradient with respect to the third
-moment of the trait value distribution. As a very simple example consider
-selection acting through a cubic fitness function:
-\begin{equation}
-  \label{eq:cubsel}
-  W_g(Y) = b_0 + b_3(Y-\bar{Y})^3.
-\end{equation}
-This fitness function models selection on differences from the current mean
-trait value in the population. It can be thought of as directional selection
-acting most strongly on the tails of the distribution. However, the cubic
-fitness function can give negative values which is something we would like to
-avoid. In order for it to be sensible we must assume the degree of cubic
-selection, $b_3$, is not too large relative to fitness value at the population
-mean, $b_0$.
+selection linearly with $L_3$, which depends on the third moment of the trait
+value distribution.
 
-The response to selection is
+When selection is cubic ($W(Y) = b_0 + b_3(Y-\bar{Y})^3$), the response to
+selection is
 \begin{equation}
   \label{eq:cubresp}
   \Delta \bar{Z} = \frac{M_4\beta}{1 + M_3\beta},
 \end{equation}
-where $\beta=b_3/b_0$. Simulations show that equation \eqref{eq:cubresp}
-predicts the response to selection up until $\beta\approx 2e-3$. This is a ratio
-of random quantities, so calculating the expected response to selection is not
-feasible. However, we conjecture that demographic and mutational process
-increasing the expected fourth central moment relative to the third would
-increase the response to selection.
+where $\beta=b_3/b_0$. Cubic selection represents an idealized fitness function
+to investigate the effects of selection acting on the tails of the population
+trait distribution. Equation \eqref{eq:cubresp} is a ratio of random quantities,
+so calculating the expected response to selection is not feasible. However, we
+conjecture that demographic and mutational process increasing the expected
+fourth central moment relative to the third would increase the response to
+selection. For instance, a high mutational kurtosis and a low skew would likely
+increase the response to cubic selection.
 
-While equation \eqref{eq:cubsel} represents an idealized fitness function to
-investigate the effects of selection acting on the tails of the population trait
-distribution, it has some unrealistic qualities. Equation \eqref{eq:cubsel} is
-centered on the mean trait value in the population, and in the absence of
-stabilizing selection the mean will have drifted since the most recent common
-ancestor of the population. There is not a strong reason for selection to be
-centered at the ancestral mean. For the selection to be strictly cubic in shape
-is unrealistic as well, but a large set of fitness functions will have a cubic
-component. Equation \eqref{eq:cubresp} shows that this component depends on
-moments of the trait distribution that sensitive to demography and genetic
-architecture.
 %%% Local Variables:
 %%% TeX-master: "short_report.tex"
 %%% End:
