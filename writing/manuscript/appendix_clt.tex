@@ -53,10 +53,11 @@ distribution the coefficient in the exponential of $k_a$ is the mean of $Y_a$
 and the coefficient of $k_ak_b$ is $2\Cov[Y_a,Y_b]$ if $a\neq b$ and $\Var[Y_a]$
 if $a=b$.
 
-These $Y$ value can never be directly observed. Rather, differences between
-individual trait values are what analyses would be based on. Since the $Y$ are
-normal so will be differences like $Y_a-Y_b$. 
-differences.
+These $Y$ values are not directly observed because in the theory presented here
+they are measured as the sum of differences since the $T_{MRCA}$s at the causal
+loci affecting the trait. Rather, differences between individual trait values
+are what analyses would be based on. Since the $Y$ are normally distributed
+differences between trait values such as $Y_a-Y_b$ will be as well.
 \begin{align*}
   \Var[Y_a-Y_b] &= Var[Y_a] + \Var[Y_b] - 2\Cov[Y_a,Y_b]\\
                 &= 2(\E[T_{MRCA}] - \E[\tau_{a+b}])\sigma^2.

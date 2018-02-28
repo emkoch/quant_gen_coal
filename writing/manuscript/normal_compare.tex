@@ -51,9 +51,7 @@ population size.}
 \begin{figure}
 \centering
 \includegraphics[width=0.65\textwidth]{figures/af_eu_mom4.pdf}
-\caption{A comparison between the expected fourth moment under different genetic
-architectures in the African and European demographic models fit
-by \citet{Tennessen2012}. Trait sparsity is varied by changing the expected
+\caption{A comparison between the expected fourth moment at different levels of sparsity in the African and European demographic models fit by \citet{Tennessen2012}. Trait sparsity is varied by changing the expected
 number pairwise differences at sites affecting the trait in the European model.
 The mutational kurtosis is set to six. Dashed lines show the predicted
 relationship for populations with the same heterozygosity as the European and
@@ -70,16 +68,16 @@ history also with recent growth. Differences between the two have resulted in a
 lower heterozygosity in European populations due to the out-of-Africa
 bottleneck \citep{Yu2002}.
 
-For a given genetic architecture, the African population model predicts a
-smaller deviation from normality than the European model
-(Figure \ref{fig:afeucomp}). The expected fourth moment in constant-size
-populations with the same heterozygosity as the African and European models is
-lower for the African model and higher for the European model. This is because
-the African model is dominated by population growth that leads to a $Q$ greater
-than one, while the European model is dominated by a bottleneck event that leads
-to a $Q$ less than one (Figure \ref{fig:Qland}). However, differences due to
-demography are small and the overall deviations from normality are mostly driven
-by differences in the heterozygosity at causal loci.
+For a given sparsity, the African population model predicts a smaller deviation
+from normality than the European model (Figure \ref{fig:afeucomp}). The expected
+fourth moment in constant-size populations with the same heterozygosity as the
+African and European models is lower for the African model and higher for the
+European model. This is because the African model is dominated by population
+growth that leads to a $Q$ greater than one, while the European model is
+dominated by a bottleneck event that leads to a $Q$ less than one
+(Figure \ref{fig:Qland}). However, differences due to demography are small and
+the overall deviations from normality are mostly driven by differences in the
+heterozygosity at causal loci.
 
 Another natural way to quantify the deviation of a distribution from normality
 is its kurtosis. The kurtosis, the ratio of the fourth central moment to the
@@ -97,16 +95,16 @@ than under normality when external branches are longer ($\E[\mathbbm{T}_{4,4}] >
 \frac{1}{6}\E[\mathbbm{T}_{3,4}] + \frac{1}{9}\E[\mathbbm{T}_{2,4}]$) and less than under normality
 when they are longer ($\E[\mathbbm{T}_{4,4}] < \frac{1}{6}\E[\mathbbm{T}_{3,4}] +
 \frac{1}{9}\E[\mathbbm{T}_{2,4}]$), simulations show that the approximation is actually
-quite poor (Figure \ref{fig:kurtsim}). The mean kurtosis increases when trait
-architecture becomes sparse regardless of whether the population size is
-constant or growing. Another feature is that there is substantial variance in
-the kurtosis with about a quarter of simulated populations having a kurtosis
-less than three even as the mean sharply increases. This high variance is likely
-due to a negative correlation between the fourth central moment and the
-variance. This, along with the fact that deviations from the infinitesimal model
-inflate the fourth moment (equation \eqref{eq:popmom4coal}), leads to a
-situation where the kurtosis increases with trait sparsity but the variance is
-high across evolutionary realizations.
+quite poor (Figure \ref{fig:kurtsim}). The mean kurtosis increases when a trait
+becomes sparse regardless of whether the population size is constant or growing.
+Another feature is that there is substantial variance in the kurtosis with about
+a quarter of simulated populations having a kurtosis less than three even as the
+mean sharply increases. This high variance is likely due to a negative
+correlation between the fourth central moment and the variance. This, along with
+the fact that deviations from the infinitesimal model inflate the fourth moment
+(equation \eqref{eq:popmom4coal}), leads to a situation where the kurtosis
+increases with trait sparsity but the variance is high across evolutionary
+realizations.
 
 %%% Local Variables:
 %%% TeX-master: "short_report.tex"
