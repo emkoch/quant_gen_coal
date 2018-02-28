@@ -16,6 +16,20 @@ mutations were assigned effects from a zero-centered normal or Laplace
 distribution. The effective population size and mutation rate were kept constant
 and the expected number of pairwise difference was increased by increasing the
 number of loci affecting the trait.
+
+A first order approximation to the kurtosis is
+\begin{equation}
+    \label{eq:firstord} 
+\kappa_Y^{(1)} = 3 + \frac{\kappa_M \frac{\CCC}{\E[\mathbbm{T}_{2.2}]}} {L \T \E[\mathbbm{T}_{2.2}]
+    + \kappa_M \frac{\BBB}{\E[\mathbbm{T}_{2.2}]}}.
+\end{equation}
+Although this expression suggests that the expected $\kappa_Y$ will be greater
+than under normality when external branches are longer ($\E[\mathbbm{T}_{4,4}] >
+\frac{1}{6}\E[\mathbbm{T}_{3,4}] + \frac{1}{9}\E[\mathbbm{T}_{2,4}]$) and less
+than under normality when they are longer ($\E[\mathbbm{T}_{4,4}] <
+\frac{1}{6}\E[\mathbbm{T}_{3,4}] + \frac{1}{9}\E[\mathbbm{T}_{2,4}]$),
+simulations show that the approximation is actually quite poor (Figure
+\ref{fig:kurtsim}).
 %%% Local Variables:
 %%% TeX-master: "short_report.tex"
 %%% End:

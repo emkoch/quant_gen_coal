@@ -30,7 +30,7 @@ theta <- 2e-8
 L <- 1e4
 test.vals$Q <- apply(test.vals, 1, FUN=function(xx) Qfactor.alt(xx[1], xx[2]))
 
-pdf("Q_land.pdf", height=5, width=7)
+pdf("Q_land.pdf", height=3.5, width=7*(3.5/5))
 foo <- ggplot(data=test.vals, aes(x=bb, y=cc, z=2*Q)) + 
   geom_raster(data=test.vals, aes(fill=2*Q), show.legend=TRUE) + 
   scale_x_log10(breaks=c(.01,.1,1,10,100)) + scale_y_log10(breaks=c(.01,.1,1,10,100)) + 
