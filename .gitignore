@@ -24,3 +24,8 @@ writing/presenation/darwin_retreat/*.pdf
 _*
 *.dvi
 *.pdf
+*.txt
+*.nb
+*.doc
+*.pyc
+*.svg
