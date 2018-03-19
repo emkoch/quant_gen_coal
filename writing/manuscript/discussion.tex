@@ -41,6 +41,16 @@ same distribution using a central limit theorem argument. It is worth noting
 that the covariance matrix is scaled by the second moment of the mutational
 distribution and not the variance.
 
+Since this normal model is the limiting distribution under the coalescent, it is
+not subject to the problems surrounding the use of species trees to generate
+covariance matrices in phylogenetic comparative methods \citep{Mendes2018}. A
+matrix based on pairwise coalescence times rather than a species tree based on
+population split times takes into account the effects of all lineages at causal
+loci, even those that do not follow the species topology. The covariances
+specified by equation \eqref{eq:normcov} could also be used to generate
+within-species in a similar manner to the method suggested
+by \citet{Felsenstein2002}.
+
 We compared sparse traits to the normal model by calculating how the first four
 expected central moments different from those expected under normality. This
 showed how demography and the genetic architecture separately influence the

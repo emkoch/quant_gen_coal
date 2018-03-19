@@ -1,30 +1,49 @@
-Similarly to neutral models in genetics, neutral models of quantitative traits
-provide a null distribution against which goodness-of-fit tests can be used to
-test for the action of natural selection\citep{Lande1976}, and clarify the
-effects of neutral forces on variation, such as population size and mutation
-\citep{Lynch1986}. The common approach is to first model phenotypes as normally
-distributed, either among offspring within a family, among members of a
-population, or between species \citep{Turelli2017}. Indeed, it has been
-suggested that the normality assumption is the defining characteristic of
-quantitative genetics \citep{Rice2004}. This might be justified if phenotypes
-are influenced by a large number of sufficiently independent Mendelian factors
-\citep{Fisher1918}, or normality may simply appear approximately true in
-practice.
+Similarly to neutral models of genetic variation, neutral models of quantitative
+traits provide a null distribution against which goodness-of-fit tests can be
+used to test for the action of natural selection \citep{Lande1976}. Neutral
+models can also clarify the effects of neutral forces such as population size
+and mutation rate have on variation \citep{Lynch1986}. The common approach is to
+first model phenotypes as normally distributed, either among offspring within a
+family, among members of a population, or between species \citep{Turelli2017}.
+Indeed, it has been suggested that the normality assumption is the defining
+characteristic of quantitative genetics \citep{Rice2004}. This might be
+justified if phenotypes are influenced by a large number of sufficiently
+independent Mendelian factors \citep{Fisher1918}, or normality may simply appear
+approximately true in practice.
 
 Neutral models for quantitative traits have been developed in a variety of
-contexts. Models of phenotypic evolution incorporate genetic drift by including
-factors like population size and subdivision
-\citep{Lande1976,Chakraborty1982,Lynch1986}. The dynamics of phenotypic
-evolution are examined forwards in time as a balance between mutation creating
-variance, migration spreading variance among subpopulations, and fixation
-removing it \citep{Lande1992}. Tests based on thse models have been developed to
-test whether the degree of phenotypic differentiation can be explained by
-neutral processes alone \citep{Turelli1988}. On macroevolutionary time scales
-\citet{Freckleton2002} and others have used Brownian motion to model the change
-in the mean value of quantitative traits within species with the aim of
-detecting and correcting for phylogenetic dependence. Neutral distributions
-assuming multivariate normality of trait values also underly tests for spatially
-varying selection such as that from \citet{Ovaskainen2011}.
+contexts. The goal of these models is ask whether phenotypic differentiation
+between groups can be reasonably explained by processes other than natural
+selection. On macroevolutionary time scales, models stemming
+from \citet{Lande1976} have used Brownian motion to model the change in the mean
+value of quantitative traits. These models are used in statistical methods to
+test for extreme trait divergence between species \citep{Turelli1988}, test for
+phylogenetic signal in trait distributions \citep{Freckleton2002}, and correct
+for phylogenetic dependence when calculating correlations between trait
+values \citep{Felsenstein1985}. On shorter time scales, neutral distributions
+assuming multivariate normality of trait values also underlie tests for
+spatially varying selection in structured populations such as that
+from \citet{Ovaskainen2011}. Other neutral models for quantitative traits have
+not assumed normality \citep{Chakraborty1982,Lynch1986,Lande1992}, and the
+dynamics of phenotypic evolution are examined forwards in time as a balance
+between mutation creating variance, migration spreading variance among
+subpopulations, and fixation removing it. However, these models can still be
+used to parameterize normal distributions by calculating the first two moments
+of the distribution of trait values. 
+
+%% Models of phenotypic evolution incorporate genetic drift by including factors
+%% like population size and subdivision
+%% \citep{Lande1976,Chakraborty1982,Lynch1986}. The dynamics of phenotypic
+%% evolution are examined forwards in time as a balance between mutation creating
+%% variance, migration spreading variance among subpopulations, and fixation
+%% removing it \citep{Lande1992}. Tests based on thse models have been developed to
+%% test whether the degree of phenotypic differentiation can be explained by
+%% neutral processes alone \citep{Turelli1988}. On macroevolutionary time scales
+%% \citet{Freckleton2002} and others have used Brownian motion to model the change
+%% in the mean value of quantitative traits within species with the aim of
+%% detecting and correcting for phylogenetic dependence. Neutral distributions
+%% assuming multivariate normality of trait values also underly tests for spatially
+%% varying selection such as that from \citet{Ovaskainen2011}.
 
 The broad applicability of normal models in quantitative genetics stems from the
 fact that traits can be studied without concern for the number of causal loci
