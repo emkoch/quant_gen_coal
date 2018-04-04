@@ -1,0 +1,54 @@
+As demonstrated by Whitlock we expect the trait variance between subpopulations
+to be proportional to $\bar{t} - \bar{t}_0$ where $\bar{t}$ is the coalescence
+times for pairs of lineages sampled at random from the metapopulation and
+$\bar{t}_0$ is the expected coalescence time for pairs of lineages sampled
+within subpopulations. The variance between subpopulations is defined as
+\begin{equation}
+  V_{\text{between}} = \sum_i c_i (\bar{Y}_i - \bar{Y})^2,
+\end{equation}
+where $c_i$ is the fraction of the meta population in subpopulation $i$. We
+therefore need to calculate $\E[(\bar{Y}_i - \bar{Y})^2]$. We can break this up as
+\begin{align}
+  \E[(\bar{Y}_i - \bar{Y})^2] &= \E[(\frac{1}{N_i}\sum_k Y_{i,k})] \\
+  &- 2\E[(\frac{1}{N_i}\sum_k Y_{i,k})(\frac{1}{N}\sum_j\sum_lY_{j,l})] \\
+  &+ \E[(\frac{1}{N}\sum_j\sum_lY_{j,l})^2].
+\end{align}
+Computing the first part of this gives
+\begin{equation}
+  \E[(\frac{1}{N_i}\sum_k Y_{i,k})] = \frac{1}{N_i^2}(N_i\E[Y_{i,k}^2] + N_i(N_i-1)\E[Y_{i,k}Y_{i,j}])
+  \approx \E[Y_{i,k}Y_{i,j}].
+\end{equation}
+Computing the second part gives
+\begin{align}
+  \E[(\frac{1}{N_i}\sum_k Y_{i,k})(\frac{1}{N}\sum_j\sum_lY_{j,l})] &=
+  \frac{1}{N_i}\frac{1}{N}\E[(\sum_k Y_{i,k})(\sum_j\sum_lY_{j,l})] \\
+  &= \frac{1}{N_i}\frac{1}{N}\sum_k\E[Y_{i,k}(\sum_j\sum_lY_{j,l})] \\
+  &= \frac{1}{N_i}\frac{1}{N}\sum_k(\E[Y_{i,k}] + (N_i-1)\E[Y_{i,k}Y_{i,l}] +
+  \sum_{i\neq j} N_j \E[Y_{i,k}Y_{j,l}]) \\
+  &\approx c_i \E[Y_{i,k}Y_{i,l}] + \sum_{i\neq j} c_j \E[Y_{i,k}Y_{j,l}].
+\end{align}
+Computing the last part gives
+\begin{align}
+  \E[(\frac{1}{N}\sum_j\sum_lY_{j,l})^2] &= \frac{1}{N^2}\E[(\sum_j\sum_lY_{j,l})^2] \\
+  &= \frac{1}{N^2}(N\E[Y_{i,k}^2] + \sum_iN_i(N_i)\E[Y_{i,k}Y_{i,l}] +
+  \sum_{i,j:i\neqj} N_iN_j \E[Y_{i,k}Y_{j,l}]) \\
+  &\approx \sum_{i,j} c_ic_j \E[Y_{i,k}Y_{j,l}].
+\end{align}
+Combining these three parts and canceling terms corresponding to the mean effect
+of mutations and to the expected $T_{MRCA}$ gives an expression in terms of
+expected pairwise coalescence times.
+\begin{equation}
+  \E[(\bar{Y}_i - \bar{Y})^2] \propto 2\sum_{j} c_j \E \tau_{ij} -
+  \E \tau_{ii} - \sum_{i,j} c_ic_j \E \tau_{ij}.
+\end{equation}
+This then means that
+\begin{align}
+  V_{\text{between}} &\propto \sum_i c_i (2\sum_{j} c_j \E \tau_{ij} -
+  \E \tau_{ii} - \sum_{i,j} c_ic_j \E \tau_{ij}) \\
+  &= \sum_{i,j} c_ic_j \E \tau_{ij} - \sum_i c_i \E \tau_{ii} \\
+  &= \bar{t} - \bar{t}_0.
+\end{align}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "notes.tex"
+%%% End: 
