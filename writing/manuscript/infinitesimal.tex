@@ -32,12 +32,20 @@ Since the trait values are normally distributed, any linear combination of
 sampled trait values will be as well. This includes the distributions of
 observable quantities like the differences in trait values from a reference
 individual or from a sample mean. The distribution of trait differences between
-individuals is multivariate normal with mean zero and the following covariance,
+individuals is multivariate normal with mean zero and the following covariance
+between any pair of trait differences,
 \begin{equation}
   \label{eq:normcov}
-\Cov[Y_1-Y_2,Y_3-Y_4] = \sigma^2\T\left( \E[\mathcal{T}_{1,4}] + \E[\mathcal{T}_{2,3}] -
-\E[\mathcal{T}_{1,3}] - \E[\mathcal{T}_{2,4}] \right).
+\Cov[Y_i-Y_j,Y_k-Y_l] = \sigma^2\T\left( \E[\mathcal{T}_{i,l}] + \E[\mathcal{T}_{j,k}] -
+\E[\mathcal{T}_{i,k}] - \E[\mathcal{T}_{j,l}] \right),
 \end{equation}
+where $\mathcal{T}_{i,i} = 0$. Classical theory in quantitative genetics uses a
+univariate normal distribution of phenotypes in a panmictic population. We can
+recover this by considering a population of exchangeable individuals. In this
+case $\E[T_{i,j}]$ is the same for all pairs $i \neq j$. Individual trait values
+are then conditionally independent given the mean value in the population and
+are normally distributed with variance $\E[T_{2,2}]\T\sigma^2$.
+
 The normal model in the infinitesimal limit provides additional theoretical
 justification for studies using normal models to look for differences in
 selection on quantitative traits between populations

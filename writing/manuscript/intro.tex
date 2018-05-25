@@ -1,18 +1,18 @@
-Similarly to neutral models of genetic variation, neutral models of quantitative
-traits provide a null distribution against which goodness-of-fit tests can be
-used to test for the action of natural selection \citep{Lande1976}. Neutral
-models can also clarify the effects of neutral forces such as population size
-and mutation rate have on variation \citep{Lynch1986}. The common approach is to
-first model phenotypes as normally distributed, either among offspring within a
-family, among members of a population, or between species \citep{Turelli2017}.
-Indeed, it has been suggested that the normality assumption is the defining
-characteristic of quantitative genetics \citep{Rice2004}. This might be
-justified if phenotypes are influenced by a large number of sufficiently
-independent Mendelian factors \citep{Fisher1918}, or normality may simply appear
-approximately true in practice.
+Neutral models of quantitative traits provide a null distribution against which
+various goodness-of-fit tests can be used to test for the action of natural
+selection \citep{Lande1976,Leinonen2013}. Neutral models can also clarify the
+effects of neutral forces such as population size and mutation
+rate \citep{Lynch1986}. A common approach is to first model phenotypes as
+normally distributed, either among offspring within a family, among members of a
+population, or between species \citep{Turelli2017}. Indeed, it has been
+suggested that the normality assumption is the defining characteristic of
+quantitative genetics \citep{Rice2004}. This might be justified if phenotypes
+are influenced by a large number of sufficiently independent Mendelian
+factors \citep{Fisher1918}, or normality may simply appear approximately true in
+practice.
 
 Neutral models for quantitative traits have been developed in a variety of
-contexts. The goal of these models is ask whether phenotypic differentiation
+contexts. The goal of these models is ask to whether phenotypic differentiation
 between groups can be reasonably explained by processes other than natural
 selection. On macroevolutionary time scales, models stemming
 from \citet{Lande1976} have used Brownian motion to model the change in the mean
@@ -22,43 +22,29 @@ phylogenetic signal in trait distributions \citep{Freckleton2002}, and correct
 for phylogenetic dependence when calculating correlations between trait
 values \citep{Felsenstein1985}. On shorter time scales, neutral distributions
 assuming multivariate normality of trait values also underlie tests for
-spatially varying selection in structured populations such as that
-from \citet{Ovaskainen2011}. Other neutral models for quantitative traits have
-not assumed normality \citep{Chakraborty1982,Lynch1986,Lande1992}, and the
-dynamics of phenotypic evolution are examined forwards in time as a balance
-between mutation creating variance, migration spreading variance among
-subpopulations, and fixation removing it. However, these models can still be
-used to parameterize normal distributions by calculating the first two moments
-of the distribution of trait values. 
+spatially varying selection in structured populations such as the method
+developed by \citet{Ovaskainen2011}. Other neutral models for quantitative
+traits have not assumed normality \citep{Chakraborty1982,Lynch1986,Lande1992},
+and the dynamics of phenotypic evolution are examined forwards in time as a
+balance between mutation creating variance, migration spreading variance among
+subpopulations, and fixation removing it. However, the mean and variance
+resulting from these models can still be used to parameterize normal
+distributions.
 
-%% Models of phenotypic evolution incorporate genetic drift by including factors
-%% like population size and subdivision
-%% \citep{Lande1976,Chakraborty1982,Lynch1986}. The dynamics of phenotypic
-%% evolution are examined forwards in time as a balance between mutation creating
-%% variance, migration spreading variance among subpopulations, and fixation
-%% removing it \citep{Lande1992}. Tests based on thse models have been developed to
-%% test whether the degree of phenotypic differentiation can be explained by
-%% neutral processes alone \citep{Turelli1988}. On macroevolutionary time scales
-%% \citet{Freckleton2002} and others have used Brownian motion to model the change
-%% in the mean value of quantitative traits within species with the aim of
-%% detecting and correcting for phylogenetic dependence. Neutral distributions
-%% assuming multivariate normality of trait values also underly tests for spatially
-%% varying selection such as that from \citet{Ovaskainen2011}.
-
-The broad applicability of normal models in quantitative genetics stems from the
-fact that traits can be studied without concern for the number of causal loci
-influencing a trait, the genealogies at these sites, or the distribution of
-mutational effects. However, heritable phenotypic variation is ultimately due to
-discrete mutations at discrete locations in the genome, and how the phenotypic
-variance due to these mutations is distributed depends on the genealogies at
-these loci. For instance, the distribution of genealogies in the genome might be
-strongly influenced by recent population growth while the distribution of
-mutational effects could be skewed for biological reasons. When the number of
-mutations affecting a trait is large the central limit theorem ensures that the
-distributions of genealogies and mutational effects can be ignored, but a full
-model of phenotypic variation would have to include them. Importantly,
-deviations from normality may affect the outcomes of goodness-of-fit tests that
-necessarily aim to identify outliers from a normal model.
+Under the normality assumption, quantitative trait dynamics can be modeled
+without concern for the number of causal loci influencing a trait, the
+genealogies at these sites, or the distribution of mutational effects. However,
+heritable phenotypic variation is ultimately due to discrete mutations at
+discrete locations in the genome, and how the phenotypic variance due to these
+mutations is distributed depends on the genealogies at these loci. For instance,
+the distribution of genealogies in the genome might be strongly influenced by
+recent population growth while the distribution of mutational effects could be
+skewed for biological reasons. When the number of mutations affecting a trait is
+large the central limit theorem ensures that the distributions of genealogies
+and mutational effects can be ignored, but a full model of phenotypic variation
+would have to include them. Importantly, deviations from normality may affect
+the outcomes of goodness-of-fit tests that necessarily aim to identify outliers
+from a normal model.
 
 A more complete model of neutral phenotypic variation can begin by modeling the
 genealogies at causal loci. The principle modeling framework for genealogical
@@ -78,20 +64,26 @@ ancestral population, depends only on the pairwise coancestry coefficients,
 which have a clear interpretation in terms of the coalescent process
 \citep{Slatkin1991}.
 
-\citet{Khaitovich2005} modeled the evolution of gene expression values on
-phylogenetic trees assuming a single non-recombining causal locus but allowed
-for an arbitrary distribution of mutational effects. More
+Two studies have asked how the shape of the distribution of mutational effect
+sizes, beyond just the mutational variance, impacts trait
+distributions. \citet{Khaitovich2005} modeled the evolution of gene expression
+values on phylogenetic trees assuming a single non-recombining causal locus but
+allowed for an arbitrary distribution of mutational effects. Using this model
+they were able to detect, using deviations from normality, asymmetries in the
+distribution of mutational effects on gene expression in great apes. More
 recently, \citet{Schraiber2015} developed a similar general model of
 quantitative trait evolution at the population level based on the coalescent and
 allowing for any number of causal loci. They derived the characteristic function
 for the distribution of phenotypic values in a sample and showed how such values
 can deviate strongly from normality when the number of loci is small or the
-mutational distribution has fat tails.
+mutational distribution has fat tails. \citet{Schraiber2015} note that the
+possibility for multimodal trait distributions could lead to incorrect
+inferences of divergent selection.
 
 \citet{Schraiber2015} derived their results for a panmictic, constant-size
-population. Natural populations do not tend to have stable population sizes and
-show considerable spatial structure, and it is unclear how these violations of
-the constant-size, panmictic model might influence deviations from normality. We
+population. Natural populations rarely have stable population sizes and show
+considerable spatial structure, and it is unclear how these violations of the
+constant-size, panmictic model might influence deviations from normality. We
 take advantage of the ability of coalescent theory to handle nonequilibrium
 demographies and population structure to relax these modeling assumptions.
 
@@ -99,7 +91,7 @@ Extending coalescent models of quantitative traits to structured populations is
 important because the analysis of structured populations provides an opportunity
 to infer the incidence of local adaptation or stabilizing selection. The
 $Q_{ST}$/$F_{ST}$ paradigm was developed to this end
-\citep{Whitlock2008,Spitze1993}. $Q_{ST}$, defined as the ratio of the trait
+\citep{Spitze1993,Whitlock2008,Leinonen2013}. $Q_{ST}$, defined as the ratio of the trait
 variance between subpopulations to the total trait variance, is compared to
 $F_{ST}$, which measures the same property for genetic variation and is
 calculated using neutral markers to provide a null distribution. If the observed
@@ -107,8 +99,12 @@ $Q_{ST}$ is sufficiently far from the null expectation, it is concluded that
 natural selection has acted. \citet{Ovaskainen2011} developed a modern extension
 of the $Q_{ST}$/$F_{ST}$ paradigm for genetic values measured in breeding
 experiments and \citet{Berg2014} also extended the paradigm to make use of
-genetic values computed from GWAS summary statistics. Understanding the neutral
-distribution of trait values at the sample and population level is necessary for
+genetic values computed from GWAS summary statistics. An advantage of the
+\citet{Berg2014} approach is that by using computing genetic values from GWAS
+loci it makes no assumptions about normality at the population level. However,
+since suitably sized GWAS's have only been performed in humans, the approach
+cannot yet be extended to other species. Understanding the neutral distribution
+of trait values at the sample and population level therefore is necessary for
 the development of goodness-of-fit tests suited to populations with complicated
 histories and traits with sparse genetic architectures.
 
@@ -123,20 +119,20 @@ number of loci potentially affecting the trait becomes large. We then calculate
 the third and fourth central moments of the trait distribution in panmictic
 populations to illustrate how departures from normality depend both on genetic
 parameters and genealogical distributions. For instance, in exchangeable
-populations the expected third central moment is proportional to third central
+populations the expected third central moment is proportional to the third
 moment of the mutational distribution times the expected time to the first
-coalescent event in a sample of size three. Finally, we discuss the consequences
-of these results for $Q_{ST}$ tests, the response to selection, and the
-inference of genetic architecture.
+coalescent event in a sample of size three.
 
-We find an improved null distribution for $Q_{ST}$ tests that can be derived
-simply by using the normal distribution that arises in the infinitesimal limit
-of our coalescent model. Further, we find that when selection acts primarily on
-the tails of the trait distribution, the single generation response depends on
-trait moments that are sensitive to genetic architecture and demographic.
-Additionally, we show how it may be possible to infer features of the mutational
-distribution when both trait values and sequence data are available.
+Finally, we discuss the consequences of these results for $Q_{ST}$ tests and the
+inference of genetic architecture. We find an improved null distribution for
+$Q_{ST}$ tests that can be derived simply by using the normal distribution that
+arises in the infinitesimal limit of our coalescent model. Additionally, we show
+that it is likely not possible to infer features of the mutational distribution
+using only trait values sampled from a population. Future work will be necessary
+to develop tests for selection that take into account both demography and
+genetic architecture, but the model developed here provides the groundwork for
+such an undertaking. 
 
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "quant_gen_manu.tex"
 %%% End:

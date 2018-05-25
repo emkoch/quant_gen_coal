@@ -48,9 +48,10 @@ We derived the same expectations under an arbitrary demographic history,
   \label{eq:emoms4}
 \end{align}
 \end{subequations}
-To give insight into the expressions in equation \eqref{eq:emoms}, moment
-calculations done by hand under the low mutation rate approximation are
-presented in Appendix \ref{moments}.
+The normal limit corresponds to equation \eqref{eq:emoms3} and the second two
+lines of equation \eqref{eq:emoms4} going to zero. To give insight into the
+expressions in equation \eqref{eq:emoms}, moment calculations done by hand under
+the low mutation rate approximation are presented in Appendix \ref{moments}.
 
 Equation \eqref{eq:emoms2} gives the expected trait variance in the population.
 However, the amount of variance will vary over realizations of the evolutionary
@@ -58,15 +59,15 @@ process. The variation in the population variance depends on the sparsity of the
 trait and the number of causal loci. A certain expected variance can arise
 either by multiple mutations at one locus or by multiple mutations each at a
 different, independent locus. The variation in the variance can be quantified
-using the coefficient of variation of the variance (CVV), the standard deviation
-of the variance divided by its expectation. For a constant-size, panmictic
-population
+using its coefficient of variation (CVV), the standard deviation of the variance
+divided by its expectation. For a constant-size, panmictic population
 \begin{equation}
   \label{eq:cvv}
   \mathrm{CVV} = \sqrt{\frac{4}{3}\frac{1}{L} +
-    \frac{1}{6}\frac{\kappa}{L\theta \E[\mathbbm{T}_{2,2}]}}.
+    \frac{1}{6}\frac{\kappa}{L\theta \E[\mathbbm{T}_{2,2}]}},
 \end{equation}
-Equation \eqref{eq:cvv} shows a contribution due to linkage that decreases like
+where $\kappa$ is the kurtosis of the mutational distribution. Equation
+\eqref{eq:cvv} shows a contribution due to linkage that decreases like
 $1/\sqrt{L}$ and a contribution due to sparsity that decreases like
 $1/\sqrt{L\theta \E[\mathbbm{T}_{2,2}]}$. Even when the sparsity is low, if the
 trait is only controlled by a single locus there will be considerable variation

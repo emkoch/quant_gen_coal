@@ -32,7 +32,7 @@ demography increases or decreases deviations from normality can be investigated
 by calculating $Q$ in different models. In a constant-size and panmictic
 population $Q$ is equal to one. In a population where lineages are exchangeable,
 $\E[\mathbbm{T}_{i,j}]$ can be calculated numerically using expressions from
-\citet{Griffiths1998}. Values of $Q$ in an exponentially growing population are
+\citet{Griffiths1998} or \citet{Polanski2003a}. Values of $Q$ in an exponentially growing population are
 shown in Figure \ref{fig:Qexp}A. Holding sparsity and the mutational
 distribution constant, a population which underwent exponential growth will have
 a greater expected deviation from normality in its trait distribution. However,
@@ -46,25 +46,31 @@ However, $Q$ appears more sensitive to population growth than to bottlenecks.
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{figures/combo_q.pdf}
-\caption{\small (\textbf{A}): $Q$ increases as the exponential growth rate increases relative to the current
-population size.~$\lambda$ is the growth rate and $N_0$ is the initial effective
-population size.~(\textbf{B}): $Q$ values when the population undergoes an
-instantaneous step change at some point in the past. The time and magnitude of
-this change are given in units of the starting effective population size. $Q$
-increases when the population grows and decreases when it declines.
-}
+\includegraphics[width=\textwidth]{./figures/combo_q.pdf}
+
+\caption{
+\textbf{The effects of demography on deviations of the expected
+fourth central moment of the population trait distribution for normality.} $Q$
+measures the effect due to demography on the expected fourth central moment
+(equation \eqref{eq:popmom4coal}). (\textbf{A}): $Q$ increases as the
+exponential growth rate increases relative to the current population
+size.~$\lambda$ is the growth rate and $N_0$ is the initial effective population
+size.~(\textbf{B}): $Q$ values when the population undergoes an instantaneous
+step change at some point in the past. The time and magnitude of this change are
+given in units of the current effective population size. $Q$ increases when the
+population grows and decreases when it declines. }
+
 \label{fig:Qexp}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.55\textwidth]{figures/af_eu_mom4_r.pdf}
-\caption{\small A comparison between the expected fourth moment at different levels of
-sparsity in the African and European demographic models fit by \citet{Tennessen2012}.
-Trait sparsity is varied by changing the expected
+\includegraphics[width=0.55\textwidth]{./figures/af_eu_mom4_r.pdf}
+\caption{ \textbf{A comparison between the expected fourth moment at different levels of
+sparsity in the African and European demographic models fit
+by \citet{Tennessen2012}.} Trait sparsity is varied by changing the expected
 number pairwise differences at sites affecting the trait in the European model.
-The mutational kurtosis is set to six. Dashed lines show the predicted
+The mutational kurtosis is set to six. The darker lines show the predicted
 relationship for populations with the same heterozygosity as the European and
 African models but with constant size.}
 \label{fig:afeucomp}
@@ -93,9 +99,9 @@ heterozygosity at causal loci.
 Another natural way to quantify the deviation of a distribution from normality
 is its kurtosis. The kurtosis, the ratio of the fourth central moment to the
 square of the variance, measures the tendency of a distribution to produce
-outliers through \citep{Westfall2014}. Since the kurtosis of a trait
-distribution, $\kappa_Y$, is ratio of two random quantities, its expectation is
-not straightforward to calculate. A first order approximation to the kurtosis
+outliers \citep{Westfall2014}. Since the kurtosis of a trait distribution,
+$\kappa_Y$, is ratio of two random quantities, its expectation is not
+straightforward to calculate. A first order approximation to the kurtosis
 suggests that $\kappa_Y$ will be greater than under normality when external
 branches are longer and and less than under normality when they are longer
 (Appendix \ref{kurtsim}).
@@ -105,11 +111,13 @@ However, simulations show that the first order approximation is very poor
 sparse regardless of whether the population size is constant or growing.
 Additionally, there is substantial variance in the kurtosis with about a quarter
 of simulated populations having a kurtosis less than three even as the mean
-kurtosis increases to almost nine. This high variance is likely due to... . This,
-along with the fact that deviations from the infinitesimal model inflate the
-fourth moment (equation \eqref{eq:popmom4coal}), leads to a situation where the
+kurtosis increases to almost nine. This high variance in the kurtosis is likely
+due to a high variance in both the trait variance and fourth moment. This, along
+with the fact that deviations from the infinitesimal model inflate the fourth
+moment (equation \eqref{eq:popmom4coal}), leads to a situation where the
 kurtosis increases with trait sparsity but the variance is high across
 evolutionary realizations.
+
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "quant_gen_manu.tex"
 %%% End:

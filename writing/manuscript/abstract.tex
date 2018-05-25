@@ -1,24 +1,28 @@
-Neutral models for quantitative trait evolution have been useful for identifying
-phenotypes under selection in natural populations through goodness-of-fit tests.
-Such models nearly always start by assuming phenotypes are normally distributed,
-but traits such as gene expression levels may violate this assumption and have
-sparse genetic architectures. We develop and analyze a neutral model for
-quantitative traits that makes minimal assumptions about the genetic
-architecture or the distribution of coalescent times and hence the structure or
-demography of the population. This is done from a coalescent perspective by
-extending a model developed by \citet{Schraiber2015} whose central result, the
-characteristic function for the distribution of trait values, is shown to be a
-special case of ours. We analyze this model to show how a normal distribution is
-approached in an infinitesimal limit as the number of loci gets large and the
-effect size of mutations becomes small. We demonstrate the utility of this
-limiting distribution by designing an approach to simulate from the null
-distribution of $Q_{ST}$, the ratio of the variance between subpopulations to
-that in the overall population, in the infinitesimal limit. We also demonstrate
-how deviations from the normal distribution depend on both demography and the
-genetic architecture. In particular, population growth exacerbates deviations
-while bottlenecks reduce them. Finally, we show that it is likely impossible to
-distinguish sparsity from skewed or fat-tailed distributions of mutational
-effects using only trait values sampled from a population.
+Neutral models for quantitative trait evolution are useful for identifying
+phenotypes under selection in natural populations. Models of quantitative traits
+often assume phenotypes are normally distributed. This assumption may be
+violated when traits are affected by relatively few genetic variants or when
+those variants have skewed or fat-tailed distributions of effects on the trait.
+Traits such as gene expression levels and other molecular phenotypes may fall
+into this category. To accommodate deviations from normality, models making
+minimal assumptions about genetic architecture and patterns of genetic variation
+are needed. Here, we develop a general neutral model for quantitative trait
+variation using a coalescent approach by extending the framework developed
+by \citet{Schraiber2015}. This model allows interpretation of trait
+distributions in terms of classical population genetic parameters because it is
+based on the coalescent. We show how the normal distribution resulting from the
+infinitesimal limit, where the number of loci grows large as the effect size per
+mutation becomes small, depends only on expected pairwise coalescent times. We
+then demonstrate how deviations from normality depend on demography through the
+distribution of coalescence times as well as through the genetic architecture.
+In particular, population growth events exacerbate deviations while bottlenecks
+reduce them. This model also has practical applications which we demonstrate by
+designing an approach to simulate from the null distribution of $Q_{ST}$, the
+ratio of the variance between subpopulations to that in the overall population.
+We further show that it is likely impossible to distinguish sparsity from skewed
+or fat-tailed distributions of mutational effects using only trait values
+sampled from a population. The model analyzed here greatly expands the parameter
+space for which neutral trait models can be designed.
 
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"

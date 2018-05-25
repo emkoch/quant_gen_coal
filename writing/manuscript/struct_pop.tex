@@ -1,30 +1,34 @@
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{figures/qst_deme_compare.pdf}
-  \caption{\small The Lewontin-Krakauer (LK) distribution for $Q_{ST}$ is
-    compared to the null distribution in the infinitesimal limit in a case with
-    and a case without spatial structure. The case with no spatial structure
-    assumes the migration rate is equal between all demes, and the case with
-    spatial structure arranges demes in a ring with migration only between
-    neighboring demes. Migration rates and subpopulation sizes are all equal and
-    are set such that $F_{ST}=0.1$ even as the number of demes is increased
-    \citep{Slatkin1991}. $Q_{ST}$ values for these models are simulated by
-    drawing vectors from a multivariate normal distribution as described in the
-    main text. In the LK distribution $Q_{ST}\sim F_{ST}\chi^2_{n_d -
-      1}/(n_d-1)$, where $n_d$ is the number of demes. Vertical lines show the
-    mean $Q_{ST}$ under the different null distributions. The mean $Q_{ST}$
-    values for the two normal models are nearly identical. Discordance between
-    these lines and that for the LK distribution illustrates that $Q_{ST} \neq
-    F_{ST}$.}
+  \includegraphics[width=0.8\textwidth]{./figures/qst_deme_compare.pdf}
+  \caption{ \textbf{A comparison of neutral sampling distributions for $Q_{ST}$
+      at the population level.} The Lewontin-Krakauer (LK) distribution for
+    $Q_{ST}$ is compared to the null distribution in the infinitesimal limit in
+    a case with and a case without spatial structure. The case with no spatial
+    structure assumes the migration rate is equal between all demes, and the
+    case with spatial structure arranges demes in a ring with migration only
+    between neighboring demes. Migration rates and subpopulation sizes are all
+    equal and are set such that $F_{ST}=0.1$ even as the number of demes is
+    increased \citep{Slatkin1991}. $Q_{ST}$ values for these models are
+    simulated by drawing vectors from a multivariate normal distribution as
+    described in the main text. Under the LK distribution $Q_{ST}$ is
+    distributed as $F_{ST}/(n_d - 1)$ times a chi-square distribution with $n_d
+    - 1$ ($Q_{ST}\sim F_{ST}\chi^2_{n_d - 1}/(n_d-1)$), where $n_d$ is the
+    number of demes. Vertical lines show the mean $Q_{ST}$ under the different
+    null distributions. The mean $Q_{ST}$ values for the two normal models are
+    nearly identical. Discordance between these lines and that for the LK
+    distribution illustrates that $Q_{ST} \neq F_{ST}$.}
   \label{fig:qst_deme}
 \end{figure}
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{figures/qst_deme_percentile_nospace.pdf}
-  \caption{\small Differences in the $95^{\mathrm{th}}$ percentile of different
-    $Q_{ST}$ null distributions. The Lewontin-Krakauer (LK) distribution is
-    compared to null distributions for structured populations with and without a
-    spatial component using the normal model.}
+  \includegraphics[width=0.5\textwidth]{./figures/qst_deme_percentile_nospace.pdf}
+  \caption{\textbf{Differences in the $95^{\mathrm{th}}$ percentile of different
+      neutral sampling distributions for $Q_{ST}$ at the population level.} The
+    Lewontin-Krakauer (LK) distribution is compared to neutral null
+    distributions for structured populations with and without a spatial
+    component using the multivariate normal model that arises in the
+    infinitesimal limit.}
   \label{fig:qst_perc}
 \end{figure}
 
@@ -39,8 +43,8 @@ in trait value between groups is $Q_{ST}$, defined as the variance between the
 group means divided by the total variance in the population. The normal model
 does not provide an analytic form for the neutral distribution of $Q_{ST}$, but
 it does provide an efficient way to sample from this distribution. The null
-distribution we obtain through this informed approach performs better than a
-more naive null distribution suggested by \citet{Whitlock2009}.
+distribution we obtain through this informed approach performs better than the
+null distribution suggested by \citet{Whitlock2009}.
 
 Since we use a haploid model, we define $Q_{ST} = \frac{V_{between}}{V_{between}
   + V_{within}}$, where
@@ -62,17 +66,19 @@ E[\mathcal{T}_{k,k}] / \sum_k N_k$ because the within population variances are
 approximately uncorrelated and their variances are order $1/N_k$. While we do
 not have an explicit form for the between group variance, we can simulate from
 its distribution by drawing a vector of $\bar{Y}_{i} - \bar{Y}$ values from a
-multivariate normal distribution with mean zero and covariance matrix with
-elements between populations $a$ and $b$
+multivariate normal distribution with mean zero and with a covariance matrix
+whose element between populations $a$ and $b$ is 
 \begin{equation}
   \Cov[\bar{Y}_{a} - \bar{Y}, \bar{Y}_{b} - \bar{Y}] =
   \sigma^2(\E[\mathcal{T}_{a,\cdot}] + \E[\mathcal{T}_{b,\cdot}] -
   \E[\mathcal{T}_{\cdot,\cdot}] - \E[\mathcal{T}_{a,b}]).
 \end{equation}
 To simulate $Q_{ST}$ values we do not need to know $\sigma^2$ because the scale
-of the trait variance cancels in the $Q_{ST}$ ratio. Knowing expected coalescent
-times within and between populations, perhaps measured in units of mutations, is
-sufficient for simulation.
+of the trait variance cancels in the $Q_{ST}$ ratio. Therefore, all that is
+necessary to simulate from the null distribution of $Q_{ST}$ is to have
+estimates of the expected coalescent time within and between populations. Since
+only the relative coalescent times matter it is not necessary to scale these
+estimates to units of years or generations by using a mutation rates.
 
 A classic result in evolutionary quantitative genetics is that $Q_{ST}=F_{ST}$
 \citep{Whitlock1999}. $F_{ST}$, in this context, refers to a parameter of the
@@ -83,7 +89,7 @@ loci sampled within a subpopulation \citep{Slatkin1991}. This value is constant
 over realizations of the evolutionary process. $Q_{ST}$ for a particular trait
 could refer to a state of the population or to an estimate of this state. As
 shown above, $Q_{ST}$, as a state of the population, varies across evolutionary
-realizations. Thus, there is no sense in which $Q_{ST}$ can be defined a
+realizations. Thus, there is no sense in which $Q_{ST}$ can be defined as a
 constant parameter in the way that $F_{ST}$ can be. The expectation of
 $V_{between}$ is $\bar{t} - \bar{t}_0$, and the expectation of $V_{within}$ is
 $\bar{t}_0$. $\frac{\E[V_{between}]}{\E[V_{between}] + \E[V_{within}]}$ is equal
@@ -118,6 +124,7 @@ correct null model at any scale of population divergence in the infinitesimal
 limit. When only allele frequency data are available, a coancestry model is the
 only option, but it is still better to model shared ancestry between populations
 than to use a single value of $F_{ST}$.
+
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "quant_gen_manu.tex"
 %%% End:
