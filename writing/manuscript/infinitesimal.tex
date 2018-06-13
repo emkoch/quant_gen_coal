@@ -9,7 +9,7 @@ covariance between trait values in two individuals $a$ and $b$ is
 $E[\tau_{a+b}] \T \sigma^2$. This limit requires that the products of $L$ and
 moments three and greater of the mutational distribution go to zero as the
 number of loci becomes large and the effect size per mutation becomes small. We
-can think of this as requiring the mutational distribution to not have too fat
+can think of this as requiring the mutational distribution to not have too heavy
 of tails. Details of the derivation are given in Appendix \ref{clt}.
 
 In this limiting normal distribution, $\T \mu$ can be interpreted as the rate of
@@ -32,8 +32,8 @@ Since the trait values are normally distributed, any linear combination of
 sampled trait values will be as well. This includes the distributions of
 observable quantities like the differences in trait values from a reference
 individual or from a sample mean. The distribution of trait differences between
-individuals is multivariate normal with mean zero and the following covariance
-between any pair of trait differences,
+individuals is multivariate normal with mean zero and covariance between any
+pair of trait differences given by
 \begin{equation}
   \label{eq:normcov}
 \Cov[Y_i-Y_j,Y_k-Y_l] = \sigma^2\T\left( \E[\mathcal{T}_{i,l}] + \E[\mathcal{T}_{j,k}] -

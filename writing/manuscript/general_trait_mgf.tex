@@ -1,5 +1,5 @@
-We first derive the mgf of the distribution of trait values using an approach
-following closely that of \citet{Schraiber2015} and \citet{Khaitovich2005}, but
+We first derive the mgf of the distribution of trait values following closely
+the approach of \citet{Schraiber2015} and \citet{Khaitovich2005}, but
 generalizing to arbitrary demographies and population structure. We consider the
 distribution of trait values over evolutionary realizations of the combined
 random processes of drift and mutation. This trait distribution is complex in
@@ -40,15 +40,15 @@ To proceed it is necessary to make assumptions about the mutational process. The
 first is that mutations occur as a Poisson process along branches and the second
 is that mutations at a locus are additive. Under these assumptions, the changes
 in the trait value along each branch are conditionally independent given the
-branch lengths. \citet{Khaitovich2005} noted that this property describes a
-compound Poisson process. The mgf of a compound Poisson process with rate
-$\lambda$ over time $t$ is $\exp(\lambda t (\psi(k)-1))$, where $\psi$ is the
-mgf of the distribution of the jump sizes caused by events in the Poisson
-process. In this case the jump sizes are the effects on the trait value caused
-by new mutations. Using this expression of the mgf of a compound Poisson
-process, along with the fact that the mgf of two perfectly correlated random
-variables with the same marginal distribution is $\varphi_{X_1}(k_1+k_2)$, we
-can rewrite equation \eqref{eq:cond} as
+branch lengths. \citet{Khaitovich2005} noted that this describes a compound
+Poisson process. The mgf of a compound Poisson process with rate $\lambda$ over
+time $t$ is $\exp(\lambda t (\psi(k)-1))$, where $\psi$ is the mgf of the
+distribution of the jump sizes caused by events in the Poisson process. In this
+case the jump sizes are the effects on the trait value caused by new mutations.
+Using this expression of the mgf of a compound Poisson process, along with the
+fact that the mgf of two perfectly correlated random variables with the same
+marginal distribution is $\varphi_{X_1}(k_1+k_2)$, we can rewrite
+equation \eqref{eq:cond} as
 \begin{equation}
   \label{eq:fullmgf}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = 

@@ -1,10 +1,10 @@
 Thus far, the model assumes that loci are unlinked and can experience an
-infinite number of mutations. However, a useful simplification is that at most
-one mutation per locus occurs. This approximation is reasonable as long as the
-nucleotide positions affecting the trait are loosely linked throughout the
-genome. The low-mutation-rate approximation greatly simplifies the mgf of the
-trait distribution such that it is no longer necessary to know the full form of
-the mgf of the genealogy:
+infinite number of mutations. However, a useful simplification is to ignore the
+possibility of more than one mutation per locus. This approximation is
+reasonable as long as the nucleotide positions affecting the trait are loosely
+linked throughout the genome. The low-mutation-rate approximation greatly
+simplifies the mgf of the trait distribution such that it is no longer necessary
+to know the full form of the mgf of the genealogy:
 \begin{equation}
 \label{eq:lowmut}
 \varphi_{\mathbf{Y}}(\mathbf{k}) \approx \left[ 1 + \sum_{\omega \in \Omega}

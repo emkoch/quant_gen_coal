@@ -1,15 +1,15 @@
 Neutral models of quantitative traits provide a null distribution against which
 various goodness-of-fit tests can be used to test for the action of natural
 selection \citep{Lande1976,Leinonen2013}. Neutral models can also clarify the
-effects of neutral forces such as population size and mutation
-rate \citep{Lynch1986}. A common approach is to first model phenotypes as
-normally distributed, either among offspring within a family, among members of a
-population, or between species \citep{Turelli2017}. Indeed, it has been
-suggested that the normality assumption is the defining characteristic of
-quantitative genetics \citep{Rice2004}. This might be justified if phenotypes
-are influenced by a large number of sufficiently independent Mendelian
-factors \citep{Fisher1918}, or normality may simply appear approximately true in
-practice.
+effects of purely neutral forces such as population size and mutation rate on
+trait distributions \citep{Lynch1986}. A common approach is to first model
+phenotypes as normally distributed, either among offspring within a family,
+among members of a population, or between species \citep{Turelli2017}. Indeed,
+it has been suggested that the normality assumption is the defining
+characteristic of quantitative genetics \citep{Rice2004}. This might be
+justified if phenotypes are influenced by a large number of sufficiently
+independent Mendelian factors \citep{Fisher1918}, or normality may simply appear
+approximately true in practice.
 
 Neutral models for quantitative traits have been developed in a variety of
 contexts. The goal of these models is ask to whether phenotypic differentiation
@@ -35,16 +35,16 @@ Under the normality assumption, quantitative trait dynamics can be modeled
 without concern for the number of causal loci influencing a trait, the
 genealogies at these sites, or the distribution of mutational effects. However,
 heritable phenotypic variation is ultimately due to discrete mutations at
-discrete locations in the genome, and how the phenotypic variance due to these
-mutations is distributed depends on the genealogies at these loci. For instance,
-the distribution of genealogies in the genome might be strongly influenced by
-recent population growth while the distribution of mutational effects could be
-skewed for biological reasons. When the number of mutations affecting a trait is
-large the central limit theorem ensures that the distributions of genealogies
-and mutational effects can be ignored, but a full model of phenotypic variation
-would have to include them. Importantly, deviations from normality may affect
-the outcomes of goodness-of-fit tests that necessarily aim to identify outliers
-from a normal model.
+discrete locations in the genome, and how the phenotypic variance arising from
+these mutations is distributed depends on the genealogies at these loci. For
+instance, the distribution of genealogies in the genome might be strongly
+influenced by recent population growth while the distribution of mutational
+effects could be skewed for biological reasons. When the number of mutations
+affecting a trait is large the central limit theorem ensures that the
+distributions of genealogies and mutational effects can be ignored, but a full
+model of phenotypic variation would have to include them. Importantly,
+deviations from normality may affect the outcomes of goodness-of-fit tests that
+necessarily aim to identify outliers from a normal model.
 
 A more complete model of neutral phenotypic variation can begin by modeling the
 genealogies at causal loci. The principle modeling framework for genealogical
@@ -76,7 +76,7 @@ quantitative trait evolution at the population level based on the coalescent and
 allowing for any number of causal loci. They derived the characteristic function
 for the distribution of phenotypic values in a sample and showed how such values
 can deviate strongly from normality when the number of loci is small or the
-mutational distribution has fat tails. \citet{Schraiber2015} note that the
+mutational distribution has heavy tails. \citet{Schraiber2015} note that the
 possibility for multimodal trait distributions could lead to incorrect
 inferences of divergent selection.
 
@@ -127,11 +127,11 @@ Finally, we discuss the consequences of these results for $Q_{ST}$ tests and the
 inference of genetic architecture. We find an improved null distribution for
 $Q_{ST}$ tests that can be derived simply by using the normal distribution that
 arises in the infinitesimal limit of our coalescent model. Additionally, we show
-that it is likely not possible to infer most features of the mutational distribution
-using only trait values sampled from a population. Future work will be necessary
-to develop tests for selection that take into account both demography and
-genetic architecture, but the model developed here provides the groundwork for
-such an undertaking. 
+that it is likely not possible to infer most features of the mutational
+distribution using only trait values sampled from a population. Future work will
+be necessary to develop tests for selection that take into account both
+demography and genetic architecture, but the model developed here provides the
+groundwork for such an undertaking.
 
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"
