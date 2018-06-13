@@ -1,2 +1,2 @@
-# Theoretical investigations of the relationship between quantitative genetics and coalescent theory
+# The effects of demography and genetic architecture on the neutral distribution of quantitative traits
 
