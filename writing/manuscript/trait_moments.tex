@@ -64,16 +64,17 @@ divided by its expectation. For a constant-size, panmictic population
 \begin{equation}
   \label{eq:cvv}
   \mathrm{CVV} = \sqrt{\frac{4}{3}\frac{1}{L} +
-    \frac{1}{6}\frac{\kappa}{L\theta \E[\mathbbm{T}_{2,2}]}},
+    \frac{1}{6}\frac{m_2/m_4}{L\theta \E[\mathbbm{T}_{2,2}]}}.
 \end{equation}
-where $\kappa$ is the kurtosis of the mutational distribution. Equation
-\eqref{eq:cvv} shows a contribution due to linkage that decreases like
+Equation \eqref{eq:cvv} shows a contribution due to linkage that decreases like
 $1/\sqrt{L}$ and a contribution due to sparsity that decreases like
-$1/\sqrt{L\theta \E[\mathbbm{T}_{2,2}]}$. Even when the sparsity is low, if the
-trait is only controlled by a single locus there will be considerable variation
-in the population variance (CVV$=\sqrt{\frac{4}{3}}$). On the other hand, the
-CVV of a sparse trait controlled by many loci will depend on the mutational
-kurtosis as well.
+$1/\sqrt{L\theta \E[\mathbbm{T}_{2,2}]}$. Even when the sparsity is low, i.e.,
+when a large number of variants affect the trait, if the trait is only
+controlled by a single locus there will be considerable variation in the
+population variance (CVV$=\sqrt{\frac{4}{3}}$). On the other hand, the CVV of a
+sparse trait controlled by many loci will depend on the ratio of the second and
+third non-central moments of the mutational distribution ($m_2/m_4$). For a
+mutational distribution with mean zero this is equivalent to the kurtosis. 
 %%% Local Variables:
 %%% TeX-master: "short_report.tex"
 %%% End:
