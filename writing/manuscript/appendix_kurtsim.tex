@@ -1,14 +1,14 @@
 \begin{center}
   \centering \includegraphics[width=\textwidth]{figures/kurt_sim.pdf}
   \captionof{figure}{\small The distribution of the population kurtosis under
-    different genetic architectures, mutational kernels, and demographies. The
-    genetic architecture is varied by changing the expected number of pairwise
-    differences at sites affecting the trait. Normal and Laplace distributions
-    of mutational effects are compared. A constant size population is compared
-    to an exponential growth scenario with growth rate equal to the reciprocal
-    of the final effective population size. Green triangles denote the mean
-    kurtosis. The dashed red lines give the first order approximation to the
-    expected kurtosis given in equation \ref{eq:firstord}.}
+    different levels of sparsity, mutational kernels, and demographies. The
+    sparsity is varied by changing the expected number of pairwise differences
+    at sites affecting the trait. Normal and Laplace distributions of mutational
+    effects are compared. A constant size population is compared to an
+    exponential growth scenario with growth rate equal to the reciprocal of the
+    final effective population size. Green triangles denote the mean kurtosis.
+    The dashed red lines give the first order approximation to the expected
+    kurtosis given in equation \ref{eq:firstord}.}
   \label{fig:kurtsim}
 \end{center}
 Entire populations were simulated using msprime \citep{Kelleher2015} and
@@ -20,8 +20,8 @@ number of loci affecting the trait.
 A first order approximation to the kurtosis is
 \begin{equation}
     \label{eq:firstord} 
-\kappa_Y^{(1)} = 3 + \frac{m_2/m_4 \frac{\CCC}{\E[\mathbbm{T}_{2.2}]}} {L \T \E[\mathbbm{T}_{2.2}]
-    + \kappa_M \frac{\BBB}{\E[\mathbbm{T}_{2.2}]}}.
+\kappa_Y^{(1)} = 3 + \frac{m_4/m_2^2 \frac{\CCC}{\E[\mathbbm{T}_{2,2}]}} {L \T \E[\mathbbm{T}_{2,2}]
+    + m_4/m_2^2 \frac{\BBB}{\E[\mathbbm{T}_{2,2}]}}.
 \end{equation}
 Although this expression suggests that the expected $\kappa_Y$ will be greater
 than under normality when external branches are longer ($\E[\mathbbm{T}_{4,4}] >

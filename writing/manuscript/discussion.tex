@@ -15,12 +15,11 @@ in equation \eqref{eq:sub}, shows that the generating function obtained
 by \citet{Schraiber2015} is a special case of a general procedure whereby the
 moment generation function for a trait distribution can be obtained by making a
 simple substitution into the moment generating function for a distribution over
-genealogies. The moment generating functions for many demographic histories of
-interest and sample sizes above two are sufficiently complex that solving for
-them is impractical
-\citep{Lohse2011}. However, progress can still be made by using Taylor
-expansions to write moments of the trait distribution in terms of moments of the
-genealogical and mutational distributions.
+genealogies. The moment generating functions for many demographies of interest
+and for sample sizes above two are sufficiently complex that solving for them is
+impractical \citep{Lohse2011}. However, progress can still be made by using
+Taylor expansions to write moments of the trait distribution in terms of moments
+of the genealogical and mutational distributions.
 
 This result extends previous work using coalescent theory to investigate neutral
 models of quantitative traits \citep{Whitlock1999,Schraiber2015}. Ours is the
@@ -38,26 +37,25 @@ This is similar to classic models in evolutionary quantitative genetics
 considering the neutral divergence of trait values after population splits
 \citep{Lande1976,Lynch1989} but holds regardless of the precise details of
 population structure and history. \citet{Schraiber2015} derive essentially the
-same distribution using a central limit theorem argument. It is worth noting
-that the covariance matrix is scaled by the second moment of the mutational
-distribution and not the variance.
+same distribution using a central limit theorem argument. 
 
-Since this normal model is the limiting distribution under the coalescent, it is
-not subject to the problems surrounding the use of species trees to generate
-covariance matrices in phylogenetic comparative methods \citep{Mendes2018}. A
-matrix based on pairwise coalescence times rather than a species tree based on
-population split times takes into account the effects of all lineages at causal
-loci, even those that do not follow the species topology. The covariances
-specified by equation \eqref{eq:normcov} could also be used to generate
-within-species contrasts in a similar manner to the method suggested
+\citet{Mendes2018} point out several problems caused by incomplete
+lineage sorting when species split times are used to generate the covariance
+matrix in phylogenetic comparative methods. Since the normal model arising in
+the infinitesimal limit is explicitly based on the coalescent, it is not subject
+to these problems. A matrix based on pairwise coalescence times rather than a
+species tree based on population split times takes into account the effects of
+all lineages at causal loci, even those that do not follow the species topology.
+The covariances specified by equation \eqref{eq:normcov} could also be used to
+generate within-species contrasts in a similar manner to the method suggested
 by \citet{Felsenstein2002}.
 
 We compared sparse traits to the normal model by calculating how the first four
 expected central moments different from those expected under normality. This
-showed how demography and the genetic architecture separately influence the
-expected deviation from normality. For a fixed expected trait sparsity,
-population growth produces greater deviations in the fourth central moment while
-population bottlenecks produce lower deviations (Figures
+showed how demography and genetics separately influence the expected deviation
+from normality. For a fixed expected trait sparsity, population growth produces
+greater deviations in the fourth central moment while population bottlenecks
+produce lower deviations (Figures
 \ref{fig:Qexp}). However, for realistic demographic scenarios,
 we find that the effects attributable to demography are small (Figure
 \ref{fig:afeucomp}). We only analyzed cases where the individuals in the
@@ -94,15 +92,16 @@ needed to examine how this interacts with the distribution of genealogies to
 affect the trait distribution.
 
 \citet{Barton2017} recently performed a deep mathematical investigation of a
-more formal ``infinitesimal model'' different from the infinitesimal limit
-considered here. They proved conditions under which the trait values of
-offspring within a family are normally distributed with variance independent of
-the parental trait values conditional on the pedigree and segregation variance
-in the base population. Interestingly, they found the normality for offspring
-trait values still holds under some forms of pairwise epistasis that are not too
-extreme. This implies it may be possible to include epistasis in the
-infinitesimal limit considered here. It would be important to know how epistasis
-affects the neutral divergence of trait between populations and species.
+more formal ``infinitesimal model'' that is subtly different from the
+infinitesimal limit considered here. They proved conditions under which the
+trait values of offspring within a family are normally distributed with variance
+independent of the parental trait values conditional on the pedigree and
+segregation variance in the base population. Interestingly, they found the
+normality for offspring trait values still holds under some forms of pairwise
+epistasis that are not too extreme. This implies it may be possible to include
+epistasis in the infinitesimal limit considered here. It would be important to
+know how epistasis affects the neutral divergence of trait between populations
+and species.
 
 Although GWAS of many traits have shown them to be controlled by large numbers
 of loci \citep{Boyle2017}, this will not necessarily be the case for every trait
@@ -120,7 +119,10 @@ $\mathbbm{T}_{3,3}$ to $\mathbbm{T}_{2,2}$ ratio are also expected to show a
 greater $M_3$ to $M_2$ ratio and an equivalent relationship would be expected
 for the fourth moment. Because gene expression studies generally measure a large
 number of traits, observing such a trend on average could be a sign of
-deviations from normality.
+deviations from normality. Generally, more work is needed to develop neutrality
+tests that are robust to the details of genetics and population history, and to
+investigate whether any information about mutation can be uncovered by
+statistical models that share information across multiple measured traits. 
 
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"

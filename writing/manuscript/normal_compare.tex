@@ -1,34 +1,31 @@
-%% In the derivation of the normal model, we assumed that $L\T m_3$, $L \T m_4$,
-%% and $L \left( \T \right)^2 m_2$ go to zero as $L\to \infty$. The expectations of
-%% the third and fourth moments thus go to zero as expected for a normal
-%% distribution.
-
 Deviations of the population distribution from normality depend on the
-distribution of coalescent times and the genetic architecture, and they can be
-investigated by comparison to the expected moments under normality. Even though
-recombination is not included in the model, we can form an idea about how
-linkage might impact deviations from normality. Line two of
-equation \eqref{eq:emoms4} corresponds to the contribution from two mutations
-occurring at a single locus. The first quantity indicates that the expectation
-of the fourth moment increases with the variance of the pairwise coalescence
-time. The second part does not have a clear interpretation. If the sum of these
-two terms is positive this agrees with the intuition that linkage disequilibrium
-increases deviations from normality by reducing the effective number of
-independent loci.
+distribution of coalescent times and the genetic parameters. One natural way to
+quantify a distribution's deviation from normality is through its kurtosis. The
+kurtosis, defined as $M_4/M_2^2$, measures the tendency of a
+distribution to produce outliers \citet{Westfall2014}. However, since the
+kurtosis is a ratio of two random variables, its expectation is challenging to
+calculate. Rather than attempt this calculation, we compare the expected fourth
+central moment itself to that expected under normality. This approach
+qualitatively identifies the factors influencing deviations from normality.
 
-When the mutation rate is low, the ratio of the expected fourth moment to that
-under normality is
+Using the low mutation rate approximation, the ratio of the expected fourth
+moment to that under normality simplifies to
 \begin{equation}
   \label{eq:popmom4coal}
   \frac{\E[M_4]}{3\left(L \T \E[\mathbbm{T}_{2,2}] m_2\right)^2} \approx 1 +
-  \frac{m_2/m_4}{6 L \T \E[\mathbbm{T}_{2,2}]}\left( \frac{2\E[\mathbbm{T}_{4,4}] +
+  \underbrace{\frac{m_4}{m_2^2}}_{\text{mutation}} \underbrace{(6 L \T \E[\mathbbm{T}_{2,2}])^{-1}}_{\text{sparsity}}
+      \underbrace{\left( \frac{2\E[\mathbbm{T}_{4,4}] +
       \frac{2}{3}\E[\mathbbm{T}_{3,4}] +
-      \frac{4}{9}\E[\mathbbm{T}_{2,4}]}{\E[\mathbbm{T}_{2,2}]}\right),
+      \frac{4}{9}\E[\mathbbm{T}_{2,4}]}{\E[\mathbbm{T}_{2,2}]}\right)}_{\text{demography}}
+  %\frac{m_2/m_4}{6 L \T \E[\mathbbm{T}_{2,2}]}\left( \frac{2\E[\mathbbm{T}_{4,4}] +
+  %    \frac{2}{3}\E[\mathbbm{T}_{3,4}] +
+  %    \frac{4}{9}\E[\mathbbm{T}_{2,4}]}{\E[\mathbbm{T}_{2,2}]}\right),
 \end{equation}
-The expected excess in $M_4$ is inversely related to the expected sparsity of
-the trait which is proportional to $L \T \E[\mathbbm{T}_{2,2}]$. This excess
-depends on demography through a factor $Q = \frac{2\E[\mathbbm{T}_{4,4}]
-+ \frac{2}{3}\E[\mathbbm{T}_{3,4}]
+The expected excess in $M_4$, relative to normality, increases with sparsity and
+with $m_4/m_2^2$. $m_4/m_2^2$ is equal to the kurtosis of the mutational effect
+distribution when mutations are unbiased and reflects its propensity to produce
+large effect mutations. The excess depends on demography through the factor $Q
+= \frac{2\E[\mathbbm{T}_{4,4}] + \frac{2}{3}\E[\mathbbm{T}_{3,4}]
 + \frac{4}{9}\E[\mathbbm{T}_{2,4}]}{\E[\mathbbm{T}_{2,2}]}$. The extent to which
 demography increases or decreases deviations from normality can be investigated
 by calculating $Q$ in different models. In a constant-size and panmictic
@@ -37,14 +34,13 @@ $\E[\mathbbm{T}_{i,j}]$ can be calculated numerically using expressions from
 \citet{Griffiths1998} or \citet{Polanski2003a}. Values of $Q$ in an exponentially growing population are
 shown in Figure \ref{fig:Qexp}A. Holding sparsity and the mutational
 distribution constant, a population which underwent exponential growth will have
-a greater expected deviation from normality in its trait distribution. However,
-the growth rate must exceed the present coalescent rate to increase $Q$ by more
-than ten percent. Another useful example demography is a population that goes
-through a step change at some point in the past. Figure \ref{fig:Qexp}B shows
-that when the population size decreases looking into the past, $Q$ is increased
-similarly to the exponential growth scenario. When the population size increases
-looking into the past (a population bottleneck), $Q$ is decreased below one.
-However, $Q$ appears more sensitive to population growth than to bottlenecks.
+a greater expected deviation from normality in its trait distribution. Another
+useful example demography is a population that goes through a step change at
+some point in the past. Figure \ref{fig:Qexp}B shows that when the population
+size decreases looking into the past, $Q$ is increased similarly to the
+exponential growth scenario. When the population size increases looking into the
+past (a population bottleneck), $Q$ is decreased below one. However, $Q$ appears
+more sensitive to population growth than to bottlenecks.
 
 \begin{figure}
 \centering
@@ -60,7 +56,7 @@ size.~$\lambda$ is the growth rate and $N_0$ is the initial effective population
 size.~(\textbf{B}): $Q$ values when the population undergoes an instantaneous
 step change at some point in the past. The time and magnitude of this change are
 given in units of the current effective population size. $Q$ increases when the
-population grows and decreases when it declines. }
+population grows and decreases when it declines.}
 
 \label{fig:Qexp}
 \end{figure}
@@ -98,28 +94,25 @@ dominated by a bottleneck event that leads to a $Q$ less than one
 the overall deviations from normality are mostly driven by differences in
 heterozygosity at causal loci.
 
-Another natural way to quantify the deviation of a distribution from normality
-is its kurtosis. The kurtosis, the ratio of the fourth central moment to the
-square of the variance, measures the tendency of a distribution to produce
-outliers \citep{Westfall2014}. Since the kurtosis of a trait distribution,
-$\kappa_Y$, is ratio of two random quantities, its expectation is not
-straightforward to calculate. A first order approximation to the kurtosis
-suggests that $\kappa_Y$ will be greater than under normality when external
-branches are longer and and less than under normality when they are longer
-(Appendix \ref{kurtsim}).
+Even though recombination is not included in the model, we can form an idea
+about how linkage might impact deviations from normality. Line two of
+equation \eqref{eq:emoms4} corresponds to the contribution from two mutations
+occurring at a single locus. The first quantity indicates that the expectation
+of the fourth moment increases with the variance of the pairwise coalescence
+time. The second part does not have a clear interpretation. If the sum of these
+two terms is positive this agrees with the intuition that linkage disequilibrium
+increases deviations from normality by reducing the effective number of
+independent loci.
 
-However, simulations show that the first order approximation is very poor
-(Figure \ref{fig:kurtsim}). The mean kurtosis increases when a trait becomes
-sparse regardless of whether the population size is constant or growing.
-Additionally, there is substantial variance in the kurtosis with about a quarter
-of simulated populations having a kurtosis less than three even as the mean
-kurtosis increases to almost nine. This high variance in the kurtosis is likely
-due to a high variance in both the trait variance and fourth moment. This, along
-with the fact that deviations from the infinitesimal model inflate the fourth
-moment (equation \eqref{eq:popmom4coal}), leads to a situation where the
-kurtosis increases with trait sparsity but the variance is high across
-evolutionary realizations.
-
+Simulations of the kurtosis itself show substantial variance, with about a
+quarter of simulated populations having a value less than three (that of a
+normal distribution) even as the mean kurtosis increases to almost nine
+(Appendix \ref{kurtsim}). This high variance in the kurtosis is likely due to a
+high variance in both the trait variance and fourth moment. This, along with the
+fact that deviations from the infinitesimal model inflate the fourth moment
+(equation \eqref{eq:popmom4coal}), leads to a situation where the kurtosis
+increases with trait sparsity but the variance is high across evolutionary
+realizations.
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"
 %%% End:

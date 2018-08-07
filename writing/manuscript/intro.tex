@@ -27,42 +27,47 @@ developed by \citet{Ovaskainen2011}. Other neutral models for quantitative
 traits have not assumed normality \citep{Chakraborty1982,Lynch1986,Lande1992},
 and the dynamics of phenotypic evolution are examined forwards in time as a
 balance between mutation creating variance, migration spreading variance among
-subpopulations, and fixation removing it. However, the mean and variance
-resulting from these models can still be used to parameterize normal
-distributions.
+subpopulations, and fixation removing it. However, these studies were limited to
+simple models of population structure and history. Backwards-in-time,
+coalescent models would allow for more general demographic scenarios.
 
 Under the normality assumption, quantitative trait dynamics can be modeled
-without concern for the number of causal loci influencing a trait, the
-genealogies at these sites, or the distribution of mutational effects. However,
-heritable phenotypic variation is ultimately due to discrete mutations at
-discrete locations in the genome, and how the phenotypic variance arising from
-these mutations is distributed depends on the genealogies at these loci. For
-instance, the distribution of genealogies in the genome might be strongly
-influenced by recent population growth while the distribution of mutational
-effects could be skewed for biological reasons. When the number of mutations
-affecting a trait is large the central limit theorem ensures that the
-distributions of genealogies and mutational effects can be ignored, but a full
-model of phenotypic variation would have to include them. Importantly,
-deviations from normality may affect the outcomes of goodness-of-fit tests that
-necessarily aim to identify outliers from a normal model.
+without concern for the number of causal loci influencing the trait, the
+genealogies at these sites, or the distribution of mutational effects (the
+distribution that new mutations affecting the trait draw their effects from).
+However, heritable phenotypic variation is ultimately due to discrete mutations
+at discrete locations in the genome, and how the phenotypic variance arising
+from these mutations is distributed depends on the genealogies at these loci.
+For instance, the distribution of genealogies in the genome might be strongly
+influenced by recent population growth and the distribution of mutational
+effects could be skewed for biological reasons inherent in the details of a
+particular developmental pathway. When the number of mutations affecting a trait
+is large, the central limit theorem ensures that the distributions of
+genealogies and mutational effects can be ignored, but a full model of
+phenotypic variation would have to include them. Importantly, deviations from
+normality may affect the outcomes of goodness-of-fit tests that necessarily aim
+to identify outliers from a normal model.
 
 A more complete model of neutral phenotypic variation can begin by modeling the
 genealogies at causal loci. The principle modeling framework for genealogical
 variation is the coalescent process \citep{Wakeley2008}, but few studies have
-connected the coalescent to quantitative genetics. \citet{Whitlock1999} argued
-that under the coalescent, measures of trait ($Q_{ST}$) and genetic ($F_{ST}$)
-differentiation have the same expected value given general models of population
-subdivision. By simulating from the coalescent with recombination,
+connected the coalescent to quantitative genetics. \citet{Whitlock1999} used
+coalescent theory to argue that measures of phenotypic ($Q_{ST}$) and genetic
+($F_{ST}$) differentiation have the same expected value given general models of
+population subdivision. By simulating from the coalescent with recombination,
 \citet{Griswold2007} investigated the effects of shared ancestry and linkage
 disequilibrium on the matrix of genetic variances and covariances between traits
 ($\mbox{\textbf{G}}$). They found that linkage disequilibrium and small numbers
 of causal loci can cause phenotypic covariances not predicted by the mutational
-covariance matrix. Although not explicitly connected to the coalescent,
-\citet{Ovaskainen2011} developed their test for spatially varying selection by
-assuming that the covariance in trait values, conditional on the G-matrix in the
-ancestral population, depends only on the pairwise coancestry coefficients,
-which have a clear interpretation in terms of the coalescent process
-\citep{Slatkin1991}.
+covariance matrix. \citet{Mendes2018} also used a quantitative trait model based
+on the coalescent to show that using a species tree based on population split
+times can lead to, among other problems, increased false positive rates in
+phylogenetic comparative methods. Although not explicitly connected to the
+coalescent, \citet{Ovaskainen2011} developed their test for spatially varying
+selection by assuming that the covariance in trait values, conditional on the
+G-matrix in the ancestral population, depends only on the pairwise coancestry
+coefficients, which have a clear interpretation in terms of the coalescent
+process \citep{Slatkin1991}.
 
 Two studies have asked how the shape of the distribution of mutational effect
 sizes, beyond just the mutational variance, impacts trait
@@ -89,24 +94,29 @@ demographies and population structure to relax these modeling assumptions.
 
 Extending coalescent models of quantitative traits to structured populations is
 important because the analysis of structured populations provides an opportunity
-to infer the incidence of local adaptation or stabilizing selection. The
-$Q_{ST}$/$F_{ST}$ paradigm was developed to this end
-\citep{Spitze1993,Whitlock2008,Leinonen2013}. $Q_{ST}$, defined as the ratio of the trait
-variance between subpopulations to the total trait variance, is compared to
-$F_{ST}$, which measures the same property for genetic variation and is
-calculated using neutral markers to provide a null distribution. If the observed
-$Q_{ST}$ is sufficiently far from the null expectation, it is concluded that
-natural selection has acted. \citet{Ovaskainen2011} developed a modern extension
-of the $Q_{ST}$/$F_{ST}$ paradigm for genetic values measured in breeding
-experiments and \citet{Berg2014} also extended the paradigm to make use of
-genetic values computed from GWAS summary statistics. An advantage of the
+to infer the incidence of local adaptation or stabilizing selection. Due to the
+build up of linkage disequilibrium between alleles affecting the trait, the
+neutral divergence in trait values among different subpopulations in a
+structured population is about as variable as the variance in allele
+frequencies \citep{Rogers1983}. The $Q_{ST}$/$F_{ST}$ paradigm was therefore
+developed to test whether trait divergence in structured populations could be
+explained by neutral forces alone \citep{Spitze1993,Whitlock2008,Leinonen2013}.
+$Q_{ST}$, defined as the ratio of the trait variance between subpopulations to
+the total trait variance, is compared to $F_{ST}$, which measures the same
+property for genetic variation and is calculated using neutral markers to
+provide a null distribution. If the observed $Q_{ST}$ is sufficiently far from
+the null expectation, it is concluded that natural selection has
+acted. \citet{Ovaskainen2011} developed a modern extension of the
+$Q_{ST}$/$F_{ST}$ paradigm for genetic values measured in breeding experiments
+and \citet{Berg2014} also extended the paradigm to make use of genetic values
+computed from GWAS summary statistics. An advantage of the
 \citet{Berg2014} approach is that by using computing genetic values from GWAS
 loci it makes no assumptions about normality at the population level. However,
 since suitably sized GWAS's have only been performed in humans, the approach has
 not yet been extended to other species. Understanding the neutral distribution
-of trait values at the sample and population level therefore is necessary for
-the development of goodness-of-fit tests suited to populations with complicated
-histories and traits with sparse genetic architectures.
+of trait value is therefore necessary for the development of goodness-of-fit
+tests that are applicable to populations with complicated histories and traits
+with sparse genetic architectures.
 
 We generalize the work of \citet{Schraiber2015} by deriving the form of the
 moment generating function (mgf) for arbitrary distributions of coalescent times
@@ -120,18 +130,18 @@ the third and fourth central moments of the trait distribution in panmictic
 populations to illustrate how departures from normality depend both on genetic
 parameters and genealogical distributions. For instance, in exchangeable
 populations the expected third central moment is proportional to the third
-moment of the mutational distribution times the expected time to the first
-coalescent event in a sample of size three.
+noncentral moment of the mutational distribution times the expected time to the
+first coalescent event in a sample of size three.
 
 Finally, we discuss the consequences of these results for $Q_{ST}$ tests and the
-inference of genetic architecture. We find an improved null distribution for
-$Q_{ST}$ tests that can be derived simply by using the normal distribution that
-arises in the infinitesimal limit of our coalescent model. Additionally, we show
-that it is likely not possible to infer most features of the mutational
-distribution using only trait values sampled from a population. Future work will
-be necessary to develop tests for selection that take into account both
-demography and genetic architecture, but the model developed here provides the
-groundwork for such an undertaking.
+inference of genetic parameters. We find an improved null distribution that
+can be derived simply by using the normal distribution that arises in the
+infinitesimal limit of our coalescent model. Additionally, we show that it is
+likely not possible to infer most features of the mutational distribution using
+only trait values sampled from a population. Future work will be necessary to
+develop tests for selection that take into account both demography and genetic
+parameters, but the model developed here provides the groundwork for such an
+undertaking.
 
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"

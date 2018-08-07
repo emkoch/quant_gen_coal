@@ -12,7 +12,7 @@ equation \eqref{eq:lowmut}. Even without making this approximation, moments can
 be calculated by taking Taylor expansions in equation \eqref{eq:cond} and only
 considering terms contributing to the desired moment's order. We implemented a
 symbolic math program to calculate trait moments using this procedure, and the
-details are given in Appendix ~\ref{symmath}. As the normal distribution is
+details are given in Appendix \ref{symmath}. As the normal distribution is
 completely defined by its first two moments, the extent to which a trait
 distribution deviates from normality can be measured by the extent to which its
 moments deviate from those of a normal distribution with the same mean and
@@ -54,27 +54,25 @@ expressions in equation \eqref{eq:emoms}, moment calculations done by hand under
 the low mutation rate approximation are presented in Appendix \ref{moments}.
 
 Equation \eqref{eq:emoms2} gives the expected trait variance in the population.
-However, the amount of variance will vary over realizations of the evolutionary
-process. The variation in the population variance depends on the sparsity of the
-trait and the number of causal loci. A certain expected variance can arise
-either by multiple mutations at one locus or by multiple mutations each at a
-different, independent locus. The variation in the variance can be quantified
+However, the variance will vary over realizations of the evolutionary process.
+The variation in the population variance depends on the sparsity of the trait
+and the number of causal loci. The variation in the variance can be quantified
 using its coefficient of variation (CVV), the standard deviation of the variance
 divided by its expectation. For a constant-size, panmictic population
 \begin{equation}
   \label{eq:cvv}
   \mathrm{CVV} = \sqrt{\frac{4}{3}\frac{1}{L} +
-    \frac{1}{6}\frac{m_2/m_4}{L\theta \E[\mathbbm{T}_{2,2}]}}.
+    \frac{1}{6}\frac{m_4/m_2^2}{L\theta \E[\mathbbm{T}_{2,2}]}}.
 \end{equation}
-Equation \eqref{eq:cvv} shows a contribution due to linkage that decreases like
-$1/\sqrt{L}$ and a contribution due to sparsity that decreases like
-$1/\sqrt{L\theta \E[\mathbbm{T}_{2,2}]}$. Even when the sparsity is low, i.e.,
-when a large number of variants affect the trait, if the trait is only
-controlled by a single locus there will be considerable variation in the
-population variance (CVV$=\sqrt{\frac{4}{3}}$). On the other hand, the CVV of a
-sparse trait controlled by many loci will depend on the ratio of the second and
-third non-central moments of the mutational distribution ($m_2/m_4$). For a
-mutational distribution with mean zero this is equivalent to the kurtosis. 
+Equation \eqref{eq:cvv} shows a contribution due to linked mutations occurring
+at a single locus ($\frac{4}{3}\frac{1}{L}$) and a contribution due to sparsity
+and mutation ($\frac{1}{6}\frac{m_4/m_2^2}{L\theta \E[\mathbbm{T}_{2,2}]}$).
+Even when the sparsity is low, i.e., when a large number of variants affect the
+trait, if the trait is only controlled by a single locus there will be
+considerable variation in the population variance (CVV$=\sqrt{\frac{4}{3}}$). On
+the other hand, the CVV of a sparse trait controlled by many loci will depend on
+the ratio of the fourth and squared second non-central moments of the mutational
+distribution ($m_4/m_2^2$).
 %%% Local Variables:
 %%% TeX-master: "short_report.tex"
 %%% End:
