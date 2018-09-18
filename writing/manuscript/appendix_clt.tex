@@ -30,7 +30,7 @@ which is equivalent to
 
 This is raised to the power $L$ for a trait controlled by $L$ loci. We want the
 limit as the number of loci increases while the size of mutational decreases.
-This can be expressed by the limits $L m_1 \to \mu$, $L m_2\to \sigma^2$ and $L
+This can be expressed by the limits $L m_1 \to \mu_1$, $L m_2\to \mu_2$ and $L
 m_i\to 0$ for $i>2$ as $L \to \infty$. Knowing we will not be retaining $m_3$
 and above we can rewrite the mgf as
 \begin{equation*}
@@ -40,14 +40,14 @@ and above we can rewrite the mgf as
 The result of taking these limits is
 \begin{equation}
   \label{eq:norm_mgf}
-  \exp \left( \sum_{\omega \in \Omega}\E[T_{\omega}] \T \left( \mu 
-  \sum_{a \in \omega} k_a + \frac{\sigma^2}{2}\left( \sum_{a \in \omega}
+  \exp \left( \sum_{\omega \in \Omega}\E[T_{\omega}] \T \left( \mu_1 
+  \sum_{a \in \omega} k_a + \frac{\mu_2}{2}\left( \sum_{a \in \omega}
   k_a\right)^2\right)\right).
 \end{equation}
 
-This is multivariate normal distribution with mean equal to $\E[T_{MRCA}] \T \mu$,
-variance equal to $\E[T_{MRCA}] \T \sigma^2$, and covariance between $Y_a$ and $Y_b$
-equal to $\E[\tau_{a+b}] \T \sigma^2$. This can be seen from equation
+This is multivariate normal distribution with mean equal to $\E[T_{MRCA}] \T \mu_1$,
+variance equal to $\E[T_{MRCA}] \T \mu_2$, and covariance between $Y_a$ and $Y_b$
+equal to $\E[\tau_{a+b}] \T \mu_2$. This can be seen from equation
 \eqref{eq:norm_mgf} by noting that in the mgf for a multivariate normal
 distribution the coefficient in the exponential of $k_a$ is the mean of $Y_a$
 and the coefficient of $k_ak_b$ is $2\Cov[Y_a,Y_b]$ if $a\neq b$ and $\Var[Y_a]$
@@ -60,7 +60,7 @@ are what analyses would be based on. Since the $Y$ are normally distributed
 differences between trait values such as $Y_a-Y_b$ will be as well.
 \begin{align*}
   \Var[Y_a-Y_b] &= Var[Y_a] + \Var[Y_b] - 2\Cov[Y_a,Y_b]\\
-                &= 2(\E[T_{MRCA}] - \E[\tau_{a+b}])\sigma^2.
+                &= 2(\E[T_{MRCA}] - \E[\tau_{a+b}])\mu_2.
 \end{align*}
 This also tells us that the distribution of trait differences will be the same
 in the infinitesimal limit with and without a low mutation rate approximation.
