@@ -12,24 +12,25 @@ factors \citep{Fisher1918}, or normality may simply appear approximately true in
 practice.
 
 Neutral models for quantitative traits have been developed in a variety of
-contexts. The goal of these models is ask to whether phenotypic differentiation
-between groups can be reasonably explained by processes other than natural
-selection. On macroevolutionary time scales, models stemming
-from \citet{Lande1976} have used Brownian motion to model the change in the mean
-value of quantitative traits. These models are used in statistical methods to
-test for extreme trait divergence between species \citep{Turelli1988}, test for
-phylogenetic signal in trait distributions \citep{Freckleton2002}, and correct
-for phylogenetic dependence when calculating correlations between
-traits \citep{Felsenstein1985}. On shorter time scales, neutral distributions
-assuming multivariate normality of trait values also underlie tests for
-spatially varying selection in structured populations such as the method
-developed by \citet{Ovaskainen2011}. Other neutral models for quantitative
-traits have not assumed normality \citep{Chakraborty1982,Lynch1986,Lande1992},
-and the dynamics of phenotypic evolution are examined forwards in time as a
-balance between mutation creating variance, migration spreading variance among
-subpopulations, and fixation removing it. However, these studies were limited to
-simple models of population structure and history. Backwards-in-time,
-coalescent models would allow for more general demographic scenarios.
+contexts. The goal of these models is to ask to whether phenotypic
+differentiation between groups can be reasonably explained by processes other
+than natural selection. On macroevolutionary time scales, models stemming
+from \citet{Lande1976} have used Brownian motion to describe the evolution of
+the mean value of a quantitative trait in a population. These models are used in
+statistical methods to test for extreme trait divergence between
+species \citep{Turelli1988}, test for phylogenetic signal in trait
+distributions \citep{Freckleton2002}, and correct for phylogenetic dependence
+when calculating correlations between traits \citep{Felsenstein1985}. On shorter
+time scales, neutral distributions assuming multivariate normality of trait
+values also underlie tests for spatially varying selection in structured
+populations such as the method developed by \citet{Ovaskainen2011}. Other
+neutral models for quantitative traits have not assumed
+normality \citep{Chakraborty1982,Lynch1986,Lande1992}, and the dynamics of
+phenotypic evolution are examined forwards in time as a balance between mutation
+creating variance, migration spreading variance among subpopulations, and
+fixation removing it. However, these studies were limited to simple models of
+population structure and history. Backwards-in-time, coalescent models would
+allow for more general demographic scenarios.
 
 Under the normality assumption, quantitative trait dynamics can be modeled
 without concern for the number of causal loci influencing the trait, the
@@ -48,34 +49,35 @@ phenotypic variation would have to include them. Importantly, deviations from
 normality may affect the outcomes of goodness-of-fit tests that necessarily aim
 to identify outliers from a normal model.
 
-A more complete model of neutral phenotypic variation can begin by modeling the
-genealogies at causal loci. The principle modeling framework for genealogical
-variation is the coalescent process \citep{Wakeley2008}, but few studies have
-connected the coalescent to quantitative genetics. \citet{Whitlock1999} used
-coalescent theory to argue that measures of phenotypic ($Q_{ST}$) and genetic
-($F_{ST}$) differentiation have the same expected value given general models of
-population subdivision. By simulating from the coalescent with recombination,
+A more inclusive model of neutral phenotypic variation can begin by considering
+the genealogies at causal loci. The principle modeling framework for
+genealogical variation is the coalescent process \citep{Wakeley2008}, but few
+studies have connected the coalescent to quantitative
+genetics. \citet{Whitlock1999} used coalescent theory to argue that measures of
+phenotypic ($Q_{ST}$) and genetic ($F_{ST}$) differentiation have the same
+expected value given general models of population subdivision. By simulating
+from the coalescent with recombination,
 \citet{Griswold2007} investigated the effects of shared ancestry and linkage
-disequilibrium on the matrix of genetic variances and covariances between traits
-($\mbox{\textbf{G}}$). They found that linkage disequilibrium and small numbers
-of causal loci can cause phenotypic covariances not predicted by the mutational
-covariance matrix. \citet{Mendes2018} also used a quantitative trait model based
-on the coalescent to show that using a species tree based on population split
-times can lead to, among other problems, increased false positive rates in
-phylogenetic comparative methods. Although not explicitly connected to the
-coalescent, \citet{Ovaskainen2011} developed their test for spatially varying
-selection by assuming that the covariance in trait values, conditional on the
-G-matrix in the ancestral population, depends only on the pairwise coancestry
-coefficients, which have a clear interpretation in terms of the coalescent
-process \citep{Slatkin1991}.
+disequilibrium on the genetic covariance matrix for a set of traits
+($\mbox{\textbf{G}}$ matrix). They found that linkage disequilibrium and small
+numbers of causal loci can cause phenotypic covariances not predicted by the
+mutational covariance matrix. \citet{Mendes2018} also used a quantitative trait
+model based on the coalescent to show that using a species tree based on
+population split times can lead to, among other problems, increased false
+positive rates in phylogenetic comparative methods. Although not explicitly
+connected to the coalescent, \citet{Ovaskainen2011} developed their test for
+spatially varying selection by assuming that the covariance in trait values,
+conditional on the G-matrix in the ancestral population, depends only on the
+pairwise coancestry coefficients, which have a clear interpretation in terms of
+the coalescent process \citep{Slatkin1991}.
 
 Two studies have asked how the shape of the distribution of mutational effect
 sizes, beyond just the mutational variance, impacts trait
 distributions. \citet{Khaitovich2005} modeled the evolution of gene expression
 values on phylogenetic trees assuming a single non-recombining causal locus but
 allowed for an arbitrary distribution of mutational effects. Using this model
-they were able to detect, using deviations from normality, asymmetries in the
-distribution of mutational effects on gene expression in great apes. More
+they were able to detect deviations from normality consistent with asymmetries
+in the distribution of mutational effects on gene expression in great apes. More
 recently, \citet{Schraiber2015} developed a similar general model of
 quantitative trait evolution at the population level based on the coalescent and
 allowing for any number of causal loci. They derived the characteristic function
@@ -83,7 +85,7 @@ for the distribution of phenotypic values in a sample and showed how such values
 can deviate strongly from normality when the number of loci is small or the
 mutational distribution has heavy tails. \citet{Schraiber2015} note that the
 possibility for multimodal trait distributions could lead to incorrect
-inferences of divergent selection.
+inferences of divergent selection within populations.
 
 \citet{Schraiber2015} derived their results for a panmictic, constant-size
 population. Natural populations rarely have stable population sizes and show
@@ -95,17 +97,17 @@ demographies and population structure to relax these modeling assumptions.
 Extending coalescent models of quantitative traits to structured populations is
 important because the analysis of structured populations provides an opportunity
 to infer the incidence of local adaptation or stabilizing selection. Due to the
-build up of linkage disequilibrium between alleles affecting the trait, the
+build up of linkage disequilibrium between alleles affecting a trait, the
 neutral divergence in trait values among different subpopulations in a
 structured population is about as variable as the variance in allele
-frequencies \citep{Rogers1983}. The $Q_{ST}$/$F_{ST}$ paradigm was therefore
-developed to test whether trait divergence in structured populations could be
-explained by neutral forces alone \citep{Spitze1993,Whitlock2008,Leinonen2013}.
-$Q_{ST}$, defined as the ratio of the trait variance between subpopulations to
-the total trait variance, is compared to $F_{ST}$, which measures the same
-property for genetic variation and is calculated using neutral markers to
-provide a null distribution. If the observed $Q_{ST}$ is sufficiently far from
-the null expectation, it is concluded that natural selection has
+frequencies \citep{Rogers1983}. The $Q_{ST}$/$F_{ST}$ paradigm was developed to
+test whether trait divergence in structured populations could be explained by
+neutral forces alone \citep{Spitze1993,Whitlock2008,Leinonen2013}. $Q_{ST}$,
+defined as the ratio of the trait variance between subpopulations to the total
+trait variance, is compared to $F_{ST}$, which measures the same property for
+genetic variation and is calculated using neutral markers to provide a null
+distribution. If the observed $Q_{ST}$ is sufficiently far from the null
+expectation, it is concluded that natural selection has
 acted. \citet{Ovaskainen2011} developed a modern extension of the
 $Q_{ST}$/$F_{ST}$ paradigm for genetic values measured in breeding experiments
 and \citet{Berg2014} also extended the paradigm to make use of genetic values
@@ -114,7 +116,7 @@ computed from GWAS summary statistics. An advantage of the
 loci it makes no assumptions about normality at the population level. However,
 since suitably sized GWAS's have only been performed in humans, the approach has
 not yet been extended to other species. Understanding the neutral distribution
-of trait value is therefore necessary for the development of goodness-of-fit
+of trait values is therefore necessary for the development of goodness-of-fit
 tests that are applicable to populations with complicated histories and traits
 with sparse genetic architectures.
 

@@ -7,16 +7,15 @@ its general form. There is a point mass at zero corresponding the possibility
 that no mutations affecting the trait occur, and mutational effects could be
 drawn from discrete or continuous distributions. Correlations between
 individuals arise because of shared history in the genealogies at individual
-loci with discrete topologies as well as because of where on these genealogies
-mutations occur. An analytical expression for the probability distribution of
-trait values does not exist except in certain limits such as when the number of
-mutations affecting the trait becomes large.
+loci and because of where on these genealogies mutations occur. An analytical
+expression for the probability distribution of trait values does not exist
+except in certain limits such as when the number of mutations affecting the
+trait becomes large.
 
 However, even in the absence of a probability distribution function we can use
-the mgf approach to learn something about the distribution of trait values. In
-some cases, the mgf can be fully specified. Following the definition of the mgf
-for a vector-valued random variable, the mgf for a trait controlled by a single
-nonrecombining locus is
+the mgf approach to learn something about the distribution of trait values.
+Following the definition of the mgf for a vector-valued random variable, the mgf
+for a trait controlled by a single nonrecombining locus is
 \begin{equation}
   \label{eq:mgfdef}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = \E\left[ e^{\mathbf{k} \cdot \mathbf{y}} \right] =
@@ -45,7 +44,7 @@ describes a compound Poisson process. The mgf of a compound Poisson process with
 rate $\lambda$ over time $t$ is $\exp(\lambda t (\psi(k)-1))$, where $\psi$ is
 the mgf of the distribution of the jump sizes caused by events in the Poisson
 process. In this case the jump sizes are the effects on the trait value caused
-by new mutations. Using this expression of the mgf of a compound Poisson
+by new mutations. Using this expression for the mgf of a compound Poisson
 process, along with the fact that the mgf of two perfectly correlated random
 variables with the same marginal distribution is $\varphi_{X_1}(k_1+k_2)$, we
 can rewrite equation \eqref{eq:cond} as
@@ -55,8 +54,8 @@ can rewrite equation \eqref{eq:cond} as
   \int \prod_{\omega \in \Omega} \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)\right)
   \Pro(\mathbf{T}=\mathbf{t})\mbox{d}\mathbf{t}.
 \end{equation}
-We recognize equation \eqref{eq:fullmgf} as the mgf for $\mathbf{T}$ with the
-dummy variable $T_{\omega}$ for branch $s_\omega$ equal to
+We can recognize equation \eqref{eq:fullmgf} as the mgf of $\mathbf{T}$ with the
+dummy variable $s_{\omega}$ for branch $T_\omega$ set to
 $\frac{\theta}{2} \left( \psi(\sum_{a \in \omega}k_{a}) -1 \right)$. Or,
 \begin{equation}
   \label{eq:sub}
@@ -67,8 +66,8 @@ Thus, if the mgf of the distribution of branch lengths is known, equation
 \eqref{eq:fullmgf} allows us to obtain the mgf of the trait values through a
 simple substitution. When the trait is controlled by $L$ independent loci, the
 full mgf, $\varphi_{\mathbf{Y}}(\mathbf{k})$, is obtained by raising
-equation \eqref{eq:sub} to the power $L$. This result obviates the need for any
-special derivations for particular models of population history and structure.
+equation \eqref{eq:sub} to the power $L$. This result obviates the need for
+separate derivations for particular models of population history and structure.
 \citet{Lohse2011} derived the mgf of the genealogy in various population models
 including migration and splitting of subpopulations. Using their result for a
 single population we can obtain equation (1) of \citet{Schraiber2015} using

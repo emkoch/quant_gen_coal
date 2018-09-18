@@ -2,7 +2,7 @@ Deviations of the population distribution from normality depend on the
 distribution of coalescent times and the genetic parameters. One natural way to
 quantify a distribution's deviation from normality is through its kurtosis. The
 kurtosis, defined as $M_4/M_2^2$, measures the tendency of a
-distribution to produce outliers \citet{Westfall2014}. However, since the
+distribution to produce outliers \citep{Westfall2014}. However, since the
 kurtosis is a ratio of two random variables, its expectation is challenging to
 calculate. Rather than attempt this calculation, we compare the expected fourth
 central moment itself to that expected under normality. This approach
@@ -30,17 +30,17 @@ large effect mutations. The excess depends on demography through the factor $Q
 demography increases or decreases deviations from normality can be investigated
 by calculating $Q$ in different models. In a constant-size and panmictic
 population $Q$ is equal to one. In a population where lineages are exchangeable,
-$\E[\mathbbm{T}_{i,j}]$ can be calculated numerically using expressions from
+$\E[\mathbbm{T}_{k,n}]$ can be calculated numerically using expressions from
 \citet{Griffiths1998} or \citet{Polanski2003a}. Values of $Q$ in an exponentially growing population are
 shown in Figure \ref{fig:Qexp}A. Holding sparsity and the mutational
 distribution constant, a population which underwent exponential growth will have
 a greater expected deviation from normality in its trait distribution. Another
-useful example demography is a population that goes through a step change at
-some point in the past. Figure \ref{fig:Qexp}B shows that when the population
-size decreases looking into the past, $Q$ is increased similarly to the
-exponential growth scenario. When the population size increases looking into the
-past (a population bottleneck), $Q$ is decreased below one. However, $Q$ appears
-more sensitive to population growth than to bottlenecks.
+example demography is a population that goes through a step change at some point
+in the past. Figure \ref{fig:Qexp}B shows that when the population size
+increased at some point in the past, $Q$ is increased similarly to the
+exponential growth scenario. When the population experiences a bottleneck $Q$ is
+decreased below one. Additionally, $Q$ appears more sensitive to population
+growth than to bottlenecks.
 
 \begin{figure}
 \centering
@@ -48,7 +48,7 @@ more sensitive to population growth than to bottlenecks.
 
 \caption{
 \textbf{The effects of demography on deviations of the expected
-fourth central moment of the population trait distribution for normality.} $Q$
+fourth central moment of the population trait distribution from normality.} $Q$
 measures the effect due to demography on the expected fourth central moment
 (equation \eqref{eq:popmom4coal}). (\textbf{A}): $Q$ increases as the
 exponential growth rate increases relative to the current population

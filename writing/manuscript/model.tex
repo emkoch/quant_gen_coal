@@ -1,19 +1,19 @@
 In the model we investigate here, there are $L$ unlinked potentially causal loci
 at which mutations influence the trait value. Following \citet{Kimura1969}, an
-infinite number of mutations are possible within each locus and the mutation
-rate per unit of coalescent time to mutations affecting the trait is $\T$. That
-is, $\T$ is the mutation rate for the entire locus and not per nucleotide. An
-approximation for when at most one mutation per locus is likely is considered in
-section \ref{sec:lmr}. Mutations are randomly assigned effects from a
-distribution of effect sizes, and effects are additive both within and between
-loci. The moment generating function (mgf) of this distribution is written as
-$\psi$ and the $i^{th}$ (non-central) moment is $m_i$. Individuals are haploid
-and the sum of all mutations occurring in an individual's history determines the
-trait value of the individual. An extension to diploidly would be
-straightforward but is not considered here. Correlations between individuals
-arise when mutations fall on shared portions of genealogies at specific loci.
-Because the loci are unlinked we assume their genealogies are independent. This
-model is shown schematically in Figure \ref{fig:schema}.
+infinite number of mutations are possible within each locus and the rate per
+unit of coalescent time at which mutations affecting the trait (causal
+mutations) arise is $\T$. That is, $\T$ is the mutation rate for the entire
+locus and not per nucleotide. An approximation for when at most one mutation per
+locus is likely is considered in Section \ref{sec:lmr}. Mutations are randomly
+assigned effects from a distribution of effect sizes, and effects are additive
+both within and between loci. The moment generating function (mgf) of this
+distribution is written as $\psi$ and the $i^{th}$ non-central moment is $m_i$.
+Individuals are haploid and the sum of all mutations occurring in an
+individual's history determines the trait value of the individual. An extension
+to diploidly would be straightforward but is not considered here. Correlations
+between individuals arise when mutations fall on shared portions of genealogies
+at specific loci. Because the loci are unlinked we assume their genealogies are
+independent. This model is shown schematically in Figure \ref{fig:schema}.
 
 The genealogy at a locus is represented by the random vector of branch lengths,
 $\mathbf{T}$. An element $T_{\omega}$ of $\mathbf{T}$ is the branch length
@@ -30,17 +30,17 @@ The mgf for the distribution of branch lengths is denoted $\varphi_{\mathbf{T}}$
 Phenotypic trait values are the random quantities we are interested in and
 result from mutations occuring along the branches of genealogies. We will
 hereafter refer to the phenotypic trait simply as trait values and ignore any
-environmental component. Starting with a trait controlled by a single locus, the
-random vector of trait values in the sampled individuals is $\mathbf{Y}$, such
-that for sampled individuals $a$, $b$, and $c$, $\mathbf{Y}=(Y_a,Y_b,Y_c)$. The
-trait values are modeled as the change relative to the value in the most recent
-common ancestor (MRCA) of the sample at that locus. Since we do not know the
-ancestral value, we cannot directly observe the change in trait values. Thus,
-for a trait controlled by multiple loci, $\mathbf{Y}$ is the sum over
-contributions from these loci, each measured with respect to an arbitrary value.
-However, $\mathbf{Y}$ is sufficient to determine measurable quantities such as
-differences in trait values between individuals and the sample variance. The
-moment generating functions for the distribution of trait values is denoted
+environmental component. The random vector of trait values in the sampled
+individuals is $\mathbf{Y}$. If we had sampled individuals $a$, $b$, and $c$,
+then $\mathbf{Y}=(Y_a,Y_b,Y_c)$. The contribution to the trait values from a
+single locus is the change relative to the value in the most recent common
+ancestor (MRCA) of the sample at that locus. Since we do not know the ancestral
+value, we cannot directly observe the change in trait values. Thus, for a trait
+controlled by multiple loci, $\mathbf{Y}$ is the sum over contributions from
+these loci, each measured with respect to an arbitrary value. However,
+$\mathbf{Y}$ is sufficient to determine measurable quantities such as
+differences in trait values between individuals as well as the sample variance.
+The moment generating functions for the distribution of trait values is denoted
 $\varphi_{\mathbf{Y}}$.
 
 \begin{figure}
@@ -61,7 +61,7 @@ Here we refer to the genetic parameters of a trait as the combination of
 quantities not influenced by the genealogical process: ($L$, $\T$, $\psi$).
 Another quantity useful for describing a trait's distribution is its sparsity.
 Sparsity should reflect how many mutations segregating in the population
-influencing the trait, with a more `sparse' trait being one affected by fewer
+influence the trait, with a more `sparse' trait being one affected by fewer
 segregating mutations. Formally, we measure sparsity as the average number of
 pairwise differences between two randomly chosen haplotypes at loci affecting
 the trait. A trait with fewer causal pairwise differences is more sparse.
@@ -69,20 +69,20 @@ Sparsity thus depends both on the genetic parameters through the mutation rate,
 the number of potentially causal loci, and the distribution of coalescence
 times.
 
-In populations of exchangeable individuals, a concise way to summarize the
-distribution of genealogies is $\mathbbm{T}_{k,n}$ which gives the amount of
-time that $i$ lineages remain in the genealogy of a sample of size $j$. The
-pairwise coalescent time between a lineage in individual $i$ and in individual
-$j$ is written as $\mathcal{T}_{i,j}$. When considering structured populations,
-$\mathcal{T}_{a,b}$ is also used to denote the coalescence time between a
-randomly chosen lineage from subpopulation $a$ and a randomly chosen lineage
-from subpopulation $b$. A final set of quantities are defined for sums of branch
-lengths. Let $\tau_{a+b}$ be the sum of all branches ancestral to both $a$ and
-$b$, and $\tau_{a/b}$ be the sum of all branches ancestral to $a$ but not $b$.
-Extensions of this for more than two individuals are also used. The same
-notation is used when referring to sets of branch indices. So $\Omega_{a+b}$ and
-$\Omega_{a/b}$ would be the sets of branches added to get $\tau_{a+b}$ and
-$\tau_{a/b}$ respectively.
+In populations of exchangeable individuals, a useful way to summarize the
+distribution of genealogies is through the moments of $\mathbbm{T}_{k,n}$ which
+denotes the amount of time that $k$ lineages remain in the genealogy of a sample
+of size $n$. The pairwise coalescent time between a lineage in individual $i$
+and in individual $j$ is written as $\mathcal{T}_{i,j}$. When considering
+structured populations, $\mathcal{T}_{a,b}$ is also used to denote the
+coalescence time between a randomly chosen lineage from subpopulation $a$ and a
+randomly chosen lineage from subpopulation $b$. A final set of quantities are
+defined for sums of branch lengths. Let $\tau_{a+b}$ be the sum of all branches
+ancestral to both $a$ and $b$, and $\tau_{a/b}$ be the sum of all branches
+ancestral to $a$ but not $b$. Extensions of this for more than two individuals
+are also used. The same notation is used when referring to sets of branch
+indices. So $\Omega_{a+b}$ and $\Omega_{a/b}$ would be the sets of branches
+added to get $\tau_{a+b}$ and $\tau_{a/b}$ respectively.
 
 %%% Local Variables:
 %%% TeX-master: "short_report.tex"

@@ -2,12 +2,12 @@
 \newcommand{\BBB}{\frac{1}{9}\E[\mathbbm{T}_{2,4}] + \frac{1}{6}\E[\mathbbm{T}_{3,4}]}
 \newcommand{\CCC}{\E[\mathbbm{T}_{4,4}] - \frac{1}{6}\E[\mathbbm{T}_{3,4}] - \frac{1}{9}\E[\mathbbm{T}_{2,4}]}
 
-For most population genetic models and reasonable sample sizes, the recursive
-nature of the trait distribution mgf makes it computationally unfeasible to
-solve under general parameter values. However, it is not necessary to have an
-expression for the full mgf in order to derive moments of the trait distribution
-in terms of moments of branch lengths and mutational effects. Under the low
-mutation rate approximation moments can be calculated by differentiating
+For most population genetic models and for sample sizes greater than three, the
+recursive nature of the trait distribution mgf makes it computationally
+unfeasible to solve under general parameter values. However, it is not necessary
+to have an expression for the full mgf in order to derive moments of the trait
+distribution in terms of moments of branch lengths and mutational effects. Under
+the low mutation rate approximation moments can be calculated by differentiating
 equation \eqref{eq:lowmut}. Even without making this approximation, moments can
 be calculated by taking Taylor expansions in equation \eqref{eq:cond} and only
 considering terms contributing to the desired moment's order. We implemented a
@@ -20,7 +20,7 @@ variance.
 
 We have so far considered the distribution of a trait value $Y_a$ over
 evolutionary realizations. The expectation of $Y_a$ is $L \T m_1 \E[T_{MRCA}]$,
-and the variance is $L \T m_1 \E[T_{MRCA}] + L(m_1^2\T)\Var[T_{MRCA}]$. Although
+and the variance is $L \T m_2 \E[T_{MRCA}] + L(m_1\T)^2\Var[T_{MRCA}]$. Although
 simple to derive using computer algebra, expressions for the higher central
 moments of $Y_a$ are complicated even under the low mutation rate approximation,
 and there is not much to be gained by showing them here.
@@ -33,7 +33,7 @@ value that is not directly observed, the expected population-level moments offer
 more insight. In particular, we are interested in how the trait distribution at
 the population level might deviate from normality. ~\citet{Schraiber2015}
 computed the expected first four central moments of a constant-size population.
-We derived the same expectations under an arbitrary demographic history,
+We derive the same expectations under an arbitrary demographic history,
 \begin{subequations} \label{eq:emoms}
 \begin{align}
   &\E[M_2] = L \T \E[\mathbbm{T}_{2,2}] m_2 \label{eq:emoms2}\\
