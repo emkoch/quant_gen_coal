@@ -1,3 +1,42 @@
+\begin{table}
+  \caption{Notation used in this article}
+  \centering
+  \begin{tabular}{l l l}
+    \hline
+    \multicolumn{1}{c}{Type} &\multicolumn{1}{c}{Symbol} & \multicolumn{1}{c}{Quantity} \\
+    \hline
+    Genetic parameters & $\psi$ & \multicolumn{1}{p{10cm}}{Mgf of the mutational effect size distribution }\\
+                             & $\frac{\theta}{2}$ & \multicolumn{1}{p{10cm}}{Per-locus mutation rate in units of coalescent time}\\
+                             & $m_i$ &  \multicolumn{1}{p{10cm}}{$i^{th}$ non-central moment of the mutational effect size distribution}\\
+                             & $\frac{\theta}{2}\mu_1$ & \multicolumn{1}{p{10cm}}{Rate of mutational bias in the infinitesimal limit}\\
+                             & $\frac{\theta}{2}\mu_2$ & \multicolumn{1}{p{10cm}}{Rate of variance accumulation in the infinitesimal limit}\\
+                             & $L$ & \multicolumn{1}{p{10cm}}{No. of potentially causal loci}\\
+    Genealogies & $\mathbf{T}$ & \multicolumn{1}{p{10cm}}{Random vector of branch lengths representing the entire genealogy at a locus}\\
+                             & $\Omega$ & \multicolumn{1}{p{10cm}}{Set of all possible branches for a given sample}\\
+                             & $\omega$ & \multicolumn{1}{p{10cm}}{A particular branch in a genealogy defined by all individuals that branch subtends}\\
+                             & $T_\omega$ & \multicolumn{1}{p{10cm}}{Length of branch $\omega$} \\
+                             & $T_{MRCA}$ & \multicolumn{1}{p{10cm}}{Time to the most recent common ancestor at a particular locus}\\
+                             & $\varphi_{\mathbf{T}}(\mathbf{s})$ & Mgf of the genealogy distribution \\
+                             & $\mathbf{s}$ & Vector of dummy variables for each possible branch\\
+                             & $s_\omega$ & Dummy variable for branch $\omega$ \\
+                             & $\mathbbm{T}_{k,n}$ & \multicolumn{1}{p{10cm}}{For a sample of exchangeable lineages, the amount of time that $k$ lineages remain in a sample of size $n$}\\
+                             & $\mathcal{T}_{i,j}$ & \multicolumn{1}{p{10cm}}{Pairwise coalescent time between a lineage in individual $i$ and a lineage in individual $j$}\\
+                             & $\mathcal{T}_{A,B}$ & \multicolumn{1}{p{10cm}}{In a structured population, the pairwise coalescent time between a lineage sampled from population $A$ and a lineage sampled from population $B$}\\
+                             & $\tau_{a+b}$ & \multicolumn{1}{p{10cm}}{Sum of all branches ancestral to both individuals $a$ and $b$}\\
+                             & $\tau_{a/b}$ & \multicolumn{1}{p{10cm}}{Sum of all branches ancestral to individual $a$ but not $b$}\\
+                             & $\Omega_{a+b}$ & \multicolumn{1}{p{10cm}}{Set of all branches ancestral to both individuals $a$ and $b$}\\
+                             & $\Omega_{a/b}$ & \multicolumn{1}{p{10cm}}{Set of all branches ancestral to individual $a$ but not $b$}\\                           
+    Trait values & $\mathbf{Y}$ & Random vector of trait values \\
+                             & $Y_a$ & Trait value of individual $a$\\
+                             & $\varphi_{\mathbf{Y}}(\mathbf{k})$ & Mgf of the trait value distribution \\
+                             & $\mathbf{k}$ & \multicolumn{1}{p{10cm}}{Vector of dummy variables for each individual trait value}\\
+                             & $k_a$ & Dummy variable for individual $a$\\
+                             & $M_i$ & \multicolumn{1}{p{10cm}}{$i^{th}$ central moment of the trait value distribution in the entire population}\\
+                             & $CVV$ & \multicolumn{1}{p{10cm}}{Coefficient of variation of trait variance over evolutionary realizations of a population}\\
+                                       \hline
+  \end{tabular}
+\end{table}
+
 In the model we investigate here, there are $L$ unlinked potentially causal loci
 at which mutations influence the trait value. Following \citet{Kimura1969}, an
 infinite number of mutations are possible within each locus and the rate per
