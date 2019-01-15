@@ -1,22 +1,21 @@
-A useful simplification of the model considered so far is to ignore the
-possibility of more than one mutation per locus. This approximation is
-reasonable as long as the nucleotide positions affecting the trait are loosely
-linked throughout the genome. The low-mutation-rate approximation greatly
-simplifies the mgf of the trait distribution such that it is no longer necessary
-to know the full form of the mgf of the genealogy:
+A useful simplification of the model is to ignore the possibility of more than
+one mutation per locus. This approximation is reasonable as long as the
+nucleotide positions affecting the trait are loosely linked throughout the
+genome. We can greatly simplify the mgf of the trait distribution by grouping
+term of order two and above in equation \eqref{eq:fullmgf}:
 \begin{equation}
 \label{eq:lowmut}
-\varphi_{\mathbf{Y}}(\mathbf{k}) \approx \left[ 1 + \sum_{\omega \in \Omega}
-  \E[T_\omega] \T \left( \psi\left( \sum_{a \in \omega} k_a\right) -1 \right) +
+\varphi_{\mathbf{Y}}(\mathbf{k}) \approx \left[ 1 + \T \sum_{\omega \in \Omega}
+  \E[T_\omega] \left( \psi\left( \sum_{a \in \omega} k_a\right) -1 \right) +
   O\left( \theta^2 \right))\right]^L.
 \end{equation}
-Equation \eqref{eq:lowmut} ignores terms that are order two and above in the
-mutation rate. Conveniently, the mgf of the trait values depends only on the
-expected length of each branch, whereas equation \eqref{eq:fullmgf} requires
-second order and greater moments of branch lengths (e.g.
-$\E[T_{\omega_1}T_{\omega_2}]$). We can use equation \eqref{eq:lowmut} to
-express moments of the trait distribution in terms of expected branch lengths
-calculated from coalescent models.
+Ignoring the $O\left( \theta^2 \right)$ terms corresponds to allowing at most
+one mutation per locus. Conveniently, the mgf of the trait values then depends
+only on the expected length of each branch, whereas equation \eqref{eq:fullmgf}
+requires higher order moments of branch lengths (e.g.
+$\E[T_{\omega_1}T_{\omega_2}]$). It is therefore no longer necessary to know the
+full form of the mgf of the genealogy, and we can express moments of the trait
+distribution using expected branch lengths calculated from coalescent models.
 
 %%% Local Variables:
 %%% TeX-master: "short_report.tex"

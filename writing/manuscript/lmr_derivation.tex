@@ -1,0 +1,27 @@
+The low-mutation-rate approximation given in equation \eqref{eq:lowmut} can be
+derived starting with equation \eqref{eq:fullmgf}. Using a Taylor series
+approximation to the exponential function we get
+\begin{equation}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) =   \int \prod_{\omega \in \Omega}
+  \left[1 + \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right) +
+    O\left( \theta^2 \right)\right]
+  \Pro(\mathbf{T}=\mathbf{t})\mbox{d}\mathbf{t}.
+\end{equation}
+The $O\left( \theta^2 \right)$ term captures events where more than one mutation
+occurs on the same branch of the genealogy. Events corresponding to more than
+one mutation occurring on different branches can also be absorbed into this term
+to give
+\begin{equation}
+  \label{eq:lowmutder}
+  \varphi_{\mathbf{Y}}(\mathbf{k}) =
+  1 + \T \sum_{\omega \in \Omega}
+  \E[T_\omega] \left( \psi\left( \sum_{a \in \omega} k_a\right) -1 \right) +
+  O\left( \theta^2 \right)).
+\end{equation}
+This is the mgf for a trait controlled by only a single locus, and raising it to
+the power $L$ to account for multiple independent loci gives the equation
+\eqref{eq:lowmut} given in the main text. 
+
+%%% Local Variables:
+%%% TeX-master: "short_report.tex"
+%%% End:
