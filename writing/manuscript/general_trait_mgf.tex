@@ -7,14 +7,13 @@ is complex in its general form. There is a point mass at zero corresponding the
 possibility that no mutations affecting the trait occur, and mutational effects
 could be drawn from discrete or continuous distributions. Correlations between
 individuals arise because of shared history in the genealogies at individual
-loci. An analytical expression for the probability distribution of trait values
-does not exist except in certain limits such as when the number of mutations
-affecting the trait becomes large.
+loci. Deriving the cumulative distribution function for trait values may be
+possible in some instances, but the difficulty of integrating over mutational
+configurations makes it practically impossible for most cases.
 
-However, even in the absence of a probability distribution function we can use
-the mgf approach to learn something about the distribution of trait values.
-Following the definition of the mgf for a vector-valued random variable, the mgf
-for a trait controlled by a single nonrecombining locus is
+However, we can use the mgf approach to learn something about the distribution
+of trait values. Following the definition of the mgf for a vector-valued random
+variable, the mgf for a trait controlled by a single nonrecombining locus is
 \begin{equation}
   \label{eq:mgfdef}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = \E\left[ e^{\mathbf{k} \cdot \mathbf{y}} \right] =

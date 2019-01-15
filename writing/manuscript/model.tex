@@ -8,8 +8,8 @@
     Genetic parameters & $\psi$ & \multicolumn{1}{p{10cm}}{Mgf of the mutational effect size distribution }\\
                                          & $\frac{\theta}{2}$ & \multicolumn{1}{p{10cm}}{Per-locus mutation rate in units of coalescent time}\\
                                          & $m_i$ &  \multicolumn{1}{p{10cm}}{$i^{th}$ non-central moment of the mutational effect size distribution}\\
-                                         & $\frac{\theta}{2}\mu_1$ & \multicolumn{1}{p{10cm}}{Rate of mutational bias in the infinitesimal limit}\\
-                                         & $\frac{\theta}{2}\mu_2$ & \multicolumn{1}{p{10cm}}{Rate of variance accumulation in the infinitesimal limit}\\
+                                         & $\frac{\theta}{2}\mu_1$ & \multicolumn{1}{p{10cm}}{Rate that mutational bias shifts trait values in the infinitesimal limit}\\
+                                         & $\frac{\theta}{2}\mu_2$ & \multicolumn{1}{p{10cm}}{Rate that variance accumulates in the infinitesimal limit}\\
                                          & $L$ & \multicolumn{1}{p{10cm}}{Number of potentially causal loci}\\
     Genealogy values &  $\Omega$ & \multicolumn{1}{p{10cm}}{Set of all possible branches in the genealogy of a given sample}\\
                                          & $\omega$ & \multicolumn{1}{p{10cm}}{A particular branch in a genealogy, defined by all individuals that branch subtends}\\
@@ -37,16 +37,17 @@
 The model investigated here is of a trait controlled by $L$ unlinked potentially
 causal loci and is shown schematically in Figure \ref{fig:schema}. Following
 \citet{Kimura1969}, an infinite number of mutations are possible within each
-locus and the rate that mutations affecting the trait (causal mutations) arise
-is $\T$. That is, $\T$ is the rate for the entire locus and not per nucleotide.
-An approximation restricting the number of mutations per locus to at most one is
-considered in Section \ref{sec:lmr}. Mutations receive values from a
-distribution of effect sizes. This distribution is described by its moment
-generating function (mgf), $\psi$, and its non-central moments, $m_i$.
-Individuals are haploid and their trait values are determined by summing, both
-within and between loci, the effects of all mutations occurring in that
-individual's history. Environmental effects are not included. An extension to
-diploidy would be straightforward but is not considered here.
+locus (though the number of loci is finite) and rate that mutations affecting
+the trait (causal mutations) arise is $\T$. That is, $\T$ is the rate for one
+entire locus and not per nucleotide. An approximation restricting the number of
+mutations per locus to at most one is considered in Section \ref{sec:lmr}.
+Mutations receive values from a distribution of effect sizes. This distribution
+is described by its moment generating function (mgf), $\psi$, and its
+non-central moments, $m_i$. Individuals are haploid and their trait values are
+determined by summing, both within and between loci, the effects of all
+mutations occurring in that individual's history. Environmental effects are not
+included. An extension to diploidy would be straightforward but is not
+considered here.
 
 Trait values are correlated between individuals because mutations fall on shared
 portions of genealogies. The genealogy at a locus is represented by the random
