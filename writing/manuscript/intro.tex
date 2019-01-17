@@ -78,7 +78,7 @@ allowed for an arbitrary distribution of mutational effects. Using this model
 they were able to detect deviations from normality consistent with asymmetries
 in the distribution of mutational effects on gene expression in great apes. More
 recently, \citet{Schraiber2015} developed a similar general model of
-quantitative trait evolution at the population level based on the coalescent and
+quantitative trait evolution within populations based on the coalescent and
 allowing for any number of causal loci. They derived the characteristic function
 for the distribution of phenotypic values in a sample and showed how such values
 can deviate strongly from normality when the number of loci is small or the
@@ -95,29 +95,29 @@ demographies and population structure to relax these modeling assumptions.
 
 Extending coalescent models of quantitative traits to structured populations is
 important because the analysis of structured populations provides an opportunity
-to infer the incidence of local adaptation or stabilizing selection. Due to the
-build up of linkage disequilibrium between alleles affecting a trait, the
-neutral divergence in trait values among different subpopulations in a
-structured population is about as variable as the variance in allele
-frequencies \citep{Rogers1983}. The $Q_{ST}$/$F_{ST}$ paradigm was developed to
-test whether trait divergence in structured populations could be explained by
-neutral forces alone \citep{Spitze1993,Whitlock2008,Leinonen2013}. $Q_{ST}$,
-defined as the ratio of the trait variance between subpopulations to the total
-trait variance, is compared to $F_{ST}$, which measures the same property for
-genetic variation and is calculated using neutral markers to provide a null
-distribution. If the observed $Q_{ST}$ is sufficiently far from the null
-expectation, it is concluded that natural selection has
+to infer the incidence of local adaptation or stabilizing selection. In a
+structured population, the neutral divergence in (suitably normalized) trait
+values among subpopulations has approximately the same expectation and variance
+as the neutral divergence in allele frequency at a single
+site \citep{Rogers1983,Whitlock2008}. The reason for this similarity in variance
+is that both genetic drift and the combination of trait increasing and
+decreasing alleles involve binomial sampling. The $Q_{ST}$/$F_{ST}$ paradigm was
+developed to test whether trait divergence in structured populations could be
+explained by neutral forces alone \citep{Spitze1993,Whitlock2008,Leinonen2013}.
+$Q_{ST}$, defined as the ratio of the trait variance between subpopulations to
+the total trait variance, is compared to $F_{ST}$, which measures the same
+property for genetic variation and is calculated using neutral markers to
+provide a null distribution. If the observed $Q_{ST}$ is sufficiently far from
+the null expectation, it is concluded that natural selection has
 acted. \citet{Ovaskainen2011} developed a modern extension of the
 $Q_{ST}$/$F_{ST}$ paradigm for genetic values measured in breeding experiments
 and \citet{Berg2014} also extended the paradigm to make use of genetic values
 computed from GWAS summary statistics. An advantage of the
 \citet{Berg2014} approach is that by using computing genetic values from GWAS
-loci it makes no assumptions about normality at the population level. However,
-since suitably sized GWAS's have only been performed in humans, the approach has
-not yet been extended to other species. Understanding the neutral distribution
-of trait values is therefore necessary for the development of goodness-of-fit
-tests that are applicable to populations with complicated histories and traits
-with sparse genetic architectures.
+loci it does not assume normality within populations. Understanding the neutral
+distribution of trait values is therefore necessary for the development of
+goodness-of-fit tests that are applicable to populations with complicated
+histories and traits with sparse genetic architectures.
 
 We generalize the work of \citet{Schraiber2015} by deriving the form of the
 moment generating function (mgf) for arbitrary distributions of coalescent times

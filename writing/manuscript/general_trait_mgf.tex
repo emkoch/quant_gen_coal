@@ -13,7 +13,8 @@ configurations makes it practically impossible for most cases.
 
 However, we can use the mgf approach to learn something about the distribution
 of trait values. Following the definition of the mgf for a vector-valued random
-variable, the mgf for a trait controlled by a single nonrecombining locus is
+variable, the mgf for a trait controlled by a single nonrecombining locus
+is \citep{Ross}
 \begin{equation}
   \label{eq:mgfdef}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = \E\left[ e^{\mathbf{k} \cdot \mathbf{y}} \right] =
@@ -41,11 +42,11 @@ branch lengths. \citet{Khaitovich2005} and \citet{Schraiber2015} noted that this
 describes a compound Poisson process. The mgf of a compound Poisson process with
 rate $\lambda$ over time $t$ is $\exp(\lambda t (\psi(k)-1))$, where $\psi$ is
 the mgf of the distribution of the jump sizes caused by events in the Poisson
-process. In this case the jump sizes are the effects on the trait value caused
-by new mutations. Using this expression for the mgf of a compound Poisson
-process, along with the fact that the mgf of two perfectly correlated random
-variables with the same marginal distribution is $\varphi_{X_1}(k_1+k_2)$, we
-can rewrite equation \eqref{eq:cond} as
+process \citep{kingman-poisson-processes}. In this case the jump sizes are the
+effects on the trait value caused by new mutations. Using this expression for
+the mgf of a compound Poisson process, along with the fact that the mgf of two
+perfectly correlated random variables with the same marginal distribution is
+$\varphi_{X_1}(k_1+k_2)$, we can rewrite equation \eqref{eq:cond} as
 \begin{equation}
   \label{eq:fullmgf}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = 
@@ -72,5 +73,5 @@ single population we could obtain equation (1) of \citet{Schraiber2015} using
 equation \eqref{eq:sub}.
 
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "quant_gen_manu.tex"
 %%% End:
