@@ -1,5 +1,13 @@
-Recall that the moment generating function for the distribution of trait values
-from a single locus is
+A final set of quantities are defined for sums of branch lengths. Let
+$\tau_{a+b}$ be the sum of all branches ancestral to both $a$ and $b$, and
+$\tau_{a/b}$ be the sum of all branches ancestral to $a$ but not $b$. Extensions
+of this for more than two individuals are also used. The same notation is used
+when referring to sets of branch indices. So $\Omega_{a+b}$ and $\Omega_{a/b}$
+would be the sets of branches added to get $\tau_{a+b}$ and $\tau_{a/b}$
+respectively.
+
+The moment generating function for the distribution of trait values from a
+single locus is
 \begin{equation*}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = \int \exp \left( \sum_{\omega \in \Omega} s_{\omega}t_{\omega} \right)
   \Pro(\mathbf{T}=\mathbf{t})\mathrm{d}\mathbf{t}
@@ -29,10 +37,10 @@ which is equivalent to
 \end{equation*}
 
 This is raised to the power $L$ for a trait controlled by $L$ loci. We want the
-limit as the number of loci increases while the size of mutational decreases.
-This can be expressed by the limits $L m_1 \to \mu_1$, $L m_2\to \mu_2$ and $L
-m_i\to 0$ for $i>2$ as $L \to \infty$. Knowing we will not be retaining $m_3$
-and above we can rewrite the mgf as
+limit as the number of loci increases while the size of mutational effects
+decreases. This can be expressed by the limits $L m_1 \to \mu_1$, $L m_2\to
+\mu_2$ and $L m_i\to 0$ for $i>2$ as $L \to \infty$. Knowing we will not be
+retaining $m_3$ and above we can rewrite the mgf as
 \begin{equation*}
   \left(1 + \sum_{\Omega} \E[T_\omega] \T \left(m_1 \sum_{a \in \omega} k_a +
   \frac{m_2}{2} \left(\sum_{a \in \omega} k_a \right)^2\right)\right)^L.
@@ -74,7 +82,7 @@ of total variance we can write
   \Var\left[\E[Y|T]\right]
 \end{equation*}
 The variance conditional on $T$ can be calculated again using the law of total
-variance and conditioning on the number of mutation at the locus. 
+variance and conditioning on the number of mutations at the locus. 
 \begin{align*}
   \Var[Y|T] &= \E[\Var[Y|M]|T] + \Var[E[Y|M]|T]\\
             &= \E[M(m_2-m_1^2)|T] + \Var[Mm_1|T]\\

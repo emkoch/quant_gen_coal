@@ -1,14 +1,22 @@
 We can use the low mutation rate approximation to the moment generating function
-to calculate moments of the distribution of trait vales. We will start by
-calculating the first and second moments. We start, as we did in deriving the
-normal distribution, by substituting the Taylor series of the mutational mgf.
+to calculate moments of the distribution of trait values. In what follows let
+$\tau_{a+b}$ be the sum of all branches ancestral to both $a$ and $b$, and
+$\tau_{a/b}$ be the sum of all branches ancestral to $a$ but not $b$. Extensions
+of this for more than two individuals are also used. The same notation is used
+when referring to sets of branch indices. So $\Omega_{a+b}$ and $\Omega_{a/b}$
+would be the sets of branches added to get $\tau_{a+b}$ and $\tau_{a/b}$
+respectively.
+
+We will start by calculating the first and second moments. First, as was done
+when deriving the normal distribution, substitute the Taylor series of the
+mutational mgf:
 \begin{equation}
   \label{eq:mgf_approx_sub}
   \varphi_{\mathbf{Y}}(\mathbf{k}) \approx \left[ 1 + \sum_{\omega \in \Omega}
     \E[T_\omega] \T \left( m_1 \sum_{a \in \omega} k_a +
     \frac{m_2}{2!}\left( \sum_{a \in \omega} k_a\right)^2 +
     \frac{m_3}{3!}\left( \sum_{a \in \omega} k_a\right)^3 +
-    \frac{m_4}{4!}\left( \sum_{a \in \omega} k_a\right)^4 \ldots \right) \right]^L
+    \frac{m_4}{4!}\left( \sum_{a \in \omega} k_a\right)^4 \ldots \right) \right]^L.
 \end{equation}
 We can expand this out using multinomial coefficients to get
 \begin{align}
@@ -267,5 +275,5 @@ $\mathbbm{T}_{k,n}$ to give
     \frac{2}{9} \E[\mathbbm{T}_{2,4}] ).
 \end{align}
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "quant_gen_manu.tex"
 %%% End:

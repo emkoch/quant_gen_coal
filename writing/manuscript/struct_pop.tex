@@ -131,9 +131,12 @@ $Q_{ST}$, as a state of the population, varies across evolutionary realizations.
 Thus, there is no sense in which $Q_{ST}$ can be defined as a constant parameter
 in the way that $F_{ST}$ can. The expectation of $V_{between}$ is $\bar{t} -
 \bar{t}_0$, and the expectation of $V_{within}$ is $\bar{t}_0$.
-$\frac{\E[V_{between}]}{\E[V_{between}] + \E[V_{within}]}$ is equal to $F_{ST}$,
-but due to Jensen's inequality, the expectation of this ratio ($\E[Q_{ST}]$) is
-always less than $F_{ST}$.
+$\frac{\E[V_{between}]}{\E[V_{between}] + \E[V_{within}]}$ is equal to $F_{ST}$.
+Due to Jensen's inequality, the expectation of this ratio ($\E[Q_{ST}]$) is less
+than or equal to $F_{ST}$ as was also shown by \citet{Edge2015} for a model of a
+trait controlled by an arbitrary number of loci. Equality only holds in the
+limit as the number independent subpopulations approaches infinity and
+$V_{between}$ becomes constant.
 
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"

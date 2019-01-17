@@ -44,9 +44,10 @@ rate $\lambda$ over time $t$ is $\exp(\lambda t (\psi(k)-1))$, where $\psi$ is
 the mgf of the distribution of the jump sizes caused by events in the Poisson
 process \citep{kingman-poisson-processes}. In this case the jump sizes are the
 effects on the trait value caused by new mutations. Using this expression for
-the mgf of a compound Poisson process, along with the fact that the mgf of two
-perfectly correlated random variables with the same marginal distribution is
-$\varphi_{X_1}(k_1+k_2)$, we can rewrite equation \eqref{eq:cond} as
+the mgf of a compound Poisson process, along with the fact that the mgf of the
+sum of two perfectly correlated random variables with the same marginal
+distribution is $\varphi_{X_1,X_2}(k_1,k_2)=\varphi_{X_1}(k_1+k_2)$, we can
+rewrite equation \eqref{eq:cond} as
 \begin{equation}
   \label{eq:fullmgf}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = 
@@ -69,8 +70,9 @@ equation \eqref{eq:sub} to the power $L$. This result obviates the need for
 separate derivations for particular models of population history and structure.
 \citet{Lohse2011} derived the mgf of the genealogy in various population models
 including migration and splitting of subpopulations. Using their result for a
-single population we could obtain equation (1) of \citet{Schraiber2015} using
-equation \eqref{eq:sub}.
+single population we can obtain equation (1) of \citet{Schraiber2015} using
+equation \eqref{eq:sub} and equation (5) of \citet{Lohse2011}
+(Appendix \ref{slrederive}). 
 
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"
