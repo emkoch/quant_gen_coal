@@ -1,29 +1,29 @@
-\citet{Schraiber2015} suggested it might be possible to infer the shape of the
-distribution of mutational effects through its moments for sparse traits whose
-distributions deviate from normality. Using the expressions for the expected
-moments of the trait value distribution in equation \eqref{eq:emoms}, we could
-try and design a method of moments estimator for the moments of the mutational
-distribution. If $\hat{D}_{k,n}$ is an estimator of $\T \E[\mathbbm{T}_{k,n}]$,
-the system of equations for the first three central moments under the low
-mutation rate approximation is
+\citet{Schraiber2015} suggested it might be possible to estimate moments of the 
+distribution of mutational effects when trait distributions deviate from
+normality. These moments would provide information about the shape of the
+mutational distribution. Using the expected moments of the trait distribution
+(equation \eqref{eq:emoms}), we could attempt a method of moments estimator for
+the moments of the mutational distribution. The system of equations for the
+first three central moments is
 \begin{align}
 \label{eq:genearch}
   &\widehat{M}_2 = \widehat{D}_{2,2}Lm_2 \nonumber \\
   &\widehat{M}_3 = \frac{1}{3}\widehat{D}_{3,3}Lm_3 \nonumber \\
-  &\widehat{M}_4 = 3\widehat{M}_2^2 + (\widehat{D}_{4,4} + \frac{1}{3} \widehat{D}_{3,4} + \frac{2}{9} \widehat{D}_{2,4})Lm_4.
+  &\widehat{M}_4 = 3\widehat{M}_2^2 + (\widehat{D}_{4,4} +
+  \frac{1}{3} \widehat{D}_{3,4} + \frac{2}{9} \widehat{D}_{2,4})Lm_4,
 \end{align}
-From equation \eqref{eq:genearch} we can see that the moments of the trait
-distribution only enter through products with the number of loci potentially
-affecting the trait ($Lm_i$). If these products were estimated as
-$\widehat{Lm_2}$, $\widehat{Lm_3}$, and $\widehat{Lm_4}$, it would be possible
-to estimate the ratios $m_2/m_4$ and $m_3/m_4$ of the moments of the mutational
-distribution. These ratios are meaningless on their own because any value could
-be obtained by changing the scale on which the trait is measured. The quantity
-that is identifiable in this system of equation is the compound parameter
-$\frac{m_3^2}{m_2m_4}$. This quantity reflects something about the mutational
-bias relative to the spread of the distribution. However, it is likely not
+where $\hat{D}_{k,n}$ is an estimator of $\T \E[\mathbbm{T}_{k,n}]$, and the low
+mutation rate approximation has been used. The moments of the trait distribution
+only enter through products with the number of loci potentially affecting the
+trait ($Lm_i$). If we have the estimates $\widehat{Lm_2}$, $\widehat{Lm_3}$, and
+$\widehat{Lm_4}$, it is possible to estimate the ratios $m_2/m_4$ and $m_3/m_4$
+for the mutational distribution. These ratios are meaningless on their own
+because any value could be obtained by changing the scale on which the trait is
+measured. The identifiable quantity in this system of equation is the compound
+parameter $\frac{m_3^2}{m_2m_4}$. This quantity reflects something about the
+mutational bias relative to the spread of the distribution, but it is not
 possible to distinguish sparsity from skewed or heavy-tailed distributions of
-mutational effects. 
+mutational effects.
 
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"

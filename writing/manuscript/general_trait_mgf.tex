@@ -4,12 +4,12 @@ generalizing to arbitrary demographies and population structure. We consider the
 distribution of trait values over evolutionary realizations of the combined
 random processes of drift and mutation. The probability distribution for a trait
 is complex in its general form. There is a point mass at zero corresponding the
-possibility that no mutations affecting the trait occur, and mutational effects
-could be drawn from discrete or continuous distributions. Correlations between
-individuals arise because of shared history in the genealogies at individual
-loci. Deriving the cumulative distribution function for trait values may be
-possible in some instances, but the difficulty of integrating over mutational
-configurations makes it practically impossible for most cases.
+possibility that no mutations occur, and mutational effects could be drawn from
+discrete or continuous distributions. Correlations between individuals arise
+because of shared history in genealogies at individual loci. Deriving the
+cumulative distribution function for trait values may be possible in some
+instances, but the difficulty of integrating over mutational configurations
+makes it practically impossible for most cases.
 
 However, we can use the mgf approach to learn something about the distribution
 of trait values. Following the definition of the mgf for a vector-valued random
@@ -34,20 +34,20 @@ genealogy to give
   \mbox{d}\mathbf{t}.
 \end{align}
 
-To proceed it is necessary to make assumptions about the mutational process. The
-first is that mutations occur as a Poisson process along branches and the second
-is that mutations at a locus are additive. Under these assumptions, the changes
-in the trait value along each branch are conditionally independent given the
-branch lengths. \citet{Khaitovich2005} and \citet{Schraiber2015} noted that this
+To proceed assumptions about the mutational process must be made. The first is
+that mutations occur as a Poisson process along branches and the second is that
+mutations at a locus are additive. The changes in the trait value along each
+branch are then conditionally independent given the branch
+lengths. \citet{Khaitovich2005} and \citet{Schraiber2015} noted that this
 describes a compound Poisson process. The mgf of a compound Poisson process with
 rate $\lambda$ over time $t$ is $\exp(\lambda t (\psi(k)-1))$, where $\psi$ is
-the mgf of the distribution of the jump sizes caused by events in the Poisson
-process \citep{kingman-poisson-processes}. In this case the jump sizes are the
-effects on the trait value caused by new mutations. Using this expression for
-the mgf of a compound Poisson process, along with the fact that the mgf of the
-sum of two perfectly correlated random variables with the same marginal
-distribution is $\varphi_{X_1,X_2}(k_1,k_2)=\varphi_{X_1}(k_1+k_2)$, we can
-rewrite equation \eqref{eq:cond} as
+the mgf of the distribution of jump sizes caused by events in the Poisson
+process \citep{kingman-poisson-processes}. Here, jump sizes are the effects on
+the trait value caused by new mutations. Using the mgf of a compound Poisson
+process, along with the fact that the mgf of the sum of two perfectly correlated
+random variables with the same marginal distribution is
+$\varphi_{X_1,X_2}(k_1,k_2)=\varphi_{X_1}(k_1+k_2)$, we can rewrite
+equation \eqref{eq:cond} as
 \begin{equation}
   \label{eq:fullmgf}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = 

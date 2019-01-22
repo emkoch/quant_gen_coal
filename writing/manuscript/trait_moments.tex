@@ -4,35 +4,35 @@
 
 For most population genetic models and for sample sizes greater than three, the
 recursive nature of the trait distribution mgf makes it computationally
-unfeasible to solve under general parameter values. However, it is not necessary
-to have an expression for the full mgf in order to derive moments of the trait
-distribution in terms of moments of branch lengths and mutational effects. Under
-the low mutation rate approximation moments can be calculated by differentiating
-equation \eqref{eq:lowmut}. Even without making this approximation, moments can
-be calculated by taking Taylor expansions in equation \eqref{eq:cond} and only
-considering terms contributing to the desired moment's order. We implemented a
-symbolic math program to calculate trait moments using this procedure, and the
-details are given in Appendix \ref{symmath}. As the normal distribution is
-completely defined by its first two moments, the extent to which a trait
-distribution deviates from normality can be measured by the extent to which its
-moments deviate from those of a normal distribution with the same mean and
-variance.
+infeasible to obtain general solutions. However, it is possible to derive
+moments of the trait distribution in terms of moments of branch lengths and
+mutational effects without an expression for the full mgf. Under the low
+mutation rate approximation, moments can be calculated by differentiating
+equation \eqref{eq:lowmut}. Even without this approximation, moments can be
+calculated using equation \eqref{eq:cond} and only considering terms in a Taylor
+expansion contributing to the desired moment's order. We implemented a symbolic
+math program to calculate trait moments which can be found at
+\url{https://github.com/emkoch/trait_mgf_math}. Details of the procedure are
+given in Appendix \ref{symmath}. The normal distribution is completely defined
+by its first two moments, and the extent to which a trait distribution deviates
+from normality can be measured by the extent to which its moments deviate from
+those of a normal distribution with the same mean and variance.
 
-We have so far considered the distribution of a trait value $Y_a$ over
-evolutionary realizations. The expectation of $Y_a$ is $L \T m_1 \E[T_{MRCA}]$,
-and the variance is $L \T m_2 \E[T_{MRCA}] + L(m_1\T)^2\Var[T_{MRCA}]$. Although
-simple to derive using computer algebra, expressions for the higher central
-moments of $Y_a$ are complicated even under the low mutation rate approximation,
-and there is not much to be gained by showing them here.
+Considering the distribution over evolutionary realizations, the expectation of
+$Y_a$ is $L \T m_1 \E[T_{MRCA}]$, and the variance is $L \T m_2 \E[T_{MRCA}] +
+L(m_1\T)^2\Var[T_{MRCA}]$. Although simple to derive using computer algebra,
+expressions for the higher central moments of $Y_a$ are complicated even under
+the low mutation rate approximation, and there is not much to be gained by
+showing them here.
 
-However, in a given evolutionary realization there will be a distribution of
-trait values within a population which can also be described by its moments.
-Since this distribution is itself random, the moments of the within-population
-distribution are random as well. Indeed, because $Y_a$ is relative to an
-unobservable value, the expected central moments over the whole population offer
-more insight. We are particularly interested in how trait distributions deviate
-from normality. ~\citet{Schraiber2015} computed the expected first four central
-moments of a constant-size population. We derive the same expectations under an
+In a given evolutionary realization there will be a distribution of trait values
+within a population which can also be described by its moments. Since this
+distribution is itself random, the moments of the within-population distribution
+are random as well. Indeed, because $Y_a$ is defined relative to an unobservable
+value, the expected central moments within the whole population offer more
+insight. We are particularly interested in how trait distributions deviate from
+normality. ~\citet{Schraiber2015} computed the expected first four central
+moments of a constant-size population. We derive the same expectations for an
 arbitrary demographic history,
 \begin{subequations} \label{eq:emoms}
 \begin{align}
@@ -48,26 +48,26 @@ arbitrary demographic history,
   \label{eq:emoms4}
 \end{align}
 \end{subequations}
-The normal limit corresponds to equation \eqref{eq:emoms3} and the second two
-lines of equation \eqref{eq:emoms4} going to zero. To give insight into the
-expressions in equation \eqref{eq:emoms}, moment calculations done by hand under
-the low mutation rate approximation are presented in Appendix \ref{moments}.
+In the infinitesimal limit equation \eqref{eq:emoms3} and the second two lines
+of equation \eqref{eq:emoms4} go to zero. To give more insight into equation
+\eqref{eq:emoms}, moment calculations done by hand under the low mutation rate
+approximation are presented in Appendix \ref{moments}.
 
 Equation \eqref{eq:emoms2} gives the expected trait variance in the population.
-However, the variance will vary over realizations of the evolutionary process.
+However, this variance will vary over realizations of the evolutionary process.
 The variation in the population variance depends on the sparsity of the trait
 and the number of causal loci. The variation in the variance can be quantified
-using its coefficient of variation (CVV), the standard deviation of the variance
+using its coefficient of variation (CVV): the standard deviation of the variance
 divided by its expectation. For a constant-size, panmictic population
 \begin{equation}
   \label{eq:cvv}
   \mathrm{CVV} = \sqrt{\frac{4}{3}\frac{1}{L} +
     \frac{1}{6}\frac{m_4/m_2^2}{L\theta \E[\mathbbm{T}_{2,2}]}}.
 \end{equation}
-Equation \eqref{eq:cvv} shows a contribution due to linked mutations occurring
-at a single locus ($\frac{4}{3}\frac{1}{L}$) and a contribution due to sparsity
-and mutation ($\frac{1}{6}\frac{m_4/m_2^2}{L\theta \E[\mathbbm{T}_{2,2}]}$).
-Even when the sparsity is low, i.e., when a large number of variants affect the
+Equation \eqref{eq:cvv} has a contribution due to linked mutations occurring at
+a single locus ($\frac{4}{3}\frac{1}{L}$) and a contribution due to sparsity and
+mutation ($\frac{1}{6}\frac{m_4/m_2^2}{L\theta \E[\mathbbm{T}_{2,2}]}$). Even
+when the sparsity is low, i.e., when a large number of variants affect the
 trait, if the trait is only controlled by a single locus there will be
 considerable variation in the within-population variance
 (CVV$=\sqrt{\frac{4}{3}}$). On the other hand, the CVV of a sparse trait

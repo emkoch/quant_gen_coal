@@ -11,7 +11,6 @@ def generate_all_trees(levels, size):
     """ Generate a list of all possible trees for a set of tips. """
     if len(levels) == (size - 1):
         yield levels
-        # return
     else:
         for branch1, branch2 in itertools.combinations(levels[-1], 2):
             new_level = copy.deepcopy(levels[-1])
@@ -327,8 +326,8 @@ class traitMGF(object):
             return self.moments[approx_type][mom_hash]
         print('making mgf approx...')
         # Make mgf at appropriate approx level if doesn't already exist
-        self.make_mgf(self.num_indiv, approx_type, gene_mgf)
-        d_mgf = self.mgf[approx_type][self.num_indiv].approx
+        self.make_mgf(sum(pows), approx_type, gene_mgf)
+        d_mgf = self.mgf[approx_type][sum(pows)].approx
         dummies_nonzero = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)
                                          if pows[ii] > 0])
         dummies = sympy.symbols(['k_' + str(ii) for ii in range(self.num_indiv)])
@@ -366,8 +365,6 @@ class traitMGF(object):
         mom_hash = '.'.join([str(power) for power in pows])
         if mom_hash not in self.moments[approx_type].keys():
             self.calc_moment(pows, approx_type, gene_mgf)
-        #if approx_type == 'lmr':
-        #    return self.moments[approx_type][mom_hash]
         mom_full = self.moments[approx_type][mom_hash]
         num_loci = sympy.symbols('L', integer=True)
         theta = sympy.symbols('theta')

@@ -45,8 +45,8 @@ to at most one is considered in Section \ref{sec:lmr}. Mutations receive values
 from a distribution of effect sizes. This distribution is described by its
 moment generating function (mgf), $\psi$, and its non-central moments, $m_i$.
 Individuals are haploid and their trait values are determined by summing, both
-within and between loci, the effects of all mutations occurring in that
-individual's history. Environmental effects are not included. An extension to
+within and between loci, the effects of all mutations occurring since the most
+recent common ancestor. Environmental effects are not included. An extension to
 diploidy would be straightforward but is not considered here.
 
 Trait values are correlated between individuals because mutations fall on shared
@@ -101,19 +101,19 @@ chosen haplotypes at loci affecting the trait. A trait with fewer causal
 pairwise differences is more sparse. Sparsity thus depends both on the genetic
 parameters through the mutation rate and the number of potentially causal loci,
 and on demography through the distribution of coalescence times. We define
-sparsity using the number of pairwise differences rather than the total number
-of segregating mutations because this latter quantity depends on sample size and
-is ill-defined for an entire population. 
+sparsity using pairwise differences rather than the total number of segregating
+mutations because this latter quantity depends on sample size and is ill-defined
+for an entire population.
 
 In populations of exchangeable individuals, a useful way to summarize the
 distribution of genealogies is through the moments of $\mathbbm{T}_{k,n}$ which
 denotes the amount of time that $k$ lineages remain in the genealogy of a sample
 of size $n$. The pairwise coalescent time between a lineage in individual $a$
-and in individual $b$ is written as $\mathcal{T}_{a,b}$. When considering
-structured populations, $\mathcal{T}_{a,b}$ is also used to denote the
-coalescence time between a randomly chosen lineage from subpopulation $a$ and a
-randomly chosen lineage from subpopulation $b$. Table \ref{notation} provides a
-reference for the notation used in this article. 
+and a lineage in individual $b$ is written as $\mathcal{T}_{a,b}$. When
+considering structured populations, $\mathcal{T}_{a,b}$ is also used to denote
+the coalescence time between a randomly chosen lineage from subpopulation $a$
+and a randomly chosen lineage from subpopulation $b$. Table \ref{notation}
+provides a reference for the notation used in this article.
 
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"
