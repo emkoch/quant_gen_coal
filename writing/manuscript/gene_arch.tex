@@ -1,10 +1,9 @@
-\citet{Schraiber2015} suggested it might be possible to estimate moments of the 
-distribution of mutational effects when trait distributions deviate from
-normality. These moments would provide information about the shape of the
-mutational distribution. Using the expected moments of the trait distribution
-(equation \eqref{eq:emoms}), we could attempt a method of moments estimator for
-the moments of the mutational distribution. The system of equations for the
-first three central moments is
+\citet{Schraiber2015} suggested the possibility of estimating moments of the 
+distribution of mutational effects for traits that deviate from normality. These
+moments would be informative about the shape of the mutational distribution.
+Using the expected trait moments (equation \eqref{eq:emoms}), we can attempt to
+derive a method of moments estimator for the moments of the mutational
+distribution. The system of equations for the first three central moments is
 \begin{align}
 \label{eq:genearch}
   &\widehat{M}_2 = \widehat{D}_{2,2}Lm_2 \nonumber \\
@@ -18,10 +17,10 @@ only enter through products with the number of loci potentially affecting the
 trait ($Lm_i$). If we have the estimates $\widehat{Lm_2}$, $\widehat{Lm_3}$, and
 $\widehat{Lm_4}$, it is possible to estimate the ratios $m_2/m_4$ and $m_3/m_4$
 for the mutational distribution. These ratios are meaningless on their own
-because any value could be obtained by changing the scale on which the trait is
-measured. The identifiable quantity in this system of equation is the compound
-parameter $\frac{m_3^2}{m_2m_4}$. This quantity reflects something about the
-mutational bias relative to the spread of the distribution, but it is not
+because any value could be obtained by changing the measurement scale of the
+trait. The identifiable quantity in this system of equation is the compound
+parameter $\frac{m_3^2}{m_2m_4}$. This quantity reflects the degree of
+mutational skew relative to the spread of the distribution, but it is not
 possible to distinguish sparsity from skewed or heavy-tailed distributions of
 mutational effects.
 

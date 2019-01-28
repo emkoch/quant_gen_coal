@@ -11,10 +11,10 @@ cumulative distribution function for trait values may be possible in some
 instances, but the difficulty of integrating over mutational configurations
 makes it practically impossible for most cases.
 
-However, we can use the mgf approach to learn something about the distribution
-of trait values. Following the definition of the mgf for a vector-valued random
-variable, the mgf for a trait controlled by a single nonrecombining locus
-is \citep{Ross}
+However, we can use the mgf approach to study the distribution of trait values.
+Following the definition of the mgf for a vector-valued random
+variable \citep{Ross}, the mgf for a trait controlled by a single nonrecombining
+locus is
 \begin{equation}
   \label{eq:mgfdef}
   \varphi_{\mathbf{Y}}(\mathbf{k}) = \E\left[ e^{\mathbf{k} \cdot \mathbf{y}} \right] =
@@ -34,7 +34,7 @@ genealogy to give
   \mbox{d}\mathbf{t}.
 \end{align}
 
-To proceed assumptions about the mutational process must be made. The first is
+To proceed, assumptions about the mutational process must be made. The first is
 that mutations occur as a Poisson process along branches and the second is that
 mutations at a locus are additive. The changes in the trait value along each
 branch are then conditionally independent given the branch
@@ -44,8 +44,8 @@ rate $\lambda$ over time $t$ is $\exp(\lambda t (\psi(k)-1))$, where $\psi$ is
 the mgf of the distribution of jump sizes caused by events in the Poisson
 process \citep{kingman-poisson-processes}. Here, jump sizes are the effects on
 the trait value caused by new mutations. Using the mgf of a compound Poisson
-process, along with the fact that the mgf of the sum of two perfectly correlated
-random variables with the same marginal distribution is
+process, along with the fact that the mgf of the joint distribution of two
+perfectly correlated random variables with the same marginal distribution is
 $\varphi_{X_1,X_2}(k_1,k_2)=\varphi_{X_1}(k_1+k_2)$, we can rewrite
 equation \eqref{eq:cond} as
 \begin{equation}
@@ -54,9 +54,10 @@ equation \eqref{eq:cond} as
   \int \prod_{\omega \in \Omega} \exp\left( \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)\right)
   \Pro(\mathbf{T}=\mathbf{t})\mbox{d}\mathbf{t}.
 \end{equation}
-We can recognize equation \eqref{eq:fullmgf} as the mgf of $\mathbf{T}$ with the
-dummy variable $s_{\omega}$ for branch $T_\omega$ set to
-$\frac{\theta}{2} \left( \psi(\sum_{a \in \omega}k_{a}) -1 \right)$. Or,
+Equation \eqref{eq:fullmgf} is the mgf of $\mathbf{T}$ with the dummy variable
+$s_{\omega}$ for branch $T_\omega$ set to
+$\frac{\theta}{2} \left( \psi(\sum_{a \in \omega}k_{a}) -1 \right)$. This
+implies that
 \begin{equation}
   \label{eq:sub}
   \varphi_{\mathbf{T}}(\mathbf{s})\Bigr|_{s_{\omega}=\frac{\theta}{2} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right)}.
@@ -64,10 +65,10 @@ $\frac{\theta}{2} \left( \psi(\sum_{a \in \omega}k_{a}) -1 \right)$. Or,
 
 Thus, if the mgf of the distribution of branch lengths is known, equation
 \eqref{eq:fullmgf} allows us to obtain the mgf of the trait values through a
-simple substitution. When the trait is controlled by $L$ independent loci, the
-full mgf, $\varphi_{\mathbf{Y}}(\mathbf{k})$, is obtained by raising
-equation \eqref{eq:sub} to the power $L$. This result obviates the need for
-separate derivations for particular models of population history and structure.
+substitution. When the trait is controlled by $L$ independent loci, the full mgf
+is obtained by raising equation \eqref{eq:sub} to the power $L$. This result
+obviates the need for separate derivations for particular models of population
+history and structure.
 \citet{Lohse2011} derived the mgf of the genealogy in various population models
 including migration and splitting of subpopulations. Using their result for a
 single population we can obtain equation (1) of \citet{Schraiber2015} using

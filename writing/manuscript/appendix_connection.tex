@@ -1,0 +1,61 @@
+We can reproduce equation (1) of \citet{Schraiber2015} using equation
+\eqref{eq:sub} of this paper and equation (5) of \citet{Lohse2011}. Equations
+will be rewritten using the notation of this paper. Equation (5) of
+\citet{Lohse2011} is a recursion for finding the mgf of a sample of size $n$
+lineages from a panmictic population:
+\begin{equation}
+  \varphi^n_{\mathbf{T}}(\mathbf{s}, \Upsilon)=
+  \frac{1}{{n\choose 2}+\sum_{\omega \in \Upsilon}s_\omega}
+  \sum_{(\omega_i, \omega_j) \in \Upsilon}\varphi^{n-1}_{\mathbf{T}}
+  (\mathbf{s}, \mathcal{C}(\Upsilon, \omega_i, \omega_j)).
+\end{equation}
+Here, $\Upsilon$ is the set of all external branches of the genealogy, and
+$\mathcal{C}(\Upsilon,\omega_i,\omega_j)$ is an operator that removes $\omega_i$
+and $\omega_j$ from $\Upsilon$ and adds $\omega_i \cup \omega_j$. Following
+equation \eqref{eq:sub} we make the substitution $s_{\omega}=\frac{\theta}{2}
+\left( \psi\left(\sum_{i \in \omega}k_{i}\right) -1 \right)$ to get
+\begin{equation}
+  \varphi^n_{\mathbf{Y}}(\mathbf{k}) =
+  \frac{2}{n(n-1) + \theta(\sum_{u=1}^n \psi(k_u)-n)}
+  \sum_{(\omega_i, \omega_j) \in \Upsilon}\varphi^{n-1}_{\mathbf{T}}
+  (\mathbf{s}, \mathcal{C}(\Upsilon, \omega_i, \omega_j))
+  \Bigr|_{s_{\omega}=\frac{\theta}{2} \left( \psi\left(\sum_{i \in \omega}k_{i}\right) -1 \right)}.
+\end{equation}
+Next we can write
+\begin{equation}
+\varphi^{n-1}_{\mathbf{T}}
+  (\mathbf{s}, \mathcal{C}(\Upsilon, \omega_i, \omega_j))
+\Bigr|_{s_{\omega}=\frac{\theta}{2} \left( \psi\left(\sum_{i \in \omega}k_{i}\right) -1 \right)} =
+\varphi^{n-1}_{\mathbf{Y}}(\mathscr{C}(\mathbf{k},i,j)).
+\end{equation}
+The operator $\mathscr{C}(\mathbf{k},i,j)$ removes the $i^{th}$ and $j^{th}$
+elements of $\mathbf{k}$ and adds the term $k_i+k_j$. We can use this simple
+operator because the order of elements in $\mathbf{k}$ does not matter for a
+panmictic population. This yields
+\begin{equation}
+  \label{eq:schraiber}
+  \varphi^n_{\mathbf{Y}}(\mathbf{k}) =
+  \frac{2}{n(n-1) + \theta(\sum_{u=1}^n \psi(k_u)-n)}
+  \sum_{i, j\leq n, i \neq j} \varphi^{n-1}_{\mathbf{Y}}(\mathscr{C}(\mathbf{k},i,j)).
+\end{equation}
+This recursive expression is equivalent to equation (1) in \citet{Schraiber2015}.
+
+The complicated appearance of equation \eqref{eq:schraiber} is mostly due to the
+need for novel notation. A simple example for a sample of three lineages shows
+how the substitution process works. The mgf for a genealogy of sample size three
+from a panmictic population is
+\begin{align*}
+  \varphi_{\mathbf{T}} &= \frac{1}{3 - s_{\{a\}} - s_{\{b\}} - s_{\{c\}}} \\
+  &\times \left( \frac{1}{1 - s_{\{a,b\}} - s_{\{c\}}} + \frac{1}{1 - s_{\{a,c\}} - s_{\{b\}}}  + \frac{1}{1 - s_{\{b,c\}} - s_{\{a\}}}\right),
+    \end{align*}
+and the mgf for the trait distribution after substitution is
+\begin{align*}
+  \varphi_{\mathbf{Y}} &= \biggl(\frac{1}{3 - \T(\psi(k_a) + \psi(k_b) + \psi(k_c) - 3)} \\
+  &\times \biggl( \frac{1}{1 - \T(\psi(k_a+k_b) + \psi(k_c) - 2)} +
+  \frac{1}{1 - \T(\psi(k_a+k_c) + \psi(k_b) - 2)} \\
+  &+\frac{1}{1 - \T(\psi(k_b+k_c) + \psi(k_a) - 2)}\biggr)
+  \biggr)^L.
+\end{align*}
+%%% Local Variables:
+%%% TeX-master: "short_report.tex"
+%%% End:

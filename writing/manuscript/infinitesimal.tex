@@ -1,27 +1,25 @@
-This general model converges to a normal distribution when we take an
-infinitesimal limit. We accomplish this by substituting Taylor series for the
-genealogical and mutational distributions in equation \eqref{eq:fullmgf} and
-then taking appropriate limits (see Appendix \ref{clt}). The infinitesimal limit
-corresponds to the situation where mutation effect sizes become small as the
-number of loci becomes large. The resulting distribution of a trait value $Y$ is
-multivariate normal with expectation $\E[T_{MRCA}] \T \mu_1$ and variance
-$\E[T_{MRCA}] \T \mu_2$. The covariance between trait values in two individuals
-$a$ and $b$ is $\E[\tau_{a+b}] \T \mu_2$, where $\tau_{a+b}$ is the shared
-branch length between a lineage sampled from individual $a$ and a lineage from
-individual $b$. $\E[T_{MRCA}]$ is the expected time to the most recent common
-ancestor. $\T \mu_1$ is the per genome rate that mutational bias shifts the
-mean. $\T \mu_2$ is the rate per genome that variance accumulates. The
-infinitesimal limit requires that the products of $L$ and moments three and
-greater of the mutational distribution go to zero as the number of loci becomes
-large and the effect size per mutation becomes small. This can be thought of as
-requiring the mutational distribution to not have tails too heavy. Details of
-the derivation are given in Appendix \ref{clt}.
+This model converges to a normal distribution when we take an infinitesimal
+limit. We accomplish this by substituting Taylor series for the genealogical and
+mutational distributions in equation \eqref{eq:fullmgf} and taking appropriate
+limits (see Appendix \ref{clt}). The infinitesimal limit lets mutation effect
+sizes become small as the number of loci becomes large. The resulting
+distribution of a trait value $Y$ is multivariate normal with expectation
+$\E[T_{MRCA}] \T \mu_1$ and variance $\E[T_{MRCA}] \T \mu_2$. The covariance
+between trait values in individuals $a$ and $b$ is $\E[\tau_{a+b}] \T \mu_2$,
+where $\tau_{a+b}$ is the shared branch length between a lineage sampled from
+individual $a$ and a lineage from individual $b$. $\E[T_{MRCA}]$ is the expected
+time to the most recent common ancestor. $\T \mu_1$ is the per genome rate that
+mutational bias shifts the mean, and $\T \mu_2$ is the rate per genome that
+variance accumulates. The infinitesimal limit requires that the products of $L$
+and moments three and greater of the mutational distribution go to zero. This
+can be thought of as requiring the mutational distribution to not bex extremely
+skewed or heavy tailed. Derivation details are given in Appendix \ref{clt}.
 
 Interestingly, the rate of variance accumulation is proportional to the second
 moment of the mutational distribution instead of the variance. We can see the
 intuition for this by considering a degenerate distribution where each mutation
 has the same effect. We still expect variation among individuals due to
-differences in the number of mutations each individual receives, even though the
+differences in the mutation count each individual receives, even though the
 variance of the mutational distribution is zero. The variance among individual
 trait values thus has one component due to differences in the number of
 mutations and an additional component due to differences in the effects of these

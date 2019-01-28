@@ -1,8 +1,9 @@
 A useful simplification of the model is to ignore the possibility of more than
 one mutation per locus, thus breaking the infinite sites assumption within loci.
 This approximation is reasonable as long as nucleotide positions affecting the
-trait are loosely linked throughout the genome. We can greatly simplify the mgf
-of the trait distribution by grouping terms of order two and above in equation
+trait are loosely linked throughout the genome. The mgf of the trait
+distribution is greatly simplified by grouping terms of order two and above in
+equation
 \eqref{eq:fullmgf}:
 \begin{equation}
 \label{eq:lowmut}
@@ -13,7 +14,7 @@ of the trait distribution by grouping terms of order two and above in equation
 A derivation is given in Appendix \ref{lmr_der}. Ignoring the
 $O\left( \theta^2 \right)$ terms corresponds to allowing at most one mutation
 per locus. Conveniently, the mgf of the trait then depends only on the expected
-length of each branch, whereas equation \eqref{eq:fullmgf} requires higher order
+branch lengths $\E[T_{\omega}]$, whereas equation \eqref{eq:fullmgf} requires higher order
 moments of branch lengths (e.g. $\E[T_{\omega_1}T_{\omega_2}]$). It is therefore
 no longer necessary to know the the mgf of the genealogical distribution, and we
 can express moments of the trait distribution using expected branch lengths

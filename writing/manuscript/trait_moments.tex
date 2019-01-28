@@ -3,7 +3,7 @@
 \newcommand{\CCC}{\E[\mathbbm{T}_{4,4}] - \frac{1}{6}\E[\mathbbm{T}_{3,4}] - \frac{1}{9}\E[\mathbbm{T}_{2,4}]}
 
 For most population genetic models and for sample sizes greater than three, the
-recursive nature of the trait distribution mgf makes it computationally
+recursive nature of $\varphi_{\mathbf{Y}}$ makes it computationally
 infeasible to obtain general solutions. However, it is possible to derive
 moments of the trait distribution in terms of moments of branch lengths and
 mutational effects without an expression for the full mgf. Under the low
@@ -22,18 +22,18 @@ Considering the distribution over evolutionary realizations, the expectation of
 $Y_a$ is $L \T m_1 \E[T_{MRCA}]$, and the variance is $L \T m_2 \E[T_{MRCA}] +
 L(m_1\T)^2\Var[T_{MRCA}]$. Although simple to derive using computer algebra,
 expressions for the higher central moments of $Y_a$ are complicated even under
-the low mutation rate approximation, and there is not much to be gained by
-showing them here.
+the low mutation rate approximation, and not much is gained by showing them
+here.
 
 In a given evolutionary realization there will be a distribution of trait values
-within a population which can also be described by its moments. Since this
-distribution is itself random, the moments of the within-population distribution
-are random as well. Indeed, because $Y_a$ is defined relative to an unobservable
-value, the expected central moments within the whole population offer more
-insight. We are particularly interested in how trait distributions deviate from
-normality. ~\citet{Schraiber2015} computed the expected first four central
-moments of a constant-size population. We derive the same expectations for an
-arbitrary demographic history,
+within the entire population which can also be described by its moments. Since
+this distribution is itself random, the moments of the within-population
+distribution are random as well. Since $Y_a$ is defined relative to an
+unobservable value, the expected central moments within the whole population
+offer more insight. We are particularly interested in how trait distributions
+deviate from normality. ~\citet{Schraiber2015} computed the expected first four
+central moments of a constant-size population. We derive the same expectations
+for an arbitrary demographic history,
 \begin{subequations} \label{eq:emoms}
 \begin{align}
   &\E[M_2] = L \T \E[\mathbbm{T}_{2,2}] m_2 \label{eq:emoms2}\\
@@ -53,12 +53,13 @@ of equation \eqref{eq:emoms4} go to zero. To give more insight into equation
 \eqref{eq:emoms}, moment calculations done by hand under the low mutation rate
 approximation are presented in Appendix \ref{moments}.
 
-Equation \eqref{eq:emoms2} gives the expected trait variance in the population.
-However, this variance will vary over realizations of the evolutionary process.
-The variation in the population variance depends on the sparsity of the trait
-and the number of causal loci. The variation in the variance can be quantified
-using its coefficient of variation (CVV): the standard deviation of the variance
-divided by its expectation. For a constant-size, panmictic population
+Equation \eqref{eq:emoms2} gives the expected variance in the population, but
+this will vary over realizations of the evolutionary process. The variation in
+the population variance depends on the expected sparsity of the trait ($L\T
+\E[\mathbbm{T}_{2,2}]$) and the number of causal loci. The variation in the
+variance can be quantified using its coefficient of variation (CVV): the
+standard deviation of the variance divided by its expectation. For a
+constant-size, panmictic population
 \begin{equation}
   \label{eq:cvv}
   \mathrm{CVV} = \sqrt{\frac{4}{3}\frac{1}{L} +
