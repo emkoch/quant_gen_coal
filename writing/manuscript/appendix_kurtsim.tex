@@ -1,3 +1,9 @@
+This appendix investigates how the kurtosis, rather than the expected fourth
+moment of the within-population trait distribution responds to demography and
+sparsity. Equations \eqref{eq:emoms}a-c and Figure \ref{fig:Qexp} only show the
+response of the fourth moment. The kurtosis proves difficult to deal with
+analytically. A first order approximation proves to be poor and simulations show
+high variance of the within-population kurtosis. 
 \begin{center}
   \centering \includegraphics[width=\textwidth]{figures/kurt_sim.pdf}
   \captionof{figure}{\small The distribution of the population kurtosis under
@@ -11,6 +17,7 @@
     kurtosis given in equation \ref{eq:firstord}.}
   \label{fig:kurtsim}
 \end{center}
+
 Entire populations were simulated using \texttt{msprime} \citep{Kelleher2015}
 and mutations were assigned effects from a standard normal or Laplace
 distribution. The effective population size and mutation rate were kept constant
@@ -30,6 +37,7 @@ than under normality when they are longer ($\E[\mathbbm{T}_{4,4}] <
 \frac{1}{6}\E[\mathbbm{T}_{3,4}] + \frac{1}{9}\E[\mathbbm{T}_{2,4}]$),
 simulations show that the approximation is actually quite poor (Figure
 \ref{fig:kurtsim}).
+
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "quant_gen_manu.tex"
 %%% End:

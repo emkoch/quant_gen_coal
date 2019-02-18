@@ -1,19 +1,19 @@
 This model converges to a normal distribution when we take an infinitesimal
 limit. We accomplish this by substituting Taylor series for the genealogical and
 mutational distributions in equation \eqref{eq:fullmgf} and taking appropriate
-limits (see Appendix \ref{clt}). The infinitesimal limit lets mutation effect
-sizes become small as the number of loci becomes large. The resulting
-distribution of a trait value $Y$ is multivariate normal with expectation
-$\E[T_{MRCA}] \T \mu_1$ and variance $\E[T_{MRCA}] \T \mu_2$. The covariance
-between trait values in individuals $a$ and $b$ is $\E[\tau_{a+b}] \T \mu_2$,
-where $\tau_{a+b}$ is the shared branch length between a lineage sampled from
-individual $a$ and a lineage from individual $b$. $\E[T_{MRCA}]$ is the expected
-time to the most recent common ancestor. $\T \mu_1$ is the per genome rate that
-mutational bias shifts the mean, and $\T \mu_2$ is the rate per genome that
-variance accumulates. The infinitesimal limit requires that the products of $L$
-and moments three and greater of the mutational distribution go to zero. This
-can be thought of as requiring the mutational distribution to not bex extremely
-skewed or heavy tailed. Derivation details are given in Appendix \ref{clt}.
+limits. The infinitesimal limit lets mutation effect sizes become small as the
+number of loci becomes large. The resulting distribution of a trait value $Y$ is
+multivariate normal with expectation $\E[T_{MRCA}] \T \mu_1$ and variance
+$\E[T_{MRCA}] \T \mu_2$. The covariance between trait values in individuals $a$
+and $b$ is $\E[\tau_{a+b}] \T \mu_2$, where $\tau_{a+b}$ is the shared branch
+length between a lineage sampled from individual $a$ and a lineage from
+individual $b$. $\E[T_{MRCA}]$ is the expected time to the most recent common
+ancestor. $\T \mu_1$ is the per genome rate that mutational bias shifts the
+mean, and $\T \mu_2$ is the rate per genome that variance accumulates. The
+infinitesimal limit requires that the products of $L$ and moments three and
+greater of the mutational distribution go to zero. This can be thought of as
+requiring the mutational distribution to not be extremely skewed or heavy
+tailed. Derivation details are given in Appendix \ref{clt}.
 
 Interestingly, the rate of variance accumulation is proportional to the second
 moment of the mutational distribution instead of the variance. We can see the
@@ -43,9 +43,10 @@ where $\mathcal{T}_{a,b} = 0$ if $a=b$. Classical theory in quantitative
 genetics uses a univariate normal distribution of phenotypes in a panmictic
 population. We can recover this by considering a population of exchangeable
 individuals. In this case $\E[\mathcal{T}_{a,b}] = \E[\mathbbm{T}_{2,2}]$ for
-all pairs $a \neq b$. Individual trait values are then conditionally independent
-given the mean value in the population and are normally distributed with
-variance $\E[\mathbbm{T}_{2,2}]\T\mu_2$.
+all pairs $a \neq b$. Multivariate normal theory can be used to show that
+individual trait values are then conditionally independent given the mean value
+in the population and are normally distributed with variance
+$\E[\mathbbm{T}_{2,2}]\T\mu_2$ (see Appendix \ref{clt}).
 
 The normal model in the infinitesimal limit provides additional theoretical
 justification for studies using normal models to look for differences in

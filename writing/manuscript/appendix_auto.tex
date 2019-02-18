@@ -1,8 +1,13 @@
-Moments of the trait distribution can be calculated by differentiating equation
-\eqref{eq:fullmgf}. To automate the process, symbolic math programs were written
-using \texttt{sympy} \citep{sympy}. To derive moments for an arbitrary
-distribution of coalescent times we take Taylor series of the mgf of the
-mutational distribution to get
+Equations \eqref{eq:emoms}a-c in the full text were derived using a symbolic
+math program written using \texttt{sympy} \citep{sympy}. This appendix describes
+the basic idea behind this program. A python module and ipython notebook used to
+make calculations are available
+at \url{https://github.com/emkoch/trait_mgf_math}. 
+
+Moments of the trait distribution can be calculated by differentiating
+equation \eqref{eq:fullmgf}. To derive moments for an arbitrary distribution of
+coalescent times we take a Taylor series of the mgf of the mutational
+distribution to get
 \begin{equation}
   \left(\int \prod_{\Omega} \exp\left[ t_{\omega} \frac{\theta}{2} \left(
     \sum_{n=1}^{\infty} \frac{m_n}{n!} \left( \sum_{a \in \omega} k_a \right)^n
@@ -30,6 +35,7 @@ order $m$, we only need consider terms of size $m$ and less in the series
 expansion of the exponential, and within the expansions of the mutational mgf we
 only need consider terms up to order $m-m_t+1$ where $m_t$ is the order of the
 exponential term being considered.
+
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "qaunt_gen_manu.tex"
 %%% End:

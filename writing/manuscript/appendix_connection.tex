@@ -1,8 +1,18 @@
-We can reproduce equation (1) of \citet{Schraiber2015} using equation
-\eqref{eq:sub} of this paper and equation (5) of \citet{Lohse2011}. Equations
-will be rewritten using the notation of this paper. Equation (5) of
-\citet{Lohse2011} is a recursion for finding the mgf of a sample of size $n$
-lineages from a panmictic population:
+This appendix shows how the main mathematical result of this study connects to
+previous work by \citet{Lohse2011} and \citet{Schraiber2015}. \citet{Lohse2011}
+showed how the probability distribution of genealogies at a locus can be
+represented using a generating function. \citet{Schraiber2015} took a similar
+approach to a different problem and derived the characteristic function for the
+distribution of quantitative traits in a panmictic population.
+Equation \eqref{eq:sub} of this paper demonstrates a fundamental connection
+between the moment generating functions of traits and of genealogies. If this
+connection holds we should be able to reproduce equation (1)
+of \citet{Schraiber2015} (the panmictic trait mgf) using equation
+\eqref{eq:sub} of this paper and equation (5) of \citet{Lohse2011} (the genealogy mgf).
+
+We go through this derivation rewriting equations in the notation of this paper.
+Equation (5) of \citet{Lohse2011} is a recursion for finding the mgf of a sample
+of size $n$ lineages from a panmictic population:
 \begin{equation}
   \varphi^n_{\mathbf{T}}(\mathbf{s}, \Upsilon)=
   \frac{1}{{n\choose 2}+\sum_{\omega \in \Upsilon}s_\omega}
@@ -38,12 +48,13 @@ panmictic population. This yields
   \frac{2}{n(n-1) + \theta(\sum_{u=1}^n \psi(k_u)-n)}
   \sum_{i, j\leq n, i \neq j} \varphi^{n-1}_{\mathbf{Y}}(\mathscr{C}(\mathbf{k},i,j)).
 \end{equation}
-This recursive expression is equivalent to equation (1) in \citet{Schraiber2015}.
+This recursive expression is equivalent to equation (1) in \citet{Schraiber2015}. 
 
 The complicated appearance of equation \eqref{eq:schraiber} is mostly due to the
 need for novel notation. A simple example for a sample of three lineages shows
-how the substitution process works. The mgf for a genealogy of sample size three
-from a panmictic population is
+how the substitution process works and better demonstrates the utility of
+equation \eqref{eq:sub}. The mgf for a genealogy of sample size three from a
+panmictic population is
 \begin{align*}
   \varphi_{\mathbf{T}} &= \frac{1}{3 - s_{\{a\}} - s_{\{b\}} - s_{\{c\}}} \\
   &\times \left( \frac{1}{1 - s_{\{a,b\}} - s_{\{c\}}} + \frac{1}{1 - s_{\{a,c\}} - s_{\{b\}}}  + \frac{1}{1 - s_{\{b,c\}} - s_{\{a\}}}\right),
@@ -56,6 +67,7 @@ and the mgf for the trait distribution after substitution is
   &+\frac{1}{1 - \T(\psi(k_b+k_c) + \psi(k_a) - 2)}\biggr)
   \biggr)^L.
 \end{align*}
+
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "quant_gen_manu.tex"
 %%% End:

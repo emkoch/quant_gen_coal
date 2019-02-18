@@ -1,4 +1,15 @@
-We can use the low mutation rate approximation to the moment generating function
+This appendix provides full derivations of some moments of trait distributions
+to show how things would proceed without the assistance of computer algebra. The
+first section derives the variance and kurtosis of a single trait value, $Y_a$.
+This is the variance and kurtosis that would result if we were to rerun the
+evolutionary history leading to that individual many times. The second section
+derives the expected fourth central moments of the within-population trait
+distribution under the low-mutation-rate approximation. This result should be
+compared with that in equation \eqref{eq:emoms}c.
+
+\subsection*{First and second trait moments}
+
+We can use the low-mutation-rate approximation to the moment generating function
 to calculate moments of the distribution of trait values. In what follows let
 $\tau_{a+b}$ be the sum of all branches ancestral to both $a$ and $b$, and
 $\tau_{a/b}$ be the sum of all branches ancestral to $a$ but not $b$. Extensions
@@ -126,9 +137,12 @@ effect (and therefore trait value) is zero. If we plug \eqref{eq:var} and
   &= \frac{\kappa}{L\T \E[T_{MRCA}]} + 3\left( 1 - \frac{1}{L} \right).
 \end{align*}
 
-We also calculate some additional moments that have less clear interpretations
-but which are useful when calculating the expected fourth central moment in the
-population. The first of these is $\E[Y_a^3Y_b]$. The terms of
+\subsection*{The expected fourth central moment of the within-population trait distribution under the low-mutation-rate approximation }
+
+To derive the expected fourth central moment of the within-population trait
+distribution, we first calculate some additional moments that have less clear
+interpretations but which are necessary. The first of these is $\E[Y_a^3Y_b]$.
+The terms of
 \eqref{eq:mgf_approx_sub} appearing in this are
 \begin{equation*}
   L \left(\T\right) \frac{m_4}{24} 4 k_a^3k_b \sum_{\omega \in \Omega_{a+b}} \E[T_\omega]
@@ -274,6 +288,8 @@ $\mathbbm{T}_{k,n}$ to give
   &+ L m_4 \T ( \E[\mathbbm{T}_{4,4}] + \frac{1}{3} \E[\mathbbm{T}_{3,4}] +
     \frac{2}{9} \E[\mathbbm{T}_{2,4}] ).
 \end{align}
+This expression should be compared to equation \eqref{eq:emoms}c in the main
+text. We get the same result if we ignore terms of order $L \left( \T \right)^2$
 %%% Local Variables:
 %%% TeX-master: "quant_gen_manu.tex"
 %%% End:

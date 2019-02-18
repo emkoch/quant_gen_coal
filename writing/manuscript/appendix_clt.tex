@@ -1,3 +1,18 @@
+This appendix describes in detail how taking an infinitesimal limit where the
+number of loci becomes large as the effect size per mutation becomes small,
+yields a multivariate normal distribution of individual trait values. The
+resulting normal model leads to equation \eqref{eq:normcov}, which gives the
+covariance in individual trait differences. Equation \eqref{eq:normcov} is later
+used to simulate from the null distribution of $Q_{ST}$ in the main text section
+on trait divergence in structured populations. The first section of this
+appendix describes a full central limit theorem argument for obtaining the
+means, variances, and covariances that are given in the main text section on the
+infinitesimal limit. The second section provides a heuristic derivation of the
+same means, variances and covariances. The third section explains how these
+results for the joint trait distribution in the infinitesimal limit relate to
+trait distributions in panmictic populations where individuals are exchangeable.
+
+\subsection*{A central limit theorem derivation}
 The moment generating function for the distribution of trait values from a
 single locus is
 \begin{equation*}
@@ -62,8 +77,11 @@ differences between trait values such as $Y_a-Y_b$ will be as well.
   \Var[Y_a-Y_b] &= Var[Y_a] + \Var[Y_b] - 2\Cov[Y_a,Y_b]\\
                 &= 2(\E[T_{MRCA}] - \E[\tau_{a+b}])\mu_2.
 \end{align*}
-This also tells us that the distribution of trait differences will be the same
-in the infinitesimal limit with and without a low mutation rate approximation.
+The same argument is used to arrive at equation \eqref{eq:normcov} in the main
+text. The covariance between all pairs of differences in trait values determines
+any observable statistics in the infinitesimal limit. 
+
+\subsection{A heuristic derivation}
 
 A much simpler heuristic derivation of the limiting normal distribution can be
 done by calculating the variance and covariance at a single locus. This
@@ -107,10 +125,50 @@ Therefore we have
 \begin{equation}
   \Cov[Y_a,Y_b] = \T m_2 \E[\tau_{a+b}] + \left( \T m_1 \right)^2 \Var[T_{MRCA}].
 \end{equation}
-
 The terms proportional to the variance of the $T_{MRCA}$ disappear because
 $Lm_1^2 \to 0$ as $L \to \infty$.
 
+\subsection*{Within-population trait distributions}
+
+The above theory considers the distribution of trait values over realizations of
+the neutral evolutionary process and shows that this is multivariate normal. As
+discussed in the main text section on the infinitesimal limit, we also
+intuitively expect that the distribution of trait values within a randomly
+mating population will be univariate normal. These two perspectives are easily
+reconciled using multivariate normal theory. In a population of size $N$, the
+trait values $\mathbf{Y}=(Y_1,\ldots,Y_N)$ are exchangeable normal random
+variables. They are therefore jointly multivariate normal with a common mean
+$\mathcal{M}$, common variance $\mathcal{V}$, and common covariance
+$\mathcal{D}$ \citep{Tong}. If the mean value in the population is
+$\bar{Y}=\frac{1}{N}\sum_{i=1}^N Y_i$, then
+\begin{equation}
+  \E[Y_i-\bar{Y}] = 0,
+\end{equation}
+\begin{equation}
+  \label{eq:exvar}
+  \Var[Y_i-\bar{Y}] = \mathcal{V} - 2 \frac{(N-1)\mathcal{D} + \mathcal{V}}{N} +
+  \frac{N(N-1)\mathcal{D} + N\mathcal{V}}{N^2} \approx \mathcal{V} - \mathcal{D},
+\end{equation}
+and
+\begin{equation}
+  \Cov[Y_i-\bar{Y},Y_j-\bar{Y}] = \mathcal{D} - 2 \frac{(N-1)\mathcal{D} + \mathcal{V}}{N} +
+  \frac{N(N-1)\mathcal{D} + N\mathcal{V}}{N^2} \approx 0.
+\end{equation}
+The within-population trait value are therefore approximately i.i.d. normal
+around the population mean. In the infinitesimal limit we have $\mathcal{V} =
+\E[T_{MRCA}] \T \mu_2$ and $\mathcal{D} = \E[\tau_{a+b}] \T \mu_2$. The
+within-population variance is therefore $\E[T_{MRCA}] \T \mu_2 - \E[\tau_{a+b}]
+\T \mu_2 = \E[\mathbbm{T}_{2,2}]\T\mu_2$.
+
+The reasoning here applies to any situation where the marginal trait values are
+normal and individuals are exchangeable. As mentioned in the discussion, a
+situation of particular interest is the case of dominance. In a diploid model
+with dominance we would also get a marginal normal distribution when summing
+over independent loci. Equation \eqref{eq:exvar} would therefore still apply and
+we would get a within-population variance analogous to
+$\E[\mathbbm{T}_{2,2}]\T\mu_2$ that depends on moments of the genealogical,
+mutational, and dominance distributions.
+
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "quant_gen_manu.tex"
 %%% End:

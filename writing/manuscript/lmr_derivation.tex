@@ -1,6 +1,10 @@
-The low-mutation-rate approximation given in equation \eqref{eq:lowmut} can be
-derived starting with equation \eqref{eq:fullmgf}. Using a Taylor series
-approximation to the exponential function we get
+This appendix gives the derivation of the low-mutation-rate approximation to the
+trait mgf given in equation \eqref{eq:lowmut}. This approximate mgf is derived
+starting with equation \eqref{eq:fullmgf} and only allowing for the possibility
+of one or zero mutations at each locus. 
+
+Using equation \eqref{eq:fullmgf} and taking a Taylor series approximation to
+the exponential function we get
 \begin{equation}
   \varphi_{\mathbf{Y}}(\mathbf{k}) =   \int \prod_{\omega \in \Omega}
   \left[1 + \frac{\theta}{2} t_{\omega} \left( \psi\left(\sum_{a \in \omega}k_{a}\right) -1 \right) +
@@ -23,5 +27,5 @@ the power $L$ to account for multiple independent loci gives the equation
 \eqref{eq:lowmut} given in the main text. 
 
 %%% Local Variables:
-%%% TeX-master: "short_report.tex"
+%%% TeX-master: "quant_gen_manu.tex"
 %%% End:
